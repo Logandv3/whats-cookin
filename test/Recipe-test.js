@@ -140,4 +140,16 @@ describe('Recipe', () => {
   it('Should have an array of ingredients', () => {
     expect(recipe.ingredients).to.deep.equal(recipeData.ingredients);
   });
+  it('Should have an array of instructions', () => {
+    expect(recipe.instructions).to.deep.equal(recipeData.instructions);
+  });
+  it('Should have a name', () => {
+    expect(recipe.name).to.equal(recipeData.name);
+  });
+  it('Should have an array of tags', () => {
+    expect(recipe.tags).to.deep.equal(recipeData.tags);
+  });
+  it('Should be able to return recipe instructions', () => {
+    expect(recipe.getRecipeInstructions()).to.deep.equal(recipeData.instructions);
+  });
 })

@@ -17,7 +17,7 @@ class Recipe {
   }
 
   getRecipeInstructions() {
-    
+    return this.instructions;
   }
 }
 
