@@ -1,5 +1,5 @@
-const ingredient = require('./Ingredient');
-import Ingredient from './Ingredient';
+// const ingredient = require('./Ingredient');
+// import Ingredient from './Ingredient';
 import ingredientsData from '../data/ingredients.js';
 
 
@@ -14,26 +14,16 @@ class Recipe {
   };
 
   getIngredientNames() {
-    let ingredientsNamesForRecipe;
-    let ingredientId;
-    // this.ingredients.forEach((ingredient) => {
+    let ingredientsNamesForRecipe = [];
 
-    ingredientId = this.ingredients.map((ingredient) => {
-      ingredientsNamesForRecipe = ingredientsData.filter((ing) => {
-        return ing.id === ingredientId;
-      });
+    this.ingredients.map((ingredient) => {
+      let ingrID = ingredientsData.find((ing) => ing.id === ingredient.id);
+      // why does filter return 11 'undefined' but find returns all 11 correctly?
+      // Find is looking at each map ingredient (works because each only has 1 id)
+      ingredientsNamesForRecipe.push(ingrID.name);
     });
-    console.log(ingredientsNamesForRecipe);
+    console.log('will be ingredient names array', ingredientsNamesForRecipe);
     return ingredientsNamesForRecipe;
-// We want to grab the id from the recipes.js file.
-
-// Create an array of the ids we grabbed from the recipe.js file
-
-// We want to filter through the ingredients.js file and match the id from
-// the new array to the id in the ingredients.js file.
-
-// Once we have a match we want to pull the name from that object and store
-// them in an array.
   };
 
   getIngredientCosts() {
