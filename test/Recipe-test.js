@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import Recipe from '../src/classes/Recipe';
+import Ingredient from '../src/classes/Ingredient';
 
 describe('Recipe', () => {
   let recipeData;
@@ -152,10 +153,8 @@ describe('Recipe', () => {
   it('Should be able to return recipe instructions', () => {
     expect(recipe.getRecipeInstructions()).to.deep.equal(recipeData.instructions);
   });
-  it('Should return the name of first ingredient', () => {
-    expect(recipe.ingredients[0].id).to.equal(20081);
-  });
   it('Should return an array of ingredient objects', () => {
+
     expect(recipe.getIngredientNames()).to.deep.equal([{
       "id": 20081,
       "name": "wheat flour",

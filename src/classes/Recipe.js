@@ -1,4 +1,9 @@
 const ingredient = require('./Ingredient');
+// const ingredientData = require('../data/ingredients.js');
+import ingredientData from '../data/ingredients.js';
+console.log(ingredientData);
+console.log('ingredient', ingredient);
+
 
 class Recipe {
   constructor(recipeData) {
@@ -15,18 +20,19 @@ class Recipe {
     this.ingredients.forEach((ingredient) => {
       ingredientIds.push(ingredient.id);
     });
-    let ingredientsForRecipe = ingredientData.filter((id) => ingredient.id === id)
-    return ingredientsObjects;
-// Needs to go in to the recipe.js file and find the
-// ingredients that are used in the recipe and return them.
+    console.log(ingredient);
+    let ingredientsNamesForRecipe = ingredient.ingredientData.filter((element) => element.id === ingredientIds);
+    return ingredientsNamesForRecipe;
 
+// We want to grab the id from the recipes.js file.
 
-// Search the ingredientsData file for each of the ingredient
-//   id's, then grab the name and put that in an array.
+// Create an array of the ids we grabbed from the recipe.js file
 
-// Return the array
+// We want to filter through the ingredients.js file and match the id from
+// the new array to the id in the ingredients.js file.
 
-
+// Once we have a match we want to pull the name from that object and store
+// them in an array.
   };
 
   getIngredientCosts() {
