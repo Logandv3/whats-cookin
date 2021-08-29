@@ -3,7 +3,6 @@ class Ingredient {
     this.id = ingredientData.id;
     this.name = ingredientData.name;
     this.estimatedCostInCents = ingredientData.estimatedCostInCents;
-    this.ingredientData = ingredientData;
   };
 };
 

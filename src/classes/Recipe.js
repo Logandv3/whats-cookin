@@ -1,8 +1,6 @@
 const ingredient = require('./Ingredient');
-// const ingredientData = require('../data/ingredients.js');
-import ingredientData from '../data/ingredients.js';
-console.log(ingredientData);
-console.log('ingredient', ingredient);
+import Ingredient from './Ingredient';
+import ingredientsData from '../data/ingredients.js';
 
 
 class Recipe {
@@ -16,14 +14,17 @@ class Recipe {
   };
 
   getIngredientNames() {
-    let ingredientIds = [];
-    this.ingredients.forEach((ingredient) => {
-      ingredientIds.push(ingredient.id);
-    });
-    console.log(ingredient);
-    let ingredientsNamesForRecipe = ingredient.ingredientData.filter((element) => element.id === ingredientIds);
-    return ingredientsNamesForRecipe;
+    let ingredientsNamesForRecipe;
+    let ingredientId;
+    // this.ingredients.forEach((ingredient) => {
 
+    ingredientId = this.ingredients.map((ingredient) => {
+      ingredientsNamesForRecipe = ingredientsData.filter((ing) => {
+        return ing.id === ingredientId;
+      });
+    });
+    console.log(ingredientsNamesForRecipe);
+    return ingredientsNamesForRecipe;
 // We want to grab the id from the recipes.js file.
 
 // Create an array of the ids we grabbed from the recipe.js file
