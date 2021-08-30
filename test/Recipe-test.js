@@ -168,5 +168,8 @@ describe('Recipe', () => {
       'vanilla'
     ])
   });
+  it('Should return ingredient amounts', () => {
+    expect(recipe.getIngredientCosts()).to.deep.equal([1.5, 0.5, 1, 0.5, 3, 0.5, 0.5, 24, 2, 0.5, 0.5]);
+  });
 
 });
