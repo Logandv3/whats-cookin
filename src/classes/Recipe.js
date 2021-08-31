@@ -2,7 +2,6 @@
 // import Ingredient from './Ingredient';
 import ingredientsData from '../data/ingredients.js';
 
-
 class Recipe {
   constructor(recipeData) {
     this.id = recipeData.id;
@@ -11,10 +10,28 @@ class Recipe {
     this.instructions = recipeData.instructions;
     this.name = recipeData.name;
     this.tags = recipeData.tags;
+    this.ingredientInfo = [];
+    this.moreIngredientInfo = this.getIngredientInfo();
   };
 
+  getIngredientInfo() {
+    this.ingredients.forEach(ingredient => {
+      ingredientsData.forEach(ingredObj => {
+        if (ingredient.id === ingredObj.id) {
+          this.ingredientInfo.push({
+            id: ingredient.id, name: ingredObj.name,
+            quantity: ingredient.quantity.amount,
+            estimatedCostInCents: ingredObj.estimatedCostInCents
+          })
+        }
+      })
+    })
+    // console.log('testing ingredientInfo <<<', this.ingredientInfo[1]);
+    return this.ingredientInfo;
+  }
 
   getIngredientNames() {
+    // this.getIngredientInfo();
     // console.log('this.ingredients', this.ingredients);
     // console.log('this.ingredients.quantity at zero', this.ingredients[0].quantity.amount);
     let ingredientsNamesForRecipe = [];
@@ -31,6 +48,7 @@ class Recipe {
     return ingredientsNamesForRecipe;
   }
 
+
   getIngredientCosts() {
     let ingredientAmounts = [];
     let costPerUnit = [];
@@ -44,7 +62,7 @@ class Recipe {
       return ingredient.estimatedCostInCents;
     })
     // console.log('ingred amounts:', ingredientAmounts);
-    console.log('cost per unit:', costPerUnit);
+    // console.log('cost per unit:', costPerUnit);
     return ingredientAmounts;
   }
 
