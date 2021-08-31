@@ -1,5 +1,3 @@
-// const ingredient = require('./Ingredient');
-// import Ingredient from './Ingredient';
 import ingredientsData from '../data/ingredients.js';
 
 class Recipe {
@@ -16,67 +14,52 @@ class Recipe {
 
   getIngredientInfo() {
     this.ingredients.forEach(ingredient => {
-      ingredientsData.forEach(ingredObj => {
-        if (ingredient.id === ingredObj.id) {
+      ingredientsData.forEach(ingred => {
+        if (ingredient.id === ingred.id) {
           this.ingredientInfo.push({
-            id: ingredient.id, name: ingredObj.name,
+            id: ingredient.id, name: ingred.name,
             quantity: ingredient.quantity.amount,
-            estimatedCostInCents: ingredObj.estimatedCostInCents
+            estimatedCostInCents: ingred.estimatedCostInCents
           })
         }
       })
     })
-    // console.log('testing ingredientInfo >>>>', this.ingredientInfo[1]);
     return this.ingredientInfo;
   }
 
   getIngredientNames() {
-    // this.getIngredientInfo();
-    // console.log('this.ingredients', this.ingredients);
-    // console.log('this.ingredients.quantity at zero', 
-    // this.ingredients[0].quantity.amount);
     let ingredientsNamesForRecipe = [];
 
     this.ingredients.map((ingredient) => {
       let ingrID = ingredientsData.find((ing) => ing.id === ingredient.id);
       // why does filter return 11 'undefined' but
       //find returns all 11 correctly?
-      // Find is looking at each map ingredient
-      //(works because each only has 1 id)
       ingredientsNamesForRecipe.push(ingrID.name);
     });
     // console.log('will be ingredient names array', ingredientsNamesForRecipe);
     return ingredientsNamesForRecipe;
   }
 
-
-  // getIngredientCosts() {
-  //   let ingredientAmounts = [];
-  //   let costPerUnit = [];
-  //   ingredientAmounts = this.ingredients.map(ingredient => {
-  //     return ingredient.quantity.amount;
-  //   })
-  //   // costPerUnit = ingredientsData.map(ingredient => {
-  //   //   return ingredient.estimatedCostInCents;
-  //   // })
-  //   costPerUnit = ingredientsData.map(ingredient => {
-  //     return ingredient.estimatedCostInCents;
-  //   })
-  //   // console.log('ingred amounts:', ingredientAmounts);
-  //   // console.log('cost per unit:', costPerUnit);
-  //   return ingredientAmounts;
-  // }
-
   getIngredientCosts() {
-    // let ingrCost;
-    // let total = this.ingredients.reduce(() => {
-
-    // })
+    let total = this.ingredientInfo.reduce((acc, currentIng) => {
+      acc += Math.round(currentIng.quantity *
+        currentIng.estimatedCostInCents) / 100;
+      return acc;
+    }, 0);
+    return total;
+    // console.log('total cost:', total)
   }
 
   getRecipeInstructions() {
-    return this.instructions;
+    let instructionDetail = [];
+    this.instructions.forEach(instruction => {
+      let detail = instruction.instruction;
+      let number = instruction.number;
+      instructionDetail.push(number, detail)
+    })
+    // console.log('instruction array:', instructionArray);
+    return instructionDetail;
   }
-};
+}
 
 export default Recipe;
