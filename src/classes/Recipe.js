@@ -12,7 +12,7 @@ class Recipe {
     this.tags = recipeData.tags;
     this.ingredientInfo = [];
     this.moreIngredientInfo = this.getIngredientInfo();
-  };
+  }
 
   getIngredientInfo() {
     this.ingredients.forEach(ingredient => {
@@ -26,14 +26,15 @@ class Recipe {
         }
       })
     })
-    // console.log('testing ingredientInfo <<<', this.ingredientInfo[1]);
+    // console.log('testing ingredientInfo >>>>', this.ingredientInfo[1]);
     return this.ingredientInfo;
   }
 
   getIngredientNames() {
     // this.getIngredientInfo();
     // console.log('this.ingredients', this.ingredients);
-    // console.log('this.ingredients.quantity at zero', this.ingredients[0].quantity.amount);
+    // console.log('this.ingredients.quantity at zero', 
+    // this.ingredients[0].quantity.amount);
     let ingredientsNamesForRecipe = [];
 
     this.ingredients.map((ingredient) => {
@@ -49,30 +50,29 @@ class Recipe {
   }
 
 
-  getIngredientCosts() {
-    let ingredientAmounts = [];
-    let costPerUnit = [];
-    ingredientAmounts = this.ingredients.map(ingredient => {
-      return ingredient.quantity.amount;
-    })
-    // costPerUnit = ingredientsData.map(ingredient => {
-    //   return ingredient.estimatedCostInCents;
-    // })
-    costPerUnit = ingredientsData.map(ingredient => {
-      return ingredient.estimatedCostInCents;
-    })
-    // console.log('ingred amounts:', ingredientAmounts);
-    // console.log('cost per unit:', costPerUnit);
-    return ingredientAmounts;
-  }
-
   // getIngredientCosts() {
-  //   // let ingrCost;
-  //   // let total = this.ingredients.reduce(() => {
-
+  //   let ingredientAmounts = [];
+  //   let costPerUnit = [];
+  //   ingredientAmounts = this.ingredients.map(ingredient => {
+  //     return ingredient.quantity.amount;
+  //   })
+  //   // costPerUnit = ingredientsData.map(ingredient => {
+  //   //   return ingredient.estimatedCostInCents;
   //   // })
+  //   costPerUnit = ingredientsData.map(ingredient => {
+  //     return ingredient.estimatedCostInCents;
+  //   })
+  //   // console.log('ingred amounts:', ingredientAmounts);
+  //   // console.log('cost per unit:', costPerUnit);
+  //   return ingredientAmounts;
   // }
-  // Access recipe data file for ingredients.quantity.amount
+
+  getIngredientCosts() {
+    // let ingrCost;
+    // let total = this.ingredients.reduce(() => {
+
+    // })
+  }
 
   getRecipeInstructions() {
     return this.instructions;
