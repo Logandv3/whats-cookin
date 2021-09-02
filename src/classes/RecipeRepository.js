@@ -13,11 +13,21 @@ class RecipeRepository {
   }
 
   searchRecipes(searchInput) {
-    let lowerCaseSearch = searchInput.toLowerCase();
-    let nameSearched = this.recipes.filter(recipe => {
-      return recipe.name.toLowerCase().includes(lowerCaseSearch);
-    });
+    let nameSearched = this.searchByName(searchInput);
+    let ingredientSearched = this.searchByIngredient(searchInput);
 
+    return ingredientSearched;
+    // let recipesWithSearched = nameSearched.concat(ingredientSearched);
+    //
+    // return recipesWithSearched;
+  }
+
+  searchByName(searchInput) {
+    return this.recipes.filter(recipe => recipe.name.toLowerCase().includes(searchInput.toLowerCase()));
+  }
+
+  searchByIngredient(searchInput) {
+    let lowerCaseSearch = searchInput.toLowerCase();
     let ingredientSearched = this.ingredients.filter(ingredient => {
       return ingredient.name.includes(searchInput);
     });
@@ -26,21 +36,16 @@ class RecipeRepository {
       return ingredient.id;
     });
 
-    let recipesWithIngredient = this.recipes.forEach(recipe => { //iterating through each recipe in CB
-      // console.log('recipe', recipe);
-      recipe.ingredients.forEach(ingredient => { //iterating through each ingredient in recipe
-        // console.log('ingredient', ingredient);
-        searchedIngredientIds.find(id => {
-          console.log('searchedIngredientIds[]', id);
-          console.log('recipe > ingredient > id', ingredient.id);
-          return id === ingredient.id;
-        });
+    let matchedRecipes = [];
+    this.recipes.forEach(recipe => {
+      recipe.ingredients.forEach(ingredient => {
+        if (searchedIngredientIds.includes(ingredient.id) && !matchedRecipes.includes(recipe)) {
+          matchedRecipes.push(recipe);
+        }
       });
     });
 
-    let recipesWithSearched = nameSearched.concat(recipesWithIngredient);
-
-    return recipesWithSearched;
+    return matchedRecipes;
   }
 }
 
