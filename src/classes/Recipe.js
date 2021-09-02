@@ -1,3 +1,4 @@
+import recipeData from '../data/recipes.js';
 import ingredientsData from '../data/ingredients.js';
 
 class Recipe {
@@ -17,10 +18,11 @@ class Recipe {
       ingredientsData.forEach(ingred => {
         if (ingredient.id === ingred.id) {
           this.ingredientInfo.push({
-            id: ingredient.id, name: ingred.name,
+            id: ingredient.id,
+            name: ingred.name,
             quantity: ingredient.quantity.amount,
             estimatedCostInCents: ingred.estimatedCostInCents
-          })
+          });
         }
       })
     })
@@ -31,7 +33,7 @@ class Recipe {
     let ingredientsNamesForRecipe = [];
 
     this.ingredients.map((ingredient) => {
-      let ingrID = ingredientsData.find((ing) => ing.id === ingredient.id);
+      let ingrID = ingredientsData.find(ing => ing.id === ingredient.id);
       // why does filter return 11 'undefined' but
       //find returns all 11 correctly?
       ingredientsNamesForRecipe.push(ingrID.name);
@@ -55,8 +57,8 @@ class Recipe {
     this.instructions.forEach(instruction => {
       let detail = instruction.instruction;
       let number = instruction.number;
-      instructionDetail.push(number, detail)
-    })
+      instructionDetail.push(number, detail);
+    });
     // console.log('instruction array:', instructionArray);
     return instructionDetail;
   }
