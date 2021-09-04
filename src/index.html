@@ -17,16 +17,16 @@
     </nav>
     <main>
       <section class="search-box">
-        <input type="text" name="search" placeholder="Search For Recipe" id="searchBar">
+        <input type="text" name="search" placeholder="Search Recipe by Name or Indgredient" id="searchBar">
         <form class="search-options">
-          <label for="dropdown">Search Options</label>
-          <select class="" id="" name="dropdown">
+          <label for="dropdown">or by Tag</label>
+          <select class="tag-dropdown" id="tagDropdown" name="dropdown">
             <option value="snack">Snack</option>
           </select>
-          <input type="submit" name="submit" value="submit" id="submit">
+          <input type="submit" name="submit" value="submit" id="submitBtn">
         </form>
       </section>
-      <article class="recipe-box">
+      <article class="recipe-box" id="recipeBox">
         <div class="grid-container">
           <section class="grid-item">
             <div class="card-head">
@@ -67,7 +67,7 @@
           <section class="grid-item"></section>
         </div>
       </article>
-      <article class="individual-recipe hidden">
+      <article class="individual-recipe hidden" id="individualRecipe">
         <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtn">Back to Main</button>
         <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
         <h3 id="addToFavoriteList">☆ Add to Favorite List</h3>
