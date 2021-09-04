@@ -15,7 +15,7 @@ describe('Recipe', () => {
           "quantity": {
             "amount": 1.5,
             "unit": "c"
-          }
+          } 
         },
         {
           "id": 18372,
