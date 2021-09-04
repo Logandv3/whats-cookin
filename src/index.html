@@ -67,19 +67,22 @@
           <section class="grid-item"></section>
         </div>
       </article>
-      <article class="individual-recipe">
-        <!-- <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes"> -->
-        <i class="far fa-star" name="empty-star"></i>
-        <i class="fas fa-star" name="filled-star"></i>
+      <article class="individual-recipe hidden">
+        <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtn">Back to Main</button>
+        <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
+        <h3 id="addToFavoriteList">☆ Add to Favorite List</h3>
+        <h3 id="onFavoriteList">★ On Favorite List</h3>
+        <h3 id="addToCookingList">☐ Add to Cooking List</h3>
+        <h3 id="onCookingList">☑︎ On Cooking List</h3>
         <p>Ingredients</p>
-        <ul>
+        <ul id="ingredientListItems">
           <li>Buckwheat Flour</li>
         </ul>
         <p>Instructions</p>
-        <ol>
+        <ol id="instructionListItems">
           <li>Eat the cakes</li>
         </ol>
-        <p>Cost</p>
+        <p id="recipeCost">Cost: </p>
       </article>
     </main>
   </body>
