@@ -1,5 +1,14 @@
 import './styles.css';
+import recipeData from './data/recipes.js';
+import ingredientsData from './data/ingredients.js';
+import RecipeRepository from './classes/RecipeRepository';
+import Recipe from './classes/Recipe';
+import Ingredient from './classes/Ingredient';
+// import Users from './data/Users';
 import apiCalls from './apiCalls';
+// let recipeData = './data/recipes.js';
+// let ingredientData = './data/ingredients.js';
+// let userData = './data/users.js';
 
 //nav
 const userName = document.getElementById('userName');
@@ -23,11 +32,10 @@ const ingredientListItems = document.getElementById('ingredientListItems'); // W
 const instructionListItems = document.getElementById('instructionListItems'); // Will populate when individual recipe is created
 const recipeCost = document.getElementById('recipeCost'); // Will populate when individual recipe is created
 
-
 // Event Listener
 window.addEventListener('load', getData);
-favoriteRecipes.addEventListener('click', filterByFavorites); // from User class
-whatToCook.addEventListener('click', filterByCookingList); // from User class
+// favoriteRecipes.addEventListener('click', filterByFavorites); // from User class
+// whatToCook.addEventListener('click', filterByCookingList); // from User class
 submitBtn.addEventListener('click', checkSearchConditions);
 backToMainBtn.addEventListener('click', hide); // may need anonymous fcn
 addToFavoriteList.addEventListener('click', addRecipeToFavorite);
@@ -37,12 +45,54 @@ onCookingList.addEventListener('click', removeRecipeFromCookingList);
 recipeBox.addEventListener('click', show); // Will need to be passed an id of the recipe
 backToMainBtn.addEventListener('click', hide); // Hide individualRecipe
 
-
-
-
 // Event Handler
 function getData() {
   // Populate all the data/ recipes etc. from api or data file.  Instantiate classes.
+  //maybe we need to create variables and assign them to instantiateRecipe() & instatiateIngredient()
+  populateRepository(instantiateRecipe(), instantiateIngredient());
+  getRandomUser();
+};
+
+function getRandomUser() {
+  // Instatiate the user class with a rando
+};
+
+function instantiateRecipe() {
+  let recipes = [];
+
+  recipeData.forEach(recipe => {
+    let newRecipe = new Recipe(recipe);
+    recipes.push(newRecipe);
+  });
+  console.log(recipes);
+  return recipes;
+};
+
+function instantiateIngredient() {
+  let ingredients = [];
+  ingredientsData.forEach(ingredient => {
+    let newIngredient = new Ingredient(ingredient);
+    ingredients.push(newIngredient);
+  });
+  return ingredients;
+};
+
+function populateRepository(recipeInstances, ingredientInstances) {
+  const allRecipes = new RecipeRepository(recipeInstances, ingredientInstances);
+
+  // populateRecipes(allRecipes);
+};
+
+function populateRecipes(allRecipes) {
+  // recipeBox.innerHTML = '';
+  // recipeBox.innerHTML += `<section class="grid-item">
+  //   <div class="card-head">
+  //     <p>${allRecipes.recipes.name}</p>
+  //   </div>
+  //   <div class="card-body">
+  //     <img src="${allRecipes.recipes.image}" alt="${allRecipes.recipes.name}">
+  //   </div>
+  // </section>`;
 };
 
 function show(element) {

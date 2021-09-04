@@ -1,3 +1,5 @@
+import ingredientsData from '../data/ingredients.js';
+
 class Ingredient {
   constructor(ingredientData) {
     this.id = ingredientData.id;

@@ -15,11 +15,9 @@ class RecipeRepository {
   searchRecipes(searchInput) {
     let nameSearched = this.searchByName(searchInput);
     let ingredientSearched = this.searchByIngredient(searchInput);
+    let recipesWithSearched = nameSearched.concat(ingredientSearched);
 
-    return ingredientSearched;
-    // let recipesWithSearched = nameSearched.concat(ingredientSearched);
-    //
-    // return recipesWithSearched;
+    return recipesWithSearched;
   }
 
   searchByName(searchInput) {

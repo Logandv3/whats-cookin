@@ -1,4 +1,4 @@
-import recipeData from '../data/recipes.js';
+// import recipeData from '../data/recipes.js';
 import ingredientsData from '../data/ingredients.js';
 
 class Recipe {
@@ -14,6 +14,7 @@ class Recipe {
   }
 
   getIngredientInfo() {
+    console.log(this.ingredientInfo);
     this.ingredients.forEach(ingredient => {
       ingredientsData.forEach(ingred => {
         if (ingredient.id === ingred.id) {
@@ -34,11 +35,9 @@ class Recipe {
 
     this.ingredients.map((ingredient) => {
       let ingrID = ingredientsData.find(ing => ing.id === ingredient.id);
-      // why does filter return 11 'undefined' but
-      //find returns all 11 correctly?
       ingredientsNamesForRecipe.push(ingrID.name);
     });
-    // console.log('will be ingredient names array', ingredientsNamesForRecipe);
+
     return ingredientsNamesForRecipe;
   }
 
