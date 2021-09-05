@@ -7,9 +7,9 @@ class User {
     this.recipesToCook = [];
   }
 
-  addToFavoriteRecipes(recipe) {
-    if (!this.favoriteRecipes.includes(recipe)) {
-      this.favoriteRecipes.push(recipe)
+  addToFavoriteRecipes(recipeAdd) {
+    if (!this.favoriteRecipes.includes(recipeAdd)) {
+      this.favoriteRecipes.push(recipeAdd)
     }
   }
 
@@ -33,6 +33,22 @@ class User {
         this.recipesToCook.splice(recipeOut, 1)
       }
     })
+  }
+
+  filterFavoriteRecipeTags(tags) {
+    let matchTags = [];
+    this.favoriteRecipes.forEach(recipe => {
+      tags.forEach(tag => {
+        if (recipe.tags.includes(tag)) {
+          matchTags.push(recipe);
+        }
+      })
+    })
+    if (!matchTags.length) {
+      return "No recipes match criteria"
+    } else {
+      return matchTags
+    }
   }
 
 }
