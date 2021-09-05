@@ -19,7 +19,7 @@ const whatToCook = document.getElementById('whatToCook');
 
 //main
 const searchBar = document.getElementById('searchBar');
-const tagDropdown = document.getElementById('tagDropdown');
+const tagCheckbox = document.getElementById('tagCheckbox');
 const submitBtn = document.getElementById('submitBtn');
 const errorMessage = document.getElementById('errorMessage');
 const errorMessage2 = document.getElementById('errorMessage2');
@@ -50,12 +50,12 @@ onFavoriteList.addEventListener('click', removeRecipeFromFavorite);
 addToCookingList.addEventListener('click', addRecipeToCookingList);
 onCookingList.addEventListener('click', removeRecipeFromCookingList);
 recipeBox.addEventListener('click', showIndividualRecipe); // Will need to be passed an id of the recipe
-backToMainBtn.addEventListener('click', hide); // Hide individualRecipe
 
 // Event Handler
 function getData() {
   // Populate all the data/ recipes etc. from api or data file.  Instantiate classes.
   //maybe we need to create variables and assign them to instantiateRecipe() & instatiateIngredient()
+
   populateRepository(instantiateRecipe(), instantiateIngredient());
   getRandomUser();
 };
@@ -86,7 +86,15 @@ function instantiateIngredient() {
 function populateRepository(recipeInstances, ingredientInstances) {
   allRecipes = new RecipeRepository(recipeInstances, ingredientInstances);
 
+  populateTags();
   populateAllRecipes(allRecipes);
+};
+
+function populateTags() {
+  tagCheckbox.innerHTML = ``;
+  allRecipes.tags.forEach(tag => {
+    tagCheckbox.innerHTML += `<input type="checkbox" class="tag-checkbox" name="checkbox" value=${tag}> <label for="checkbox">${tag.toUpperCase()}</label>`;
+  });
 };
 
 function populateAllRecipes(allRecipes) {
@@ -135,18 +143,16 @@ function hideIndividualRecipe() {
 function checkSearchConditions(event) {
   event.preventDefault();
 
-  // if (!searchBar.value && tagDropdown.value === null) {
-  //   show(errorMessage);
-  //}
-
   if (searchBar.value) {
     populateRecipes(allRecipes.searchRecipes(searchBar.value));
-  } else if (tagDropdown.value) {
-    populateRecipes(allRecipes.filterByTag(tagDropdown.value));
+  } else if (tagCheckbox.value) {
+    populateRecipes(allRecipes.filterByTag(tagCheckbox.value));
+  } else if (!searchBar.value && tagCheckbox.value === null) {
+    show(errorMessage);
+  } else {
+    show(errorMessage2);
   }
-  // else {
-  //   show(errorMessage2);
-  // }
+
   // Issue:  Need multiple tags.
 
   // Check if user has entered a name or ingredient.  If so prioritize that and

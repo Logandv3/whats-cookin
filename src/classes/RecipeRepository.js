@@ -5,6 +5,20 @@ class RecipeRepository {
   constructor(recipeData, ingredientsData) {
     this.recipes = recipeData;
     this.ingredients = ingredientsData;
+    this.tags = this.getTags();
+  };
+
+  getTags() {
+    let allTags = [];
+    this.recipes.forEach(recipe => {
+      recipe.tags.forEach(tag => {
+        if (!allTags.includes(tag)) {
+          allTags.push(tag);
+        };
+      });
+    });
+
+    return allTags;
   };
 
   filterByTag(inputTag) {

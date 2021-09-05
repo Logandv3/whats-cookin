@@ -2,7 +2,7 @@
   border: 1px solid black;
 }
 
-button, img, .grid-container, h3 {
+button, img, .grid-container, h3, input {
   cursor: pointer;
 }
 

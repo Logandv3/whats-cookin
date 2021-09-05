@@ -18,16 +18,14 @@
       <section class="search-box">
         <form class="search-options">
           <input type="text" name="search" placeholder="Search Recipe by Name or Indgredient" id="searchBar">
-          <label for="dropdown">or by Tag</label>
-          <select class="tag-dropdown" id="tagDropdown" name="dropdown">
-            <option value="null">Choose Tag:</option>
-            <option value="snack">Snack</option>
-            <option value="easy">Easy</option>
-          </select>
+          <label for="checkbox">or by Tag</label>
+          <section class="checkbox" id="tagCheckbox"
+            <input type="checkbox" class="tag-checkbox" name="checkbox">
+          </section>
           <input type="submit" name="submit" value="submit" id="submitBtn">
         </form>
-        <!-- <p id="errorMessage">Choose an option</p>
-        <p id="errorMessage2">Must choose text search or tags</p> -->
+        <p class="hidden" id="errorMessage">Choose an option</p>
+        <p class="hidden" id="errorMessage2">Must enter text to search or tags</p>
       </section>
       <article class="recipe-box" id="recipeBox">
         <div class="grid-container" id="gridContainer">
