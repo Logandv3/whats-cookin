@@ -27,6 +27,14 @@ class User {
     }
   }
 
+  removeFromRecipesToCook(recipeOut) {
+    this.recipesToCook.forEach(recipe => {
+      if (recipeOut.name === recipe.name) {
+        this.recipesToCook.splice(recipeOut, 1)
+      }
+    })
+  }
+
 }
 
 export default User;

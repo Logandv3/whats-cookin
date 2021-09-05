@@ -276,4 +276,17 @@ describe('User', () => {
     user.addToRecipesToCook(recipeB);
     expect(user.recipesToCook).to.deep.equal([recipeB]);
   });
+  it('Should be able to remove recipes from weekly list', () => {
+    user.addToRecipesToCook(recipeB);
+    expect(user.recipesToCook).to.deep.equal([recipeB]);
+    user.removeFromRecipesToCook(recipeB);
+    expect(user.recipesToCook).to.deep.equal([]);
+  });
+
+  // it('Should be able to filter favorites by tags', () => {
+  //   user.addToFavoriteRecipes(recipeA);
+  //   user.addToFavoriteRecipes(recipeB);
+  //   user.filterFavoriteRecipeTags(["lunch"])
+  //   expect(user.filterFavoriteRecipeTags(['dinner'])).to.deep.equal([recipeB]);
+  // });
 })
