@@ -79,20 +79,23 @@ function instantiateIngredient() {
 function populateRepository(recipeInstances, ingredientInstances) {
   const allRecipes = new RecipeRepository(recipeInstances, ingredientInstances);
 
-  console.log(allRecipes.searchRecipes('chip'));
-  // populateRecipes(allRecipes);
+  populateRecipes(allRecipes);
 };
 
 function populateRecipes(allRecipes) {
-  // recipeBox.innerHTML = '';
-  // recipeBox.innerHTML += `<section class="grid-item">
-  //   <div class="card-head">
-  //     <p>${allRecipes.recipes.name}</p>
-  //   </div>
-  //   <div class="card-body">
-  //     <img src="${allRecipes.recipes.image}" alt="${allRecipes.recipes.name}">
-  //   </div>
-  // </section>`;
+  console.log(allRecipes);
+  recipeBox.innerHTML = '';
+
+  allRecipes.recipes.forEach(recipe => {
+    recipeBox.innerHTML += `<section class="grid-item">
+      <div class="card-head">
+        <p>${recipe.name}</p>
+      </div>
+      <div class="card-body">
+        <img src="${recipe.image}" alt="${recipe.name}">
+      </div>
+    </section>`;
+  });
 };
 
 function show(element) {

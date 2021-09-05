@@ -16,11 +16,12 @@ class RecipeRepository {
     let nameSearched = this.searchByName(searchInput);
     let ingredientSearched = this.searchByIngredient(searchInput);
     let recipesWithSearched = nameSearched;
+
     nameSearched.forEach(nameResult => {
       ingredientSearched.forEach(ingredientResult => {
-        if (ingredientResult.name !== nameResult.name) {
+        if (!nameSearched.includes(ingredientResult)) {
           recipesWithSearched.push(ingredientResult);
-        }
+        };
       });
     });
 
