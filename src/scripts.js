@@ -64,7 +64,6 @@ function instantiateRecipe() {
     let newRecipe = new Recipe(recipe);
     recipes.push(newRecipe);
   });
-  console.log(recipes);
   return recipes;
 };
 
@@ -80,6 +79,7 @@ function instantiateIngredient() {
 function populateRepository(recipeInstances, ingredientInstances) {
   const allRecipes = new RecipeRepository(recipeInstances, ingredientInstances);
 
+  console.log(allRecipes.searchRecipes('chip'));
   // populateRecipes(allRecipes);
 };
 

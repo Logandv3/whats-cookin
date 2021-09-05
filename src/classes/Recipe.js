@@ -14,7 +14,6 @@ class Recipe {
   }
 
   getIngredientInfo() {
-    console.log(this.ingredientInfo);
     this.ingredients.forEach(ingredient => {
       ingredientsData.forEach(ingred => {
         if (ingredient.id === ingred.id) {
