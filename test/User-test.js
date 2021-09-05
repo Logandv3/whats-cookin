@@ -3,7 +3,8 @@ import Recipe from '../src/classes/Recipe';
 import User from '../src/classes/User';
 
 describe('User', () => {
-  let user, recipeA, recipeB;
+  let user
+  // , recipeA, recipeB;
   beforeEach(() => {
     user = new User("Ephraim Goyette", 2, [
       { "ingredient": 6150, "amount": 3 },
@@ -12,9 +13,28 @@ describe('User', () => {
       { "ingredient": 1034053, "amount": 6 },
       { "ingredient": 2050, "amount": 10 }
     ])
-    recipeA = new Recipe()
+    // recipeA = new Recipe();
+    // recipeB = new Recipe();
   })
   it('Should be a function', () => {
     expect(User).to.be.a('function');
+  });
+  it('Should be an instance of User', () => {
+    expect(user).to.be.an.instanceof(User);
+  });
+  it('Should store the name of the user', () => {
+    expect(user.name).to.equal("Ephraim Goyette");
+  });
+  it('Should store the ID of the user', () => {
+    expect(user.id).to.equal(2);
+  });
+  it('Should be able to store pantry items', () => {
+    expect(user.pantry).to.deep.equal([
+      { "ingredient": 6150, "amount": 3 },
+      { "ingredient": 1032009, "amount": 7 },
+      { "ingredient": 1082047, "amount": 8 },
+      { "ingredient": 1034053, "amount": 6 },
+      { "ingredient": 2050, "amount": 10 }
+    ])
   });
 })
