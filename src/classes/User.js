@@ -3,15 +3,30 @@ class User {
     this.name = name;
     this.id = id;
     this.pantry = pantry;
-    this.myFavoriteRecipes = [];
-    this.myRecipesToCook = [];
+    this.favoriteRecipes = [];
+    this.recipesToCook = [];
   }
 
   addToFavoriteRecipes(recipe) {
-    if (!this.myFavoriteRecipes.includes(recipe)) {
-      this.myFavoriteRecipes.push(recipe)
+    if (!this.favoriteRecipes.includes(recipe)) {
+      this.favoriteRecipes.push(recipe)
     }
   }
+
+  removeFromFavoriteRecipes(recipeOut) {
+    this.favoriteRecipes.forEach(recipe => {
+      if (recipeOut.name === recipe.name) {
+        this.favoriteRecipes.splice(recipeOut, 1)
+      }
+    })
+  }
+
+  addToRecipesToCook(recipeAdd) {
+    if (!this.recipesToCook.includes(recipeAdd)) {
+      this.recipesToCook.push(recipeAdd)
+    }
+  }
+
 }
 
 export default User;

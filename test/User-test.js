@@ -261,14 +261,19 @@ describe('User', () => {
   });
   it('Should be able to add favorite recipes', () => {
     user.addToFavoriteRecipes(recipeA);
-    expect(user.myFavoriteRecipes).to.deep.equal([recipeA]);
+    expect(user.favoriteRecipes).to.deep.equal([recipeA]);
     user.addToFavoriteRecipes(recipeB);
-    expect(user.myFavoriteRecipes).to.deep.equal([recipeA, recipeB]);
+    expect(user.favoriteRecipes).to.deep.equal([recipeA, recipeB]);
   });
   it('Should be able to remove favorite recipes', () => {
     user.addToFavoriteRecipes(recipeA);
     user.addToFavoriteRecipes(recipeB);
     user.removeFromFavoriteRecipes(recipeA);
-    expect(user.myFavoriteRecipes).to.deep.equal([recipeB]);
+    expect(user.favoriteRecipes).to.deep.equal([recipeB]);
+  });
+  it('Should be able to add recipe to weekly list', () => {
+    expect(user.recipesToCook).to.deep.equal([]);
+    user.addToRecipesToCook(recipeB);
+    expect(user.recipesToCook).to.deep.equal([recipeB]);
   });
 })
