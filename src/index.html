@@ -16,23 +16,28 @@
     </nav>
     <main>
       <section class="search-box">
-        <input type="text" name="search" placeholder="Search Recipe by Name or Indgredient" id="searchBar">
         <form class="search-options">
+          <input type="text" name="search" placeholder="Search Recipe by Name or Indgredient" id="searchBar">
           <label for="dropdown">or by Tag</label>
           <select class="tag-dropdown" id="tagDropdown" name="dropdown">
+            <option value="null">Choose Tag:</option>
             <option value="snack">Snack</option>
+            <option value="easy">Easy</option>
           </select>
           <input type="submit" name="submit" value="submit" id="submitBtn">
         </form>
+        <!-- <p id="errorMessage">Choose an option</p>
+        <p id="errorMessage2">Must choose text search or tags</p> -->
       </section>
-      <article class="recipe-box">
-        <div class="grid-container" id="recipeBox">
-          
+      <article class="recipe-box" id="recipeBox">
+        <div class="grid-container" id="gridContainer">
+
         </div>
       </article>
       <article class="individual-recipe hidden" id="individualRecipe">
         <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtn">Back to Main</button>
-        <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
+        <p id="recipeTitle">Elvis Pancakes</p>
+        <img id="indRecipeImage" src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
         <h3 id="addToFavoriteList">☆ Add to Favorite List</h3>
         <h3 id="onFavoriteList">★ On Favorite List</h3>
         <h3 id="addToCookingList">☐ Add to Cooking List</h3>

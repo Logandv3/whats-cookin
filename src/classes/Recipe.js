@@ -21,6 +21,7 @@ class Recipe {
             id: ingredient.id,
             name: ingred.name,
             quantity: ingredient.quantity.amount,
+            unit: ingredient.quantity.unit,
             estimatedCostInCents: ingred.estimatedCostInCents
           });
         }
@@ -42,12 +43,11 @@ class Recipe {
 
   getIngredientCosts() {
     let total = this.ingredientInfo.reduce((acc, currentIng) => {
-      acc += Math.round(currentIng.quantity *
-        currentIng.estimatedCostInCents) / 100;
+      acc += Math.round((currentIng.quantity *
+        currentIng.estimatedCostInCents) / 100);
       return acc;
     }, 0);
     return total;
-    // console.log('total cost:', total)
   }
 
   getRecipeInstructions() {
@@ -55,10 +55,9 @@ class Recipe {
     this.instructions.forEach(instruction => {
       let detail = instruction.instruction;
       let number = instruction.number;
-      instructionDetail.push(number, detail);
+      instructionDetail.push(`<li>${detail}<br>`);
     });
-    // console.log('instruction array:', instructionArray);
-    return instructionDetail;
+    return instructionDetail.join(' ');
   }
 }
 
