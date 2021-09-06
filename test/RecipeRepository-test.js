@@ -765,7 +765,7 @@ describe('Recipe Repository', () => {
   it('Should be a string', () => {
     expect(recipeRepo.recipes[0].name).to.be.a('string');
   });
-  it('Should filter recipes by their tags', () => {
+  it.only('Should filter recipes by their tags', () => {
     expect(recipeRepo.filterByTag('snack')).to.deep.equal([{
           "id": 595736,
           "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
@@ -883,7 +883,119 @@ describe('Recipe Repository', () => {
             "antipasto",
             "hor d'oeuvre"
           ]
-        }]);
+        }
+        // ,
+        // {
+        //       "id": 670408,
+        //       "image": "https://spoonacular.com/recipeImages/670408-556x370.jpg",
+        //       "ingredients": [
+        //         {
+        //           "id": 93828,
+        //           "quantity": {
+        //             "amount": 0.5,
+        //             "unit": "cup"
+        //           }
+        //         },
+        //         {
+        //           "id": 11266,
+        //           "quantity": {
+        //             "amount": 16,
+        //             "unit": "ounces"
+        //           }
+        //         },
+        //         {
+        //           "id": 1017,
+        //           "quantity": {
+        //             "amount": 4,
+        //             "unit": "ounces"
+        //           }
+        //         },
+        //         {
+        //           "id": 1019,
+        //           "quantity": {
+        //             "amount": 0.5,
+        //             "unit": "cup"
+        //           }
+        //         },
+        //         {
+        //           "id": 1022020,
+        //           "quantity": {
+        //             "amount": 0.25,
+        //             "unit": "teaspoon"
+        //           }
+        //         },
+        //         {
+        //           "id": 1022027,
+        //           "quantity": {
+        //             "amount": 1,
+        //             "unit": "teaspoon"
+        //           }
+        //         },
+        //         {
+        //           "id": 1082047,
+        //           "quantity": {
+        //             "amount": 0.25,
+        //             "unit": "teaspoon"
+        //           }
+        //         },
+        //         {
+        //           "id": 1082047,
+        //           "quantity": {
+        //             "amount": 0.25,
+        //             "unit": "teaspoon"
+        //           }
+        //         },
+        //         {
+        //           "id": 4053,
+        //           "quantity": {
+        //             "amount": 2,
+        //             "unit": "tablespoons"
+        //           }
+        //         },
+        //         {
+        //           "id": 1033,
+        //           "quantity": {
+        //             "amount": 0.25,
+        //             "unit": "cup"
+        //           }
+        //         },
+        //         {
+        //           "id": 1032009,
+        //           "quantity": {
+        //             "amount": 0.25,
+        //             "unit": "teaspoon"
+        //           }
+        //         },
+        //         {
+        //           "id": 10011457,
+        //           "quantity": {
+        //             "amount": 8,
+        //             "unit": "ounces"
+        //           }
+        //         }
+        //       ],
+        //       "instructions": [
+        //         {
+        //           "instruction": "Preheat oven to 350 degrees F. First, remove the mushroom stems by pushing each one toward you, then away from you. It will pop right out. (Save them to add to another recipe.) Swish and rub the mushroom tops in a large bowl of cold water to get them clean. Then, lay them open side down on a kitchen towel to dry.While the mushrooms dry, mix together the cream cheese, spinach, artichoke hearts, parmesan, garlic powder, 1/2 tsp. kosher salt, and red pepper flakes.In a small bowl, stir together olive oil, 1/4 tsp. salt, and Italian seasoning. Use a basting brush or your fingers to lightly rub the outside of the mushrooms with the oil mixture.",
+        //           "number": 1
+        //         },
+        //         {
+        //           "instruction": "Place the mushrooms open side up on a baking sheet. Use a small disher or spoon to place a heaping scoop of dip mixture into each mushroom, pressing it down to make sure it fills the opening. Press a small amount of feta cheese on top of each stuffed mushroom.",
+        //           "number": 2
+        //         },
+        //         {
+        //           "instruction": "Bake in preheated oven for 20-25 minutes until filling is hot and bubbly and feta is starting to brown. Mushrooms will drain some brown liquid during cooking, so drain on paper towels before serving if you don't want that liquid on your serving plate. These taste just as good even after they have cooled down!",
+        //           "number": 3
+        //         }
+        //       ],
+        //       "name": "Artichoke Spinach Dip Stuffed Mushrooms",
+        //       "tags": [
+        //         "condiment",
+        //         "dip",
+        //         "spread"
+        //       ]
+        //     }
+      ]);
   });
   it('Should filter recipes by their name or ingredients', () => {
     expect(recipeRepo.searchRecipes('flour')).to.deep.equal([

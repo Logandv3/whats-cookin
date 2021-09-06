@@ -11,6 +11,7 @@ import apiCalls from './apiCalls';
 // let userData = './data/users.js';
 
 let allRecipes = [];
+let selectedTags = [];
 
 //nav
 const userName = document.getElementById('userName');
@@ -43,6 +44,7 @@ const recipeCost = document.getElementById('recipeCost'); // Will populate when 
 window.addEventListener('load', getData);
 // favoriteRecipes.addEventListener('click', filterByFavorites); // from User class
 // whatToCook.addEventListener('click', filterByCookingList); // from User class
+tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
 backToMainBtn.addEventListener('click', hideIndividualRecipe);
 addToFavoriteList.addEventListener('click', addRecipeToFavorite);
@@ -87,17 +89,17 @@ function populateRepository(recipeInstances, ingredientInstances) {
   allRecipes = new RecipeRepository(recipeInstances, ingredientInstances);
 
   populateTags();
-  populateAllRecipes(allRecipes);
+  populateAllRecipes();
 };
 
 function populateTags() {
   tagCheckbox.innerHTML = ``;
   allRecipes.tags.forEach(tag => {
-    tagCheckbox.innerHTML += `<input type="checkbox" class="tag-checkbox" name="checkbox" value=${tag}> <label for="checkbox">${tag.toUpperCase()}</label>`;
+    tagCheckbox.innerHTML += `<input type="checkbox" class="tag-checkbox" name="checkbox" value="${tag}"> <label for="checkbox">${tag.toUpperCase()}</label>`;
   });
 };
 
-function populateAllRecipes(allRecipes) {
+function populateAllRecipes() {
   gridContainer.innerHTML = '';
 
   allRecipes.recipes.forEach(recipe => {
@@ -140,28 +142,42 @@ function hideIndividualRecipe() {
   show(recipeBox);
 };
 
+function checkCheckboxes(event) {
+  let selected = event.target.value;
+  if (!selected) {
+    return;
+  } else {
+    if (event.target.checked) {
+      selectedTags.push(selected);
+    };
+    if (!event.target.checked) {
+      selectedTags.splice(selectedTags.indexOf(selected), 1);
+    };
+  };
+};
+
 function checkSearchConditions(event) {
   event.preventDefault();
 
   if (searchBar.value) {
     populateRecipes(allRecipes.searchRecipes(searchBar.value));
-  } else if (tagCheckbox.value) {
-    populateRecipes(allRecipes.filterByTag(tagCheckbox.value));
-  } else if (!searchBar.value && tagCheckbox.value === null) {
+  } else if (selectedTags) {
+    let taggedRecipes = [];
+
+    selectedTags.forEach(tag => {
+      taggedRecipes.push(allRecipes.filterByTag(tag));
+    });
+
+    let flattened = taggedRecipes.flat();
+    let withoutDuplicates = [...new Set(flattened)];
+
+    selectedTags.length ? populateRecipes(withoutDuplicates) : populateAllRecipes();
+  } else if (!searchBar.value && !selectedTags.length) {
+    populateAllRecipes();
     show(errorMessage);
   } else {
     show(errorMessage2);
-  }
-
-  // Issue:  Need multiple tags.
-
-  // Check if user has entered a name or ingredient.  If so prioritize that and
-  // run searchRecipes fcn.
-
-  // If there is no value entered in search bar check for tags selected and search
-  // by tags.
-
-  // If neither is selected do nothing.
+  };
 };
 
 function populateRecipes(recipes) {
