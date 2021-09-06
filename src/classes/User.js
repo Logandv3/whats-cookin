@@ -1,3 +1,6 @@
+import ingredientsData from '../data/ingredients.js';
+// NEEDED for converting ingredients?
+
 class User {
   constructor(name, id, pantry) {
     this.name = name;
@@ -45,7 +48,7 @@ class User {
       })
     })
     if (!matchTags.length) {
-      return "No recipes match criteria"
+      return "No recipes match criteria."
     } else {
       return matchTags
     }
@@ -59,7 +62,7 @@ class User {
       }
     })
     if (!matchName.length) {
-      return "No recipes match criteria"
+      return "No recipes match criteria."
     } else {
       return matchName
     }
@@ -67,18 +70,24 @@ class User {
 
   filterFavoriteRecipeByIngred(ingredient) {
     let matchIngred = [];
-    this.favoriteRecipes.forEach(recipe => {
+    // console.log('ingred.name', ingredientsData
+    //   .find(ingred => ingred.name.includes('flour')));
 
-      if (recipe.ingredients.includes(ingredient)) {
-        matchIngred.push(recipe);
-      }
+    let matchedName = ingredientsData.find(ingred =>
+      ingred.name.includes(ingredient))
+
+    this.favoriteRecipes.forEach(recipe => {
+      recipe.ingredients.filter(ingredient => {
+        if (ingredient.id === matchedName.id) {
+          return matchIngred.push(recipe)
+        }
+      })
     })
     if (!matchIngred.length) {
-      return "No recipes match criteria"
+      return "No recipes match criteria."
     } else {
       return matchIngred
     }
-
   }
 
 }

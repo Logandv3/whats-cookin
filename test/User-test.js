@@ -293,13 +293,21 @@ describe('User', () => {
   it('Should be able to filter favorites by name', () => {
     user.addToFavoriteRecipes(recipeA);
     user.addToFavoriteRecipes(recipeB);
-    expect(user.filterFavoriteRecipeByName(["Apple"])).to.deep.equal([recipeB]);
+    expect(user.filterFavoriteRecipeByName("Apple")).to.deep.equal([recipeB]);
   });
 
   it('Should be able to filter favorites by ingredient', () => {
     user.addToFavoriteRecipes(recipeA);
     user.addToFavoriteRecipes(recipeB);
-    expect(user.filterFavoriteRecipeByIngred(["Maple"])).
+    expect(user.filterFavoriteRecipeByIngred(["maple"])).
       to.deep.equal([recipeB]);
-  })
+  });
+
+  it('Should return a message if no favorites found by ingredient', () => {
+    user.addToFavoriteRecipes(recipeA);
+    user.addToFavoriteRecipes(recipeB);
+    expect(user.filterFavoriteRecipeByIngred(["shrimp"])).
+      to.equal('No recipes match criteria.');
+  });
+
 })
