@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/2ada03be6d.js" crossorigin="anonymous"></script>
     <title>What's Cookin'</title>
   </head>
@@ -17,59 +16,26 @@
     </nav>
     <main>
       <section class="search-box">
-        <input type="text" name="search" placeholder="Search Recipe by Name or Indgredient" id="searchBar">
         <form class="search-options">
-          <label for="dropdown">or by Tag</label>
-          <select class="tag-dropdown" id="tagDropdown" name="dropdown">
-            <option value="snack">Snack</option>
-          </select>
+          <input type="text" name="search" placeholder="Search Recipe by Name or Indgredient" id="searchBar">
+          <label for="checkbox">or by Tag</label>
+          <section class="checkbox" id="tagCheckbox">
+            <input type="checkbox" class="tag-checkbox" name="checkbox">
+          </section>
           <input type="submit" name="submit" value="submit" id="submitBtn">
         </form>
+        <p class="error-messages hidden" id="errorMessage">Choose an option</p>
+        <p class="error-messages hidden" id="errorMessage2">Must enter text to search or tags</p>
       </section>
       <article class="recipe-box" id="recipeBox">
-        <div class="grid-container">
-          <section class="grid-item">
-            <div class="card-head">
-              <p>Elvis Pancakes</p>
-            </div>
-            <div class="card-body">
-              <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
-            </div>
-          </section>
-          <section class="grid-item">
-            <div class="card-head">
-              <p>Elvis Pancakes</p>
-            </div>
-            <div class="card-body">
-              <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
-            </div>
-          </section>
-          <section class="grid-item">
-            <div class="card-head">
-              <p>Elvis Pancakes</p>
-            </div>
-            <div class="card-body">
-              <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
-            </div>
-          </section>
-          <section class="grid-item">
-            <div class="card-head">
-              <p>Elvis Pancakes</p>
-            </div>
-            <div class="card-body">
-              <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
-            </div>
-          </section>
-          <section class="grid-item"></section>
-          <section class="grid-item"></section>
-          <section class="grid-item"></section>
-          <section class="grid-item"></section>
-          <section class="grid-item"></section>
+        <div class="grid-container" id="gridContainer">
+
         </div>
       </article>
       <article class="individual-recipe hidden" id="individualRecipe">
         <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtn">Back to Main</button>
-        <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
+        <p id="recipeTitle">Elvis Pancakes</p>
+        <img id="indRecipeImage" src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
         <h3 id="addToFavoriteList">☆ Add to Favorite List</h3>
         <h3 id="onFavoriteList">★ On Favorite List</h3>
         <h3 id="addToCookingList">☐ Add to Cooking List</h3>

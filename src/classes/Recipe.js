@@ -1,4 +1,4 @@
-import recipeData from '../data/recipes.js';
+// import recipeData from '../data/recipes.js';
 import ingredientsData from '../data/ingredients.js';
 
 class Recipe {
@@ -21,6 +21,7 @@ class Recipe {
             id: ingredient.id,
             name: ingred.name,
             quantity: ingredient.quantity.amount,
+            unit: ingredient.quantity.unit,
             estimatedCostInCents: ingred.estimatedCostInCents
           });
         }
@@ -34,22 +35,19 @@ class Recipe {
 
     this.ingredients.map((ingredient) => {
       let ingrID = ingredientsData.find(ing => ing.id === ingredient.id);
-      // why does filter return 11 'undefined' but
-      //find returns all 11 correctly?
       ingredientsNamesForRecipe.push(ingrID.name);
     });
-    // console.log('will be ingredient names array', ingredientsNamesForRecipe);
+
     return ingredientsNamesForRecipe;
   }
 
   getIngredientCosts() {
     let total = this.ingredientInfo.reduce((acc, currentIng) => {
-      acc += Math.round(currentIng.quantity *
-        currentIng.estimatedCostInCents) / 100;
+      acc += Math.round((currentIng.quantity *
+        currentIng.estimatedCostInCents) / 100);
       return acc;
     }, 0);
     return total;
-    // console.log('total cost:', total)
   }
 
   getRecipeInstructions() {
@@ -57,10 +55,9 @@ class Recipe {
     this.instructions.forEach(instruction => {
       let detail = instruction.instruction;
       let number = instruction.number;
-      instructionDetail.push(number, detail);
+      instructionDetail.push(`<li>${detail}<br>`);
     });
-    // console.log('instruction array:', instructionArray);
-    return instructionDetail;
+    return instructionDetail.join(' ');
   }
 }
 
