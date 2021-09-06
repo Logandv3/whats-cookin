@@ -287,6 +287,19 @@ describe('User', () => {
     user.addToFavoriteRecipes(recipeA);
     user.addToFavoriteRecipes(recipeB);
     user.filterFavoriteRecipeTags(["lunch"])
-    expect(user.filterFavoriteRecipeTags(['dinner'])).to.deep.equal([recipeB]);
+    expect(user.filterFavoriteRecipeTags(["dinner"])).to.deep.equal([recipeB]);
   });
+
+  it('Should be able to filter favorites by name', () => {
+    user.addToFavoriteRecipes(recipeA);
+    user.addToFavoriteRecipes(recipeB);
+    expect(user.filterFavoriteRecipeByName(["Apple"])).to.deep.equal([recipeB]);
+  });
+
+  it('Should be able to filter favorites by ingredient', () => {
+    user.addToFavoriteRecipes(recipeA);
+    user.addToFavoriteRecipes(recipeB);
+    expect(user.filterFavoriteRecipeByIngred(["Maple"])).
+      to.deep.equal([recipeB]);
+  })
 })

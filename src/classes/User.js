@@ -51,6 +51,36 @@ class User {
     }
   }
 
+  filterFavoriteRecipeByName(name) {
+    let matchName = [];
+    this.favoriteRecipes.forEach(recipe => {
+      if (recipe.name.includes(name)) {
+        matchName.push(recipe);
+      }
+    })
+    if (!matchName.length) {
+      return "No recipes match criteria"
+    } else {
+      return matchName
+    }
+  }
+
+  filterFavoriteRecipeByIngred(ingredient) {
+    let matchIngred = [];
+    this.favoriteRecipes.forEach(recipe => {
+
+      if (recipe.ingredients.includes(ingredient)) {
+        matchIngred.push(recipe);
+      }
+    })
+    if (!matchIngred.length) {
+      return "No recipes match criteria"
+    } else {
+      return matchIngred
+    }
+
+  }
+
 }
 
 export default User;
