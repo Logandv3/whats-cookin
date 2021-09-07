@@ -11,18 +11,20 @@
     </header>
     <nav>
       <h2 id="userName"></h2>
+      <button type="button" name="All Recipes" id="allRecipesBtn">All Recipes</button>
       <button type="button" name="Favorite Recipes" id="favoriteRecipes">Favorite Recipes</button>
       <button type="button" name="What to Cook" id="whatToCook">What to Cook</button>
     </nav>
     <main>
       <section class="search-box">
         <form class="search-options">
-          <input type="text" name="search" placeholder="Search Recipe by Name or Indgredient" id="searchBar">
-          <label for="checkbox">or by Tag</label>
+          <input type="text" name="search" placeholder="Enter Name or Indgredient" id="searchBar">
+          <label for="checkbox">or Select Tag</label>
           <section class="checkbox" id="tagCheckbox">
             <input type="checkbox" class="tag-checkbox" name="checkbox">
           </section>
-          <input type="submit" name="submit" value="submit" id="submitBtn">
+          <input class="submit-button" type="submit" name="submit" value="Search All Recipes" id="submitBtn">
+          <input class="submit-button hidden" type="submit" name="submit" value="Search Favorite Recipes" id="submitFavoriteBtn">
         </form>
         <p class="error-messages hidden" id="errorMessage">Choose an option</p>
         <p class="error-messages hidden" id="errorMessage2">Must enter text to search or tags</p>

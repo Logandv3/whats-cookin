@@ -16,6 +16,7 @@ let currentUser;
 
 //nav
 const userName = document.getElementById('userName');
+const allRecipesBtn = document.getElementById('allRecipesBtn');
 const favoriteRecipes = document.getElementById('favoriteRecipes');
 const whatToCook = document.getElementById('whatToCook');
 
@@ -23,6 +24,7 @@ const whatToCook = document.getElementById('whatToCook');
 const searchBar = document.getElementById('searchBar');
 const tagCheckbox = document.getElementById('tagCheckbox');
 const submitBtn = document.getElementById('submitBtn');
+const submitFavoriteBtn = document.getElementById('submitFavoriteBtn');
 const errorMessage = document.getElementById('errorMessage');
 const errorMessage2 = document.getElementById('errorMessage2');
 const recipeBox = document.getElementById('recipeBox');
@@ -37,22 +39,24 @@ const addToCookingList = document.getElementById('addToCookingList');
 const onCookingList = document.getElementById('onCookingList');
 const recipeTitle = document.getElementById('recipeTitle');
 const indRecipeImage = document.getElementById('indRecipeImage');
-const ingredientListItems = document.getElementById('ingredientListItems'); // Will populate when individual recipe is created
-const instructionListItems = document.getElementById('instructionListItems'); // Will populate when individual recipe is created
-const recipeCost = document.getElementById('recipeCost'); // Will populate when individual recipe is created
+const ingredientListItems = document.getElementById('ingredientListItems');
+const instructionListItems = document.getElementById('instructionListItems');
+const recipeCost = document.getElementById('recipeCost');
 
 // Event Listener
 window.addEventListener('load', getData);
-// favoriteRecipes.addEventListener('click', filterByFavorites); // from User class
-// whatToCook.addEventListener('click', filterByCookingList); // from User class
+allRecipesBtn.addEventListener('click', populateAllRecipes);
+favoriteRecipes.addEventListener('click', filterByFavorites);
+whatToCook.addEventListener('click', filterByCookingList);
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
+submitFavoriteBtn.addEventListener('click', checkFavSearchCondtitions);
 backToMainBtn.addEventListener('click', hideIndividualRecipe);
 addToFavoriteList.addEventListener('click', addRecipeToFavorite);
 onFavoriteList.addEventListener('click', removeRecipeFromFavorite);
 addToCookingList.addEventListener('click', addRecipeToCookingList);
 onCookingList.addEventListener('click', removeRecipeFromCookingList);
-recipeBox.addEventListener('click', showIndividualRecipe); // Will need to be passed an id of the recipe
+recipeBox.addEventListener('click', showIndividualRecipe);
 
 // Event Handler
 function getData() {
@@ -147,18 +151,20 @@ function showIndividualRecipe(event) {
     return recipe.id === parseInt(indRecipeId);
   });
 
-  if (!individualRecipe.title) {
-    individualRecipe.setAttribute('title', `${indRecipe.name}`); // May not need else statement
-  } else {
-    individualRecipe.title = indRecipe.name;
-  }
+individualRecipe.setAttribute('title', `${indRecipe.name}`);
+
+  // if (!individualRecipe.title) {
+  //   individualRecipe.setAttribute('title', `${indRecipe.name}`); // May not need else statement
+  // } else {
+  //   individualRecipe.title = indRecipe.name;
+  // }
 
   recipeTitle.innerText = indRecipe.name;
   indRecipeImage.src = indRecipe.image;
 
   ingredientListItems.innerHTML = `<ul>`;
   indRecipe.ingredientInfo.forEach(ingredient => {
-    ingredientListItems.innerHTML += `<li>${ingredient.name}: ${ingredient.quantity}${ingredient.unit}`;
+    ingredientListItems.innerHTML += `<li>${ingredient.name}: ${ingredient.quantity} ${ingredient.unit}`;
   });
 
   instructionListItems.innerText = ``;
@@ -190,11 +196,32 @@ function checkCheckboxes(event) {
   };
 };
 
+function checkFavSearchCondtitions(event) {
+  event.preventDefault();
+
+  if (searchBar.value) {
+    populateRecipes(currentUser.searchFavorites(searchBar.value));
+
+  } else if (selectedTags) {
+    let taggedRecipes = [];
+
+    selectedTags.forEach(tag => {
+      taggedRecipes.push(currentUser.filterFavoriteRecipeTags(tag));
+    });
+
+    let flattened = taggedRecipes.flat();
+    let withoutDuplicates = [...new Set(flattened)];
+
+    selectedTags.length ? populateRecipes(withoutDuplicates) : populateRecipes(currentUser.favoriteRecipes);
+  }
+};
+
 function checkSearchConditions(event) {
   event.preventDefault();
 
   if (searchBar.value) {
     populateRecipes(allRecipes.searchRecipes(searchBar.value));
+
   } else if (selectedTags) {
     let taggedRecipes = [];
 
@@ -206,9 +233,11 @@ function checkSearchConditions(event) {
     let withoutDuplicates = [...new Set(flattened)];
 
     selectedTags.length ? populateRecipes(withoutDuplicates) : populateAllRecipes();
+
   } else if (!searchBar.value && !selectedTags.length) {
     populateAllRecipes();
     show(errorMessage);
+
   } else {
     show(errorMessage2);
   };
@@ -282,6 +311,39 @@ function removeRecipeFromCookingList() {
     if (recipe.name === titleOfRecipe) {
       currentUser.removeFromRecipesToCook(recipe);
     };
+  });
+};
+
+function filterByFavorites() {
+  hide(submitBtn);
+  show(submitFavoriteBtn);
+
+  gridContainer.innerHTML = '';
+
+  currentUser.favoriteRecipes.forEach(recipe => {
+    gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
+      <div class="card-head">
+        <p>${recipe.name}</p>
+      </div>
+      <div class="card-body">
+        <img src="${recipe.image}" alt="${recipe.name}">
+      </div>
+    </section>`;
+  });
+};
+
+function filterByCookingList() {
+  gridContainer.innerHTML = '';
+
+  currentUser.recipesToCook.forEach(recipe => {
+    gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
+      <div class="card-head">
+        <p>${recipe.name}</p>
+      </div>
+      <div class="card-body">
+        <img src="${recipe.image}" alt="${recipe.name}">
+      </div>
+    </section>`;
   });
 };
 
