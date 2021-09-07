@@ -136,7 +136,12 @@ function showIndividualRecipe(event) {
     };
   });
 
-
+  currentUser.recipesToCook.forEach(recipe => {
+    if (recipe.id === parseInt(indRecipeId)) {
+      show(onCookingList);
+      hide(addToCookingList);
+    };
+  });
 
   let indRecipe = allRecipes.recipes.find(recipe => {
     return recipe.id === parseInt(indRecipeId);
@@ -257,11 +262,27 @@ function removeRecipeFromFavorite() {
 };
 
 function addRecipeToCookingList() {
+  let titleOfRecipe = event.target.closest('article').title;
+  hide(addToCookingList);
+  show(onCookingList);
 
+  allRecipes.recipes.forEach(recipe => {
+    if (recipe.name === titleOfRecipe) {
+      currentUser.addToRecipesToCook(recipe);
+    };
+  });
 };
 
 function removeRecipeFromCookingList() {
+  let titleOfRecipe = event.target.closest('article').title;
+  hide(onCookingList);
+  show(addToCookingList);
 
+  allRecipes.recipes.forEach(recipe => {
+    if (recipe.name === titleOfRecipe) {
+      currentUser.removeFromRecipesToCook(recipe);
+    };
+  });
 };
 
 

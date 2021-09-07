@@ -13,7 +13,6 @@ class User {
   addToFavoriteRecipes(recipeAdd) {
     if (!this.favoriteRecipes.includes(recipeAdd)) {
       this.favoriteRecipes.push(recipeAdd)
-      console.log(this.favoriteRecipes);
     }
   }
 
@@ -21,7 +20,6 @@ class User {
     this.favoriteRecipes.forEach(recipe => {
       if (recipeOut.name === recipe.name) {
         this.favoriteRecipes.splice(this.favoriteRecipes.indexOf(recipeOut), 1)
-        console.log(this.favoriteRecipes);
       }
     })
   }
@@ -35,7 +33,7 @@ class User {
   removeFromRecipesToCook(recipeOut) {
     this.recipesToCook.forEach(recipe => {
       if (recipeOut.name === recipe.name) {
-        this.recipesToCook.splice(recipeOut, 1)
+        this.recipesToCook.splice(this.recipesToCook.indexOf(recipeOut), 1)
       }
     })
   }
