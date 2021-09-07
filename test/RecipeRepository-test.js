@@ -765,7 +765,7 @@ describe('Recipe Repository', () => {
   it('Should be a string', () => {
     expect(recipeRepo.recipes[0].name).to.be.a('string');
   });
-  it.only('Should filter recipes by their tags', () => {
+  it('Should filter recipes by their tags', () => {
     expect(recipeRepo.filterByTag('snack')).to.deep.equal([{
           "id": 595736,
           "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",

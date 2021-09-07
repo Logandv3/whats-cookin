@@ -19,7 +19,7 @@ class User {
   removeFromFavoriteRecipes(recipeOut) {
     this.favoriteRecipes.forEach(recipe => {
       if (recipeOut.name === recipe.name) {
-        this.favoriteRecipes.splice(recipeOut, 1)
+        this.favoriteRecipes.splice(this.favoriteRecipes.indexOf(recipeOut), 1)
       }
     })
   }
@@ -33,61 +33,70 @@ class User {
   removeFromRecipesToCook(recipeOut) {
     this.recipesToCook.forEach(recipe => {
       if (recipeOut.name === recipe.name) {
-        this.recipesToCook.splice(recipeOut, 1)
+        this.recipesToCook.splice(this.recipesToCook.indexOf(recipeOut), 1)
       }
     })
   }
 
-  filterFavoriteRecipeTags(tags) {
-    let matchTags = [];
-    this.favoriteRecipes.forEach(recipe => {
-      tags.forEach(tag => {
-        if (recipe.tags.includes(tag)) {
-          matchTags.push(recipe);
-        }
-      })
-    })
-    if (!matchTags.length) {
-      return "No recipes match criteria."
-    } else {
-      return matchTags
-    }
+  filterFavoriteRecipeTags(inputTag) {
+    let tagged = this.favoriteRecipes.filter(recipe => recipe.tags.includes(inputTag));
+    return tagged;
   }
 
-  filterFavoriteRecipeByName(name) {
+  filterFavoriteRecipeByName(searchInput) {
     let matchName = [];
     this.favoriteRecipes.forEach(recipe => {
-      if (recipe.name.includes(name)) {
+      if (recipe.name.toLowerCase().includes(searchInput.toLowerCase())) {
         matchName.push(recipe);
+        console.log('recipe', recipe);
       }
     })
-    if (!matchName.length) {
-      return "No recipes match criteria."
-    } else {
-      return matchName
-    }
+    // if (!matchName.length) {
+    //   return "No recipes match criteria."
+    // } else {
+      return matchName;
+    // }
   }
 
-  filterFavoriteRecipeByIngred(ingredient) {
+  searchFavorites(searchInput) {
+    let nameSearched = this.filterFavoriteRecipeByName(searchInput);
+    let ingredientSearched = this.filterFavoriteRecipeByIngred(searchInput);
+    let recipesWithSearched = nameSearched.concat(ingredientSearched);
+    let favsWithoutDup = [...new Set(recipesWithSearched)];
+
+    console.log('nameSearched', nameSearched);
+    console.log('ingredientSearched', ingredientSearched);
+    console.log('recipesWithSearched', recipesWithSearched);
+    console.log('favsWithoutDup', favsWithoutDup);
+    return favsWithoutDup;
+  };
+
+  filterFavoriteRecipeByIngred(searchInput) {
     let matchIngred = [];
     // console.log('ingred.name', ingredientsData
     //   .find(ingred => ingred.name.includes('flour')));
 
-    let matchedName = ingredientsData.find(ingred =>
-      ingred.name.includes(ingredient))
+    let matchedName = ingredientsData.filter(ingred => {
+      if (!ingred.name) {
+        ingred.name = 'Not Found'
+      }
+      return ingred.name.includes(searchInput.toLowerCase())
+    });
 
     this.favoriteRecipes.forEach(recipe => {
       recipe.ingredients.filter(ingredient => {
-        if (ingredient.id === matchedName.id) {
-          return matchIngred.push(recipe)
-        }
+        matchedName.forEach(id => {
+          if (ingredient.id === id.id) {
+            return matchIngred.push(recipe)
+          }})
+        })
       })
-    })
-    if (!matchIngred.length) {
-      return "No recipes match criteria."
-    } else {
-      return matchIngred
-    }
+
+    // if (!matchIngred.length) {
+    //   return "No recipes match criteria."
+    // } else {
+      return matchIngred;
+    // }
   }
 
 }
