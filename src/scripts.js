@@ -1,17 +1,18 @@
 import './styles.css';
 import recipeData from './data/recipes.js';
 import ingredientsData from './data/ingredients.js';
+import usersData from './data/users.js';
 import RecipeRepository from './classes/RecipeRepository';
 import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
-// import Users from './data/Users';
+import User from './classes/User';
 import apiCalls from './apiCalls';
 // let recipeData = './data/recipes.js';
 // let ingredientData = './data/ingredients.js';
-// let userData = './data/users.js';
 
 let allRecipes = [];
 let selectedTags = [];
+let currentUser;
 
 //nav
 const userName = document.getElementById('userName');
@@ -58,12 +59,19 @@ function getData() {
   // Populate all the data/ recipes etc. from api or data file.  Instantiate classes.
   //maybe we need to create variables and assign them to instantiateRecipe() & instatiateIngredient()
 
+  instantiateRandomUser();
   populateRepository(instantiateRecipe(), instantiateIngredient());
-  getRandomUser();
 };
 
-function getRandomUser() {
-  // Instatiate the user class with a rando
+function instantiateRandomUser() {
+  let randomUser = usersData[Math.round(Math.random() * usersData.length)];
+  currentUser = new User(randomUser.name, randomUser.id, randomUser.pantry);
+
+  displayUserName(currentUser);
+};
+
+function displayUserName(currentUser) {
+  userName.innerText = `Welcome ${currentUser.name}, what's cookin!?`
 };
 
 function instantiateRecipe() {
@@ -116,13 +124,30 @@ function populateAllRecipes() {
 
 function showIndividualRecipe(event) {
   event.preventDefault();
+  let indRecipeId = event.target.closest('section').id;
+
   show(individualRecipe);
   hide(recipeBox);
-  let indRecipeId = event.target.closest('section').id;
+
+  currentUser.favoriteRecipes.forEach(recipe => {
+    if (recipe.id === parseInt(indRecipeId)) {
+      show(onFavoriteList);
+      hide(addToFavoriteList);
+    };
+  });
+
+
 
   let indRecipe = allRecipes.recipes.find(recipe => {
     return recipe.id === parseInt(indRecipeId);
   });
+
+  if (!individualRecipe.title) {
+    individualRecipe.setAttribute('title', `${indRecipe.name}`); // May not need else statement
+  } else {
+    individualRecipe.title = indRecipe.name;
+  }
+
   recipeTitle.innerText = indRecipe.name;
   indRecipeImage.src = indRecipe.image;
 
@@ -138,6 +163,10 @@ function showIndividualRecipe(event) {
 
 function hideIndividualRecipe() {
   event.preventDefault();
+  hide(onFavoriteList);
+  show(addToFavoriteList);
+  hide(onCookingList);
+  show(addToCookingList);
   hide(individualRecipe);
   show(recipeBox);
 };
@@ -203,12 +232,28 @@ function hide(element) {
   element.classList.add('hidden');
 };
 
-function addRecipeToFavorite() {
+function addRecipeToFavorite(event) {
+  let titleOfRecipe = event.target.closest('article').title;
+  hide(addToFavoriteList);
+  show(onFavoriteList);
 
+  allRecipes.recipes.forEach(recipe => {
+    if (recipe.name === titleOfRecipe) {
+      currentUser.addToFavoriteRecipes(recipe);
+    };
+  });
 };
 
 function removeRecipeFromFavorite() {
+  let titleOfRecipe = event.target.closest('article').title;
+  hide(onFavoriteList);
+  show(addToFavoriteList);
 
+  allRecipes.recipes.forEach(recipe => {
+    if (recipe.name === titleOfRecipe) {
+      currentUser.removeFromFavoriteRecipes(recipe);
+    };
+  });
 };
 
 function addRecipeToCookingList() {

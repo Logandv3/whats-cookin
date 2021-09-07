@@ -13,13 +13,15 @@ class User {
   addToFavoriteRecipes(recipeAdd) {
     if (!this.favoriteRecipes.includes(recipeAdd)) {
       this.favoriteRecipes.push(recipeAdd)
+      console.log(this.favoriteRecipes);
     }
   }
 
   removeFromFavoriteRecipes(recipeOut) {
     this.favoriteRecipes.forEach(recipe => {
       if (recipeOut.name === recipe.name) {
-        this.favoriteRecipes.splice(recipeOut, 1)
+        this.favoriteRecipes.splice(this.favoriteRecipes.indexOf(recipeOut), 1)
+        console.log(this.favoriteRecipes);
       }
     })
   }
