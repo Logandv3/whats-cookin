@@ -1,4 +1,14 @@
-// Your fetch requests will live here!
+export const ingredientPromise = () => {
+  return fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
+  .then(response => response.json())
+};
 
+export const recipePromise = () => {
+  return fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
+  .then(response => response.json())
+};
 
-console.log('I will be a fetch request!')
+export const userPromise = () => {
+  return fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
+  .then(response => response.json())
+};
