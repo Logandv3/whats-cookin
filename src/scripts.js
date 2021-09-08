@@ -1,18 +1,16 @@
 import './styles.css';
-import recipeData from './data/recipes.js';
-import ingredientsData from './data/ingredients.js';
-import usersData from './data/users.js';
+// import recipeData from './data/recipes.js';
+// import ingredientsData from './data/ingredients.js';
+// import usersData from './data/users.js';
 import RecipeRepository from './classes/RecipeRepository';
 import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
 import User from './classes/User';
-import apiCalls from './apiCalls';
-// let recipeData = './data/recipes.js';
-// let ingredientData = './data/ingredients.js';
+import {ingredientPromise, recipePromise, userPromise} from './apiCalls';
 
 let allRecipes = [];
 let selectedTags = [];
-let currentUser;
+let currentUser, ingredientsData, recipeData, usersData;
 
 //nav
 const userName = document.getElementById('userName');
@@ -62,6 +60,27 @@ recipeBox.addEventListener('click', showIndividualRecipe);
 function getData() {
   // Populate all the data/ recipes etc. from api or data file.  Instantiate classes.
   //maybe we need to create variables and assign them to instantiateRecipe() & instatiateIngredient()
+  gatherData();
+};
+
+function gatherData() {
+  let apiIngredientData = ingredientPromise()
+    .then(data => data)
+    .catch(error => console.log(`API ingredient error: ${error.message}`))
+  let apiRecipeData = recipePromise()
+    .then(data => data)
+    .catch(error => console.log(`API recipe error: ${error.message}`))
+  let apiUserData = userPromise()
+    .then(data => data)
+    .catch(error => console.log(`API user error: ${error.message}`))
+  Promise.all([apiIngredientData, apiRecipeData, apiUserData])
+    .then(data => initData(data))
+};
+
+function initData(data) {
+  recipeData = data[1].recipeData;
+  ingredientsData = data[0].ingredientsData;
+  usersData = data[2].usersData;
 
   instantiateRandomUser();
   populateRepository(instantiateRecipe(), instantiateIngredient());
@@ -346,7 +365,3 @@ function filterByCookingList() {
     </section>`;
   });
 };
-
-
-
-console.log('Hello world');
