@@ -48,7 +48,7 @@ In this project, we create a recipe tracking / meal planning application that al
 - The user can see the recipes they have added to their favorites or cooking list by clicking the `Favorite Recipes` and `What to Cook` buttons.  To return to the main page where all recipes are displayed they can click the `All Recipes` button.  The user can filter their favorite recipes by name/ ingredient or tags when looking at their favorite recipe list.
 <img width="1438" alt="Screen Shot 2021-08-03 at 8 04 08 PM" src="https://user-images.githubusercontent.com/39206140/128110933-a1933cd4-1c5b-4820-8e49-e1e86dd90589.png"> 
 
-![Screen Recording of the What's Cookin' app demonstrating search, tags, and favoriting functionality]()
+![Screen Recording of the What's Cookin' app demonstrating search, tags, and favoriting functionality](https://user-images.githubusercontent.com/724355/132460632-e5ad9bd1-a61c-425d-b899-6e977817318e.mov)
 
 
 ## Challenges
@@ -65,6 +65,6 @@ We plan to have persisting data that allows multiple users(possibly a login) to 
 
 
 ## Contributors
-- [Elise Beall](http://github.com/elisebeall)
-- Eric Sergeant
-- Logan Vincent
+- [Elise Beall](https://github.com/elisebeall)
+- [Eric Sergeant](https://github.com/EricSergeant)
+- [Logan Vincent](https://github.com/Logandv3)
