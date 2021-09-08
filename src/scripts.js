@@ -9,13 +9,11 @@ let allRecipes = [];
 let selectedTags = [];
 let currentUser, ingredientsData, recipeData, usersData;
 
-//nav
 const userName = document.getElementById('userName');
 const allRecipesBtn = document.getElementById('allRecipesBtn');
 const favoriteRecipes = document.getElementById('favoriteRecipes');
 const whatToCook = document.getElementById('whatToCook');
 
-//main
 const form = document.getElementById('form');
 const searchBar = document.getElementById('searchBar');
 const tagCheckbox = document.getElementById('tagCheckbox');
@@ -27,7 +25,6 @@ const errorMessage3 = document.getElementById('errorMessage3');
 const recipeBox = document.getElementById('recipeBox');
 const gridContainer = document.getElementById('gridContainer');
 
-//article/ individual-recipe
 const individualRecipe = document.getElementById('individualRecipe');
 const backToMainBtn = document.getElementById('backToMainBtn');
 const addToFavoriteList = document.getElementById('addToFavoriteList');
@@ -40,7 +37,6 @@ const ingredientListItems = document.getElementById('ingredientListItems');
 const instructionListItems = document.getElementById('instructionListItems');
 const recipeCost = document.getElementById('recipeCost');
 
-// Event Listener
 window.addEventListener('load', getData);
 allRecipesBtn.addEventListener('click', populateAllRecipes);
 favoriteRecipes.addEventListener('click', filterByFavorites);
@@ -55,10 +51,7 @@ addToCookingList.addEventListener('click', addRecipeToCookingList);
 onCookingList.addEventListener('click', removeRecipeFromCookingList);
 recipeBox.addEventListener('click', showIndividualRecipe);
 
-// Event Handler
 function getData() {
-  // Populate all the data/ recipes etc. from api or data file.  Instantiate classes.
-  //maybe we need to create variables and assign them to instantiateRecipe() & instatiateIngredient()
   gatherData();
 };
 
@@ -212,26 +205,38 @@ function checkCheckboxes(event) {
 function checkSearchConditions(event) {
   event.preventDefault();
 
+  if (searchBar.value && selectedTags.length) {
+    console.log('searchBar.value BOTH', searchBar.value)
+    console.log('selectedTags.length BOTH', selectedTags.length)
+    populateAllRecipes();
+    show(errorMessage2);
+    hide(errorMessage);
+  }
+  if (!searchBar.value && !selectedTags.length) {
+    console.log('searchBar.value NONE', searchBar.value)
+    console.log('selectedTags.length NONE', selectedTags.length)
+    populateAllRecipes();
+    show(errorMessage);
+    hide(errorMessage2);
+  }
   if (searchBar.value) {
+    console.log('searchBar.value ONLY', searchBar.value)
+    console.log('selectedTags.length NONE', selectedTags.length)
     populateRecipes(allRecipes.searchRecipes(searchBar.value));
-    form.reset();
-  } else if (selectedTags) {
+  }
+  if (selectedTags.length) {
+    console.log('searchBar.value NONE', searchBar.value)
+    console.log('selectedTags.length ONLY', selectedTags.length)
     let taggedRecipes = [];
-
     selectedTags.forEach(tag => {
       taggedRecipes.push(allRecipes.filterByTag(tag));
     });
-
     let flattened = taggedRecipes.flat();
     let withoutDuplicates = [...new Set(flattened)];
-
     selectedTags.length ? populateRecipes(withoutDuplicates) : populateAllRecipes();
-  } else if (!searchBar.value && !selectedTags.length) {
-    show(errorMessage);
-    populateAllRecipes();
-  } else if (searchBar.value && selectedTags.length) {
-    show(errorMessage2);
   };
+  form.reset();
+  selectedTags = [];
 };
 
 function checkFavSearchCondtitions(event) {
@@ -260,7 +265,6 @@ function checkFavSearchCondtitions(event) {
 
 function populateRecipes(recipes) {
   gridContainer.innerHTML = '';
-
   recipes.forEach(recipe => {
     gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
       <div class="card-head">

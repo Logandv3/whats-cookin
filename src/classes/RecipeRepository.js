@@ -28,15 +28,18 @@ class RecipeRepository {
     let ingredientSearched = this.searchByIngredient(searchInput);
     let recipesWithSearched = nameSearched;
 
-    nameSearched.forEach(nameResult => {
-      ingredientSearched.forEach(ingredientResult => {
-        if (!nameSearched.includes(ingredientResult)) {
-          recipesWithSearched.push(ingredientResult);
-        };
+    if (!nameSearched.length) {
+      return ingredientSearched;
+    } else {
+      nameSearched.forEach(nameResult => {
+        ingredientSearched.forEach(ingredientResult => {
+          if (!nameSearched.includes(ingredientResult)) {
+            recipesWithSearched.push(ingredientResult);
+          };
+        });
       });
-    });
-
-    return recipesWithSearched;
+      return recipesWithSearched;
+    };
   };
 
   searchByName(searchInput) {
@@ -65,7 +68,6 @@ class RecipeRepository {
         };
       });
     });
-
     return matchedRecipes;
   };
 };
