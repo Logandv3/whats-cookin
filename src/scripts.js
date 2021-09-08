@@ -1,7 +1,4 @@
 import './styles.css';
-// import recipeData from './data/recipes.js';
-// import ingredientsData from './data/ingredients.js';
-// import usersData from './data/users.js';
 import RecipeRepository from './classes/RecipeRepository';
 import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
@@ -12,23 +9,22 @@ let allRecipes = [];
 let selectedTags = [];
 let currentUser, ingredientsData, recipeData, usersData;
 
-//nav
 const userName = document.getElementById('userName');
 const allRecipesBtn = document.getElementById('allRecipesBtn');
 const favoriteRecipes = document.getElementById('favoriteRecipes');
 const whatToCook = document.getElementById('whatToCook');
 
-//main
+const form = document.getElementById('form');
 const searchBar = document.getElementById('searchBar');
 const tagCheckbox = document.getElementById('tagCheckbox');
 const submitBtn = document.getElementById('submitBtn');
 const submitFavoriteBtn = document.getElementById('submitFavoriteBtn');
 const errorMessage = document.getElementById('errorMessage');
 const errorMessage2 = document.getElementById('errorMessage2');
+const errorMessage3 = document.getElementById('errorMessage3');
 const recipeBox = document.getElementById('recipeBox');
 const gridContainer = document.getElementById('gridContainer');
 
-//article/ individual-recipe
 const individualRecipe = document.getElementById('individualRecipe');
 const backToMainBtn = document.getElementById('backToMainBtn');
 const addToFavoriteList = document.getElementById('addToFavoriteList');
@@ -41,7 +37,6 @@ const ingredientListItems = document.getElementById('ingredientListItems');
 const instructionListItems = document.getElementById('instructionListItems');
 const recipeCost = document.getElementById('recipeCost');
 
-// Event Listener
 window.addEventListener('load', getData);
 allRecipesBtn.addEventListener('click', populateAllRecipes);
 favoriteRecipes.addEventListener('click', filterByFavorites);
@@ -56,10 +51,7 @@ addToCookingList.addEventListener('click', addRecipeToCookingList);
 onCookingList.addEventListener('click', removeRecipeFromCookingList);
 recipeBox.addEventListener('click', showIndividualRecipe);
 
-// Event Handler
 function getData() {
-  // Populate all the data/ recipes etc. from api or data file.  Instantiate classes.
-  //maybe we need to create variables and assign them to instantiateRecipe() & instatiateIngredient()
   gatherData();
 };
 
@@ -126,11 +118,14 @@ function populateRepository(recipeInstances, ingredientInstances) {
 function populateTags() {
   tagCheckbox.innerHTML = ``;
   allRecipes.tags.forEach(tag => {
-    tagCheckbox.innerHTML += `<input type="checkbox" class="tag-checkbox" name="checkbox" value="${tag}"> <label for="checkbox">${tag.toUpperCase()}</label>`;
+    tagCheckbox.innerHTML += `<div><input type="checkbox" class="tag-checkbox" name="checkbox" value="${tag}"> <label for="checkbox">${tag.toUpperCase()}</label></div>`;
   });
 };
 
 function populateAllRecipes() {
+  show(submitBtn);
+  hide(submitFavoriteBtn);
+
   gridContainer.innerHTML = '';
 
   allRecipes.recipes.forEach(recipe => {
@@ -170,23 +165,15 @@ function showIndividualRecipe(event) {
     return recipe.id === parseInt(indRecipeId);
   });
 
-individualRecipe.setAttribute('title', `${indRecipe.name}`);
-
-  // if (!individualRecipe.title) {
-  //   individualRecipe.setAttribute('title', `${indRecipe.name}`); // May not need else statement
-  // } else {
-  //   individualRecipe.title = indRecipe.name;
-  // }
-
+  individualRecipe.setAttribute('title', `${indRecipe.name}`);
   recipeTitle.innerText = indRecipe.name;
   indRecipeImage.src = indRecipe.image;
 
-  ingredientListItems.innerHTML = `<ul>`;
+  ingredientListItems.innerHTML = '';
   indRecipe.ingredientInfo.forEach(ingredient => {
     ingredientListItems.innerHTML += `<li>${ingredient.name}: ${ingredient.quantity} ${ingredient.unit}`;
   });
-
-  instructionListItems.innerText = ``;
+  instructionListItems.innerText = '';
   instructionListItems.innerHTML += `${indRecipe.getRecipeInstructions()}`;
   recipeCost.innerText = `Cost:  $${indRecipe.getIngredientCosts()}`;
 };
@@ -215,12 +202,48 @@ function checkCheckboxes(event) {
   };
 };
 
+function checkSearchConditions(event) {
+  event.preventDefault();
+
+  if (searchBar.value && selectedTags.length) {
+    console.log('searchBar.value BOTH', searchBar.value)
+    console.log('selectedTags.length BOTH', selectedTags.length)
+    populateAllRecipes();
+    show(errorMessage2);
+    hide(errorMessage);
+  }
+  if (!searchBar.value && !selectedTags.length) {
+    console.log('searchBar.value NONE', searchBar.value)
+    console.log('selectedTags.length NONE', selectedTags.length)
+    populateAllRecipes();
+    show(errorMessage);
+    hide(errorMessage2);
+  }
+  if (searchBar.value) {
+    console.log('searchBar.value ONLY', searchBar.value)
+    console.log('selectedTags.length NONE', selectedTags.length)
+    populateRecipes(allRecipes.searchRecipes(searchBar.value));
+  }
+  if (selectedTags.length) {
+    console.log('searchBar.value NONE', searchBar.value)
+    console.log('selectedTags.length ONLY', selectedTags.length)
+    let taggedRecipes = [];
+    selectedTags.forEach(tag => {
+      taggedRecipes.push(allRecipes.filterByTag(tag));
+    });
+    let flattened = taggedRecipes.flat();
+    let withoutDuplicates = [...new Set(flattened)];
+    selectedTags.length ? populateRecipes(withoutDuplicates) : populateAllRecipes();
+  };
+  form.reset();
+  selectedTags = [];
+};
+
 function checkFavSearchCondtitions(event) {
   event.preventDefault();
 
   if (searchBar.value) {
     populateRecipes(currentUser.searchFavorites(searchBar.value));
-
   } else if (selectedTags) {
     let taggedRecipes = [];
 
@@ -232,39 +255,16 @@ function checkFavSearchCondtitions(event) {
     let withoutDuplicates = [...new Set(flattened)];
 
     selectedTags.length ? populateRecipes(withoutDuplicates) : populateRecipes(currentUser.favoriteRecipes);
-  }
-};
-
-function checkSearchConditions(event) {
-  event.preventDefault();
-
-  if (searchBar.value) {
-    populateRecipes(allRecipes.searchRecipes(searchBar.value));
-
-  } else if (selectedTags) {
-    let taggedRecipes = [];
-
-    selectedTags.forEach(tag => {
-      taggedRecipes.push(allRecipes.filterByTag(tag));
-    });
-
-    let flattened = taggedRecipes.flat();
-    let withoutDuplicates = [...new Set(flattened)];
-
-    selectedTags.length ? populateRecipes(withoutDuplicates) : populateAllRecipes();
-
   } else if (!searchBar.value && !selectedTags.length) {
-    populateAllRecipes();
     show(errorMessage);
-
-  } else {
+    populateRecipes(currentUser.favoriteRecipes);
+  } else if (searchBar.value && selectedTags.length) {
     show(errorMessage2);
   };
 };
 
 function populateRecipes(recipes) {
   gridContainer.innerHTML = '';
-
   recipes.forEach(recipe => {
     gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
       <div class="card-head">
@@ -277,18 +277,11 @@ function populateRecipes(recipes) {
   });
 };
 
-function show(element) {
-  element.classList.remove('hidden');
-};
-
-function hide(element) {
-  element.classList.add('hidden');
-};
-
 function addRecipeToFavorite(event) {
-  let titleOfRecipe = event.target.closest('article').title;
   hide(addToFavoriteList);
   show(onFavoriteList);
+
+  let titleOfRecipe = event.target.closest('article').title;
 
   allRecipes.recipes.forEach(recipe => {
     if (recipe.name === titleOfRecipe) {
@@ -297,10 +290,11 @@ function addRecipeToFavorite(event) {
   });
 };
 
-function removeRecipeFromFavorite() {
-  let titleOfRecipe = event.target.closest('article').title;
+function removeRecipeFromFavorite(event) {
   hide(onFavoriteList);
   show(addToFavoriteList);
+
+  let titleOfRecipe = event.target.closest('article').title;
 
   allRecipes.recipes.forEach(recipe => {
     if (recipe.name === titleOfRecipe) {
@@ -336,6 +330,7 @@ function removeRecipeFromCookingList() {
 function filterByFavorites() {
   hide(submitBtn);
   show(submitFavoriteBtn);
+  hideIndividualRecipe();
 
   gridContainer.innerHTML = '';
 
@@ -352,6 +347,10 @@ function filterByFavorites() {
 };
 
 function filterByCookingList() {
+  hide(submitFavoriteBtn);
+  show(submitBtn);
+  hideIndividualRecipe();
+
   gridContainer.innerHTML = '';
 
   currentUser.recipesToCook.forEach(recipe => {
@@ -365,3 +364,14 @@ function filterByCookingList() {
     </section>`;
   });
 };
+
+function show(element) {
+  element.classList.remove('hidden');
+};
+
+function hide(element) {
+  element.classList.add('hidden');
+};
+
+export {ingredientsData};
+export {recipeData};
