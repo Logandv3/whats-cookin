@@ -1,22 +1,56 @@
-# What's Cookin'? Starter Kit 
+# What's Cookin'? (Group Project)
 
-The details of this project are outlined in the <a href="https://frontend.turing.edu/projects/What%27sCookin-PartOne.html" target="\__blank">project spec</a>.
+## Project Repo
+https://github.com/Logandv3/whats-cookin
 
-## Set Up 
+## Deployable link
+https://logandv3.github.io/whats-cookin/
 
-1. Within your group, decide on one person to have the project repository on their Github account. This person will *fork* this repository - on the top right corner of the page, click the fork button. 
-2. All group members should then clone down the forked repository (make sure that everyone is added as a collaborator as well). Since you don't want your project to be named "whats-cookin-starter-kit", add an optional argument after the repo url when cloning. The command should look like this: `git clone [remote-address] [what you want to name the repo]`.
-3. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` or `npm i` to install project dependencies.
-4. Run `npm start` and visit `localhost:8080`
-5. Make sure both members of your team are collaborators on the forked repo.
+## Technology
+Javascript, HTML, CSS, API Fetch, Mocha, Chai, eslint, Webpack, Chrome Dev Tools, Github
 
-## Testing 
+## Setup
+- Fork this web app to your own Github account
+- Clone the repository to your local machine
+- `cd` into the file
+- run `npm install`.
+- Run `npm start` and visit `localhost:8080`
 
-Mocha and chai are already set up, with a boilerplate test for you. 
 
-## Linting Your Code 
+## Project Overview
+In this project, we create a recipe tracking / meal planning application that allows users to view their favorite recipes and plan shopping trips around them.  Users should view a list of recipes, favorite their own recipes, and choose recipes to cook.
 
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit, but that's ok - the linter is still running successfully.
+## Learning Goals
+* Implement ES6 classes that communicate to each other as needed
+* Use object and array prototype methods to perform data manipulation
+* Create a user interface that is easy to use and clearly displays information.
+* Write modular, reusable code that follows SRP (Single Responsibility Principle)
+* Implement a robust testing suite using TDD
+* Make network requests to retrieve data
 
-Your linter will look only at the JavaScript files you have within the src and the test directories.
 
+## How to Use
+
+- A user will be displayed on page load.  All recipes will be displayed.  The user can search through the recipes in the search bar by name/ ingredient or select a tag, then submit.
+<img width="1438" alt="Screen Shot 2021-08-03 at 8 04 08 PM" src="https://user-images.githubusercontent.com/39206140/128110933-a1933cd4-1c5b-4820-8e49-e1e86dd90589.png"> 
+
+- When a recipe is selected on the main page that same recipe will become larger and reveal information about the recipe including instructions.  On each individual recipe card the user will see options to add/ remove recipes from their favorites(star) list or list of recipes they want to cook(checkbox).
+<img width="1438" alt="Screen Shot 2021-08-03 at 8 04 08 PM" src="https://user-images.githubusercontent.com/39206140/128110933-a1933cd4-1c5b-4820-8e49-e1e86dd90589.png"> 
+
+- The user can see the recipes they have added to their favorites or cooking list by clicking the `Favorite Recipes` and `What to Cook` buttons.  To return to the main page where all recipes are displayed they can click the `All Recipes` button.  The user can filter their favorite recipes by name/ ingredient or tags when looking at their favorite recipe list.
+<img width="1438" alt="Screen Shot 2021-08-03 at 8 04 08 PM" src="https://user-images.githubusercontent.com/39206140/128110933-a1933cd4-1c5b-4820-8e49-e1e86dd90589.png"> 
+
+## Challenges
+
+
+## Reflections
+
+## Future Plans
+
+
+
+
+## Contributors
+- Elise Beall
+- Eric Sergeant
+- Logan Vincent
