@@ -48,7 +48,7 @@ In this project, we create a recipe tracking / meal planning application that al
 - The user can see the recipes they have added to their favorites or cooking list by clicking the `Favorite Recipes` and `What to Cook` buttons.  To return to the main page where all recipes are displayed they can click the `All Recipes` button.  The user can filter their favorite recipes by name/ ingredient or tags when looking at their favorite recipe list.
 <img width="1438" alt="Screen Shot 2021-08-03 at 8 04 08 PM" src="https://user-images.githubusercontent.com/39206140/128110933-a1933cd4-1c5b-4820-8e49-e1e86dd90589.png"> 
 
-![Screen Recording of the What's Cookin' app demonstrating search, tags, and favoriting functionality](https://user-images.githubusercontent.com/724355/132460632-e5ad9bd1-a61c-425d-b899-6e977817318e.mov)
+https://user-images.githubusercontent.com/724355/132460632-e5ad9bd1-a61c-425d-b899-6e977817318e.mov
 
 ## Challenges
 This project introduced us to Fetch API and webpack which took a bit to get used to and figure out.  We tested our classes and set up our code by working with data files, then hooked them up to the API at the end.  We also found that the data we needed to access for one task was often spread out across multiple files so we had to figure out how to either search both or pull it into one place to access later.  We favored pulling it to one place to reference.  Some of the data was also broken and caused some errors we had to get around.
