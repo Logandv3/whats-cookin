@@ -1,5 +1,4 @@
-// import recipeData from '../data/recipes.js';
-import ingredientsData from '../data/ingredients.js';
+import {ingredientsData} from '../scripts.js';
 
 class Recipe {
   constructor(recipeData) {
@@ -24,11 +23,11 @@ class Recipe {
             unit: ingredient.quantity.unit,
             estimatedCostInCents: ingred.estimatedCostInCents
           });
-        }
-      })
-    })
+        };
+      });
+    });
     return this.ingredientInfo;
-  }
+  };
 
   getIngredientNames() {
     let ingredientsNamesForRecipe = [];
@@ -37,9 +36,8 @@ class Recipe {
       let ingrID = ingredientsData.find(ing => ing.id === ingredient.id);
       ingredientsNamesForRecipe.push(ingrID.name);
     });
-
     return ingredientsNamesForRecipe;
-  }
+  };
 
   getIngredientCosts() {
     let total = this.ingredientInfo.reduce((acc, currentIng) => {
@@ -48,7 +46,7 @@ class Recipe {
       return acc;
     }, 0);
     return total;
-  }
+  };
 
   getRecipeInstructions() {
     let instructionDetail = [];
@@ -58,7 +56,7 @@ class Recipe {
       instructionDetail.push(`<li>${detail}<br>`);
     });
     return instructionDetail.join(' ');
-  }
-}
+  };
+};
 
 export default Recipe;

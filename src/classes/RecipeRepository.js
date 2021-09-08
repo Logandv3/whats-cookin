@@ -1,6 +1,3 @@
-// import recipeData from '../data/recipes.js';
-// import ingredientsData from '../data/ingredients.js';
-
 class RecipeRepository {
   constructor(recipeData, ingredientsData) {
     this.recipes = recipeData;

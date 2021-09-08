@@ -17,40 +17,37 @@
     </nav>
     <main>
       <section class="search-box">
-        <form class="search-options">
-          <input type="text" name="search" placeholder="Enter Name or Indgredient" id="searchBar">
-          <label for="checkbox">or Select Tag</label>
-          <section class="checkbox" id="tagCheckbox">
-            <input type="checkbox" class="tag-checkbox" name="checkbox">
+        <form class="search-options" id="form">
+          <input class="text-input-box" type="text" size="50" name="search" placeholder="Enter Name or Indgredient" id="searchBar">
+          <label class="input-label" for="checkbox">or Select Tag(s) </label>
+          <section class="checkbox" id="tagCheckbox" overflow="auto">
           </section>
-          <input class="submit-button" type="submit" name="submit" value="Search All Recipes" id="submitBtn">
-          <input class="submit-button hidden" type="submit" name="submit" value="Search Favorite Recipes" id="submitFavoriteBtn">
+          <button class="submit-button" type="submit" name="submit" value="Search All Recipes" id="submitBtn">Search All Recipes</button>
+          <button class="submit-button hidden" type="submit" name="submit" value="Search Favorite Recipes" id="submitFavoriteBtn">Search Favorite Recipes</button>
+          <p class="error-messages hidden" id="errorMessage">Choose an option</p>
+          <p class="error-messages hidden" id="errorMessage2">Must enter text to search or tags</p>
+          <p class="error-messages hidden" id="errorMessage3">No search results found</p>
         </form>
-        <p class="error-messages hidden" id="errorMessage">Choose an option</p>
-        <p class="error-messages hidden" id="errorMessage2">Must enter text to search or tags</p>
       </section>
       <article class="recipe-box" id="recipeBox">
         <div class="grid-container" id="gridContainer">
-
         </div>
       </article>
       <article class="individual-recipe hidden" id="individualRecipe">
         <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtn">Back to Main</button>
-        <p id="recipeTitle">Elvis Pancakes</p>
+        <p id="recipeTitle"></p>
         <img id="indRecipeImage" src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
         <h3 class="list-btns" id="addToFavoriteList">☆ Add to Favorite List</h3>
         <h3 class="list-btns hidden" id="onFavoriteList">★ On Favorite List</h3>
         <h3 class="list-btns" id="addToCookingList">☐ Add to Cooking List</h3>
         <h3 class="list-btns hidden" id="onCookingList">☑︎ On Cooking List</h3>
         <p>Ingredients</p>
-        <ul id="ingredientListItems">
-          <li>Buckwheat Flour</li>
+        <ul class="ingredients-list" id="ingredientListItems">
         </ul>
         <p>Instructions</p>
-        <ol id="instructionListItems">
-          <li>Eat the cakes</li>
+        <ol class="instructions-list" id="instructionListItems">
         </ol>
-        <p id="recipeCost">Cost: </p>
+        <p id="recipeCost">COST: </p>
       </article>
     </main>
   </body>
