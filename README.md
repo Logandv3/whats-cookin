@@ -50,7 +50,6 @@ In this project, we create a recipe tracking / meal planning application that al
 
 ![Screen Recording of the What's Cookin' app demonstrating search, tags, and favoriting functionality](https://user-images.githubusercontent.com/724355/132460632-e5ad9bd1-a61c-425d-b899-6e977817318e.mov)
 
-
 ## Challenges
 This project introduced us to Fetch API and webpack which took a bit to get used to and figure out.  We tested our classes and set up our code by working with data files, then hooked them up to the API at the end.  We also found that the data we needed to access for one task was often spread out across multiple files so we had to figure out how to either search both or pull it into one place to access later.  We favored pulling it to one place to reference.  Some of the data was also broken and caused some errors we had to get around.
 
