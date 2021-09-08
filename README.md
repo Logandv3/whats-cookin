@@ -6,7 +6,7 @@ https://github.com/Logandv3/whats-cookin
 ## Deployable link
 https://logandv3.github.io/whats-cookin/
 
-## Technology
+## Technologies Used
 Javascript, HTML, CSS, API Fetch, Mocha, Chai, eslint, Webpack, Chrome Dev Tools, Github
 
 ## Setup
@@ -44,6 +44,7 @@ In this project, we create a recipe tracking / meal planning application that al
 
 
 ## Reflections
+
 
 ## Future Plans
 
