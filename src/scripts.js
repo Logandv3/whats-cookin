@@ -4,6 +4,7 @@ import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
 import User from './classes/User';
 import {ingredientPromise, recipePromise, userPromise} from './apiCalls';
+import domUpdates from './domUpdates';
 
 let allRecipes = [];
 let selectedTags = [];
@@ -75,19 +76,21 @@ function initData(data) {
   usersData = data[2].usersData;
 
   instantiateRandomUser();
+  
   populateRepository(instantiateRecipe(), instantiateIngredient());
+  
 };
 
 function instantiateRandomUser() {
   let randomUser = usersData[Math.round(Math.random() * usersData.length)];
   currentUser = new User(randomUser.name, randomUser.id, randomUser.pantry);
 
-  displayUserName(currentUser);
+  domUpdates.displayUserName(currentUser);
 };
 
-function displayUserName(currentUser) {
-  userName.innerText = `Welcome ${currentUser.name}, what's cookin!?`
-};
+// function displayUserName(currentUser) {
+//   userName.innerText = `Welcome ${currentUser.name}, what's cookin!?`
+// };
 
 function instantiateRecipe() {
   let recipes = [];
