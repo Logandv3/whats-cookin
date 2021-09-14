@@ -125,6 +125,7 @@ function populateTags() {
 function populateAllRecipes() {
   show(submitBtn);
   hide(submitFavoriteBtn);
+  hideIndividualRecipe();
 
   gridContainer.innerHTML = '';
 
@@ -179,7 +180,6 @@ function showIndividualRecipe(event) {
 };
 
 function hideIndividualRecipe() {
-  event.preventDefault();
   hide(onFavoriteList);
   show(addToFavoriteList);
   hide(onCookingList);
