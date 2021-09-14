@@ -74,11 +74,11 @@ function initData(data) {
   recipeData = data[1].recipeData;
   ingredientsData = data[0].ingredientsData;
   usersData = data[2].usersData;
+  const recipeInstances = instantiateRecipe();
+  const ingredientInstances = instantiateIngredient();
 
   instantiateRandomUser();
-  
-  populateRepository(instantiateRecipe(), instantiateIngredient());
-  
+  populateRepository(recipeInstances, ingredientInstances);
 };
 
 function instantiateRandomUser() {
@@ -87,10 +87,6 @@ function instantiateRandomUser() {
 
   domUpdates.displayUserName(currentUser);
 };
-
-// function displayUserName(currentUser) {
-//   userName.innerText = `Welcome ${currentUser.name}, what's cookin!?`
-// };
 
 function instantiateRecipe() {
   let recipes = [];
