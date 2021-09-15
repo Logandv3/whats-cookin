@@ -68,3 +68,4 @@ We plan to have persisting data that allows multiple users(possibly a login) to 
 - [Elise Beall](https://github.com/elisebeall)
 - [Eric Sergeant](https://github.com/EricSergeant)
 - [Logan Vincent](https://github.com/Logandv3)
+- [Phil Than](https://github.com/pthan1)
