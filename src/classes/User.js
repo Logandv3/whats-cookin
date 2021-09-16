@@ -1,10 +1,11 @@
 class User {
-  constructor(name, id, pantry) {
+  constructor(name, id, pantry, ingredientsData) {
     this.name = name;
     this.id = id;
     this.pantry = pantry;
     this.favoriteRecipes = [];
     this.recipesToCook = [];
+    this.ingredientsData = ingredientsData;
   };
 
   addToFavoriteRecipes(recipeAdd) {
@@ -62,7 +63,7 @@ class User {
   filterFavoriteRecipeByIngred(searchInput) {
     let matchIngred = [];
 
-    let matchedName = ingredientsData.filter(ingred => {
+    let matchedName = this.ingredientsData.filter(ingred => {
       if (!ingred.name) {
         ingred.name = 'Not Found';
       };
