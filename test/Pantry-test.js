@@ -2,6 +2,8 @@ import { expect } from 'chai';
 import Recipe from '../src/classes/Recipe';
 import User from '../src/classes/User';
 import Pantry from '../src/classes/Pantry';
+import {ingredientsData} from '../src/data/ingredients.js';
+import {usersData} from '../src/data/users.js';
 
 describe('Pantry', () => {
   let user, recipeA, recipeB, pantry;
@@ -12,7 +14,7 @@ describe('Pantry', () => {
       { "ingredient": 1082047, "amount": 8 },
       { "ingredient": 1034053, "amount": 6 },
       { "ingredient": 2050, "amount": 10 }
-    ])
+    ]);
     recipeA = new Recipe(
       {
         "id": 595736,
@@ -131,125 +133,148 @@ describe('Pantry', () => {
           "antipasto",
           "hor d'oeuvre"
         ]
-      }
-    );
-    recipeB = new Recipe(
-      {
-        "id": 678353,
-        "image": "https://spoonacular.com/recipeImages/678353-556x370.jpg",
-        "ingredients": [
-          {
-            "id": 1009016,
-            "quantity": {
-              "amount": 1.5,
-              "unit": "cups"
-            }
-          },
-          {
-            "id": 9003,
-            "quantity": {
-              "amount": 2,
-              "unit": ""
-            }
-          },
-          {
-            "id": 20027,
-            "quantity": {
-              "amount": 1,
-              "unit": "tablespoon"
-            }
-          },
-          {
-            "id": 1002046,
-            "quantity": {
-              "amount": 1,
-              "unit": "tablespoon"
-            }
-          },
-          {
-            "id": 11215,
-            "quantity": {
-              "amount": 1,
-              "unit": "clove"
-            }
-          },
-          {
-            "id": 1012046,
-            "quantity": {
-              "amount": 1,
-              "unit": "tablespoon"
-            }
-          },
-          {
-            "id": 19911,
-            "quantity": {
-              "amount": 0.25,
-              "unit": "cup"
-            }
-          },
-          {
-            "id": 16112,
-            "quantity": {
-              "amount": 1,
-              "unit": "tablespoon"
-            }
-          },
-          {
-            "id": 10010062,
-            "quantity": {
-              "amount": 24,
-              "unit": "ounce"
-            }
-          },
-          {
-            "id": 1102047,
-            "quantity": {
-              "amount": 4,
-              "unit": "servings"
-            }
-          },
-          {
-            "id": 16124,
-            "quantity": {
-              "amount": 1,
-              "unit": "tablespoon"
-            }
-          },
-          {
-            "id": 1016168,
-            "quantity": {
-              "amount": 1,
-              "unit": "tablespoon"
-            }
-          }
-        ],
-        "instructions": [
-          {
-            "instruction": "Season the pork chops with salt and pepper and grill or pan fry over medium high heat until cooked, about 3-5 minutes per side. (If grilling, baste the chops in the maple dijon apple cider sauce as you grill.)Meanwhile, mix the remaining ingredients except the apple slices, bring to a simmer and cook until the sauce thickens, about 2-5 minutes.Grill or saute the apple slices until just tender but still crisp.Toss the pork chops and apple slices in the maple dijon apple cider sauce and enjoy!",
-            "number": 1
-          }
-        ],
-        "name": "Maple Dijon Apple Cider Grilled Pork Chops",
-        "tags": [
-          "lunch",
-          "main course",
-          "main dish",
-          "dinner"
-        ]
-      }
-    );
-    pantry = new Pantry();
+      }, [{
+            "id": 20081,
+            "name": "wheat flour",
+            "estimatedCostInCents": 142
+          },{
+            "id": 18372,
+            "name": "bicarbonate of soda",
+            "estimatedCostInCents": 582
+          },{
+            "id": 1123,
+            "name": "eggs",
+            "estimatedCostInCents": 472
+          }]);
+    // recipeB = new Recipe(
+    //   {
+    //     "id": 678353,
+    //     "image": "https://spoonacular.com/recipeImages/678353-556x370.jpg",
+    //     "ingredients": [
+    //       {
+    //         "id": 1009016,
+    //         "quantity": {
+    //           "amount": 1.5,
+    //           "unit": "cups"
+    //         }
+    //       },
+    //       {
+    //         "id": 9003,
+    //         "quantity": {
+    //           "amount": 2,
+    //           "unit": ""
+    //         }
+    //       },
+    //       {
+    //         "id": 20027,
+    //         "quantity": {
+    //           "amount": 1,
+    //           "unit": "tablespoon"
+    //         }
+    //       },
+    //       {
+    //         "id": 1002046,
+    //         "quantity": {
+    //           "amount": 1,
+    //           "unit": "tablespoon"
+    //         }
+    //       },
+    //       {
+    //         "id": 11215,
+    //         "quantity": {
+    //           "amount": 1,
+    //           "unit": "clove"
+    //         }
+    //       },
+    //       {
+    //         "id": 1012046,
+    //         "quantity": {
+    //           "amount": 1,
+    //           "unit": "tablespoon"
+    //         }
+    //       },
+    //       {
+    //         "id": 19911,
+    //         "quantity": {
+    //           "amount": 0.25,
+    //           "unit": "cup"
+    //         }
+    //       },
+    //       {
+    //         "id": 16112,
+    //         "quantity": {
+    //           "amount": 1,
+    //           "unit": "tablespoon"
+    //         }
+    //       },
+    //       {
+    //         "id": 10010062,
+    //         "quantity": {
+    //           "amount": 24,
+    //           "unit": "ounce"
+    //         }
+    //       },
+    //       {
+    //         "id": 1102047,
+    //         "quantity": {
+    //           "amount": 4,
+    //           "unit": "servings"
+    //         }
+    //       },
+    //       {
+    //         "id": 16124,
+    //         "quantity": {
+    //           "amount": 1,
+    //           "unit": "tablespoon"
+    //         }
+    //       },
+    //       {
+    //         "id": 1016168,
+    //         "quantity": {
+    //           "amount": 1,
+    //           "unit": "tablespoon"
+    //         }
+    //       }
+    //     ],
+    //     "instructions": [
+    //       {
+    //         "instruction": "Season the pork chops with salt and pepper and grill or pan fry over medium high heat until cooked, about 3-5 minutes per side. (If grilling, baste the chops in the maple dijon apple cider sauce as you grill.)Meanwhile, mix the remaining ingredients except the apple slices, bring to a simmer and cook until the sauce thickens, about 2-5 minutes.Grill or saute the apple slices until just tender but still crisp.Toss the pork chops and apple slices in the maple dijon apple cider sauce and enjoy!",
+    //         "number": 1
+    //       }
+    //     ],
+    //     "name": "Maple Dijon Apple Cider Grilled Pork Chops",
+    //     "tags": [
+    //       "lunch",
+    //       "main course",
+    //       "main dish",
+    //       "dinner"
+    //     ]
+    //   }, ingredientsData
+    // );
+    pantry = new Pantry(user);
   });
 
-  it.only('Should be a function', () => {
+  it('Should be a function', () => {
     expect(Pantry).to.be.a('function');
   });
 
-  it('Should be able to view ingredients inside pantry', () => {});
+  it('Should be able to view ingredients inside pantry', () => {
+    expect(pantry.pantry).to.deep.equal([
+      { "ingredient": 6150, "amount": 3 },
+      { "ingredient": 1032009, "amount": 7 },
+      { "ingredient": 1082047, "amount": 8 },
+      { "ingredient": 1034053, "amount": 6 },
+      { "ingredient": 2050, "amount": 10 }
+    ]);
+  });
 
-  it('Should be able to check pantry for ingredient amounts', () => {});
+  it.only('Should be able to check pantry for ingredient amounts', () => {
+    expect(pantry.pantry[0].amount).to.equal(3);
+  });
 
-  it('Should be able to compare ingredients on hand to what\'s necessary for recipe', () => {});
+  it('Should be able to compare ingredients on hand to what\'s necessary for recipe', () => {
+    
+  });
 
   it('Should be told how much of an ingredient is still needed', () => {});
 

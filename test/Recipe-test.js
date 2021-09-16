@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import Recipe from '../src/classes/Recipe';
 import Ingredient from '../src/classes/Ingredient';
+import {ingredientsData} from '../src/data/ingredients.js';
+import {usersData} from '../src/data/users.js';
 
 describe('Recipe', () => {
   let recipeData;
@@ -15,7 +17,7 @@ describe('Recipe', () => {
           "quantity": {
             "amount": 1.5,
             "unit": "c"
-          } 
+          }
         },
         {
           "id": 18372,
@@ -129,32 +131,41 @@ describe('Recipe', () => {
         "hor d'oeuvre"
       ]
     };
-    recipe = new Recipe(recipeData);
+    recipe = new Recipe(recipeData, ingredientsData);
   });
+
   it('Should be a function', () => {
     expect(Recipe).to.be.a('function');
   });
+
   it('Should be an instance of Recipe', () => {
     expect(recipe).to.be.an.instanceof(Recipe);
   });
+
   it('Should have an id', () => {
     expect(recipe.id).to.equal(recipeData.id);
   });
+
   it('Should have an image', () => {
     expect(recipe.image).to.equal(recipeData.image);
   });
+
   it('Should have an array of ingredients', () => {
     expect(recipe.ingredients).to.deep.equal(recipeData.ingredients);
   });
+
   it('Should have an array of instructions', () => {
     expect(recipe.instructions).to.deep.equal(recipeData.instructions);
   });
+
   it('Should have a name', () => {
     expect(recipe.name).to.equal(recipeData.name);
   });
+
   it('Should have an array of tags', () => {
     expect(recipe.tags).to.deep.equal(recipeData.tags);
   });
+
   it('Should return an array of ingredient names', () => {
     expect(recipe.getIngredientNames()).to.deep.equal([
       'wheat flour',
@@ -174,6 +185,7 @@ describe('Recipe', () => {
   it('Should be able to calculate ingredient cost', () => {
     expect(recipe.getIngredientCosts()).to.equal(177.77)
   });
+
   it('Should be able to construct ingredient info', () => {
     recipe.getIngredientInfo();
     expect(recipe.ingredientInfo[1]).to.deep.equal({
@@ -183,6 +195,7 @@ describe('Recipe', () => {
       estimatedCostInCents: 582
     })
   });
+
   it('Should be able to return instructions', () => {
     expect(recipe.getRecipeInstructions()).to.deep.equal(
       [

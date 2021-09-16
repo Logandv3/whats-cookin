@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import RecipeRepository from '../src/classes/RecipeRepository';
 
 describe('Recipe Repository', () => {
-  let recipeRepo; //'the cookbook'
+  let recipeRepo;
   let recipeData;
   let ingredientsData;
   beforeEach(() => {
