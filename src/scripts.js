@@ -40,9 +40,11 @@ const recipeCost = document.getElementById('recipeCost');
 
 window.addEventListener('load', getData);
 allRecipesBtn.addEventListener('click', function () {
-  domUpdates.populateAllRecipes(allRecipes) });
-favoriteRecipes.addEventListener('click', filterByFavorites);
-whatToCook.addEventListener('click', filterByCookingList);
+  domUpdates.populateAllRecipes(allRecipes)});
+favoriteRecipes.addEventListener('click', function () {
+  domUpdates.filterByFavorites(currentUser)});
+whatToCook.addEventListener('click', function() {
+  domUpdates.filterByCookingList(currentUser)});
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
 submitFavoriteBtn.addEventListener('click', checkFavSearchCondtitions);
@@ -84,7 +86,7 @@ function initData(data) {
 
 function instantiateRandomUser() {
   let randomUser = usersData[Math.round(Math.random() * usersData.length)];
-  currentUser = new User(randomUser.name, randomUser.id, randomUser.pantry);
+  currentUser = new User(randomUser.name, randomUser.id, randomUser.pantry, ingredientsData);
 
   domUpdates.displayUserName(currentUser);
 };
@@ -93,7 +95,7 @@ function instantiateRecipe() {
   let recipes = [];
 
   recipeData.forEach(recipe => {
-    let newRecipe = new Recipe(recipe);
+    let newRecipe = new Recipe(recipe, ingredientsData);
     recipes.push(newRecipe);
   });
   return recipes;
@@ -339,43 +341,43 @@ function removeRecipeFromCookingList() {
   });
 };
 
-function filterByFavorites() {
-  domUpdates.hide(submitBtn);
-  domUpdates.show(submitFavoriteBtn);
-  domUpdates.hideIndividualRecipe();
+// function filterByFavorites() {
+//   domUpdates.hide(submitBtn);
+//   domUpdates.show(submitFavoriteBtn);
+//   domUpdates.hideIndividualRecipe();
+//
+//   gridContainer.innerHTML = '';
+//
+//   currentUser.favoriteRecipes.forEach(recipe => {
+//     gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
+//       <div class="card-head">
+//         <p>${recipe.name}</p>
+//       </div>
+//       <div class="card-body">
+//         <img src="${recipe.image}" alt="${recipe.name}">
+//       </div>
+//     </section>`;
+//   });
+// };
 
-  gridContainer.innerHTML = '';
-
-  currentUser.favoriteRecipes.forEach(recipe => {
-    gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
-      <div class="card-head">
-        <p>${recipe.name}</p>
-      </div>
-      <div class="card-body">
-        <img src="${recipe.image}" alt="${recipe.name}">
-      </div>
-    </section>`;
-  });
-};
-
-function filterByCookingList() {
-  domUpdates.hide(submitFavoriteBtn);
-  domUpdates.show(submitBtn);
-  domUpdates.hideIndividualRecipe();
-
-  gridContainer.innerHTML = '';
-
-  currentUser.recipesToCook.forEach(recipe => {
-    gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
-      <div class="card-head">
-        <p>${recipe.name}</p>
-      </div>
-      <div class="card-body">
-        <img src="${recipe.image}" alt="${recipe.name}">
-      </div>
-    </section>`;
-  });
-};
+// function filterByCookingList() {
+//   domUpdates.hide(submitFavoriteBtn);
+//   domUpdates.show(submitBtn);
+//   domUpdates.hideIndividualRecipe();
+//
+//   gridContainer.innerHTML = '';
+//
+//   currentUser.recipesToCook.forEach(recipe => {
+//     gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
+//       <div class="card-head">
+//         <p>${recipe.name}</p>
+//       </div>
+//       <div class="card-body">
+//         <img src="${recipe.image}" alt="${recipe.name}">
+//       </div>
+//     </section>`;
+//   });
+// };
 
 // function show(element) {
 //   element.classList.remove('hidden');
@@ -385,5 +387,5 @@ function filterByCookingList() {
 //   element.classList.add('hidden');
 // };
 
-export {ingredientsData};
-export {recipeData};
+// export {ingredientsData};
+// export {recipeData};

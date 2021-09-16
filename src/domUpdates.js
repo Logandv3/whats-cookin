@@ -67,6 +67,44 @@ let domUpdates = {
     });
 },
 
+  filterByFavorites(currentUser) {
+    domUpdates.hide(submitBtn);
+    domUpdates.show(submitFavoriteBtn);
+    domUpdates.hideIndividualRecipe();
+
+    gridContainer.innerHTML = '';
+
+    currentUser.favoriteRecipes.forEach(recipe => {
+      gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
+        <div class="card-head">
+          <p>${recipe.name}</p>
+        </div>
+        <div class="card-body">
+          <img src="${recipe.image}" alt="${recipe.name}">
+        </div>
+      </section>`;
+    });
+},
+
+  filterByCookingList(currentUser) {
+    domUpdates.hide(submitFavoriteBtn);
+    domUpdates.show(submitBtn);
+    domUpdates.hideIndividualRecipe();
+
+    gridContainer.innerHTML = '';
+
+    currentUser.recipesToCook.forEach(recipe => {
+      gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
+        <div class="card-head">
+          <p>${recipe.name}</p>
+        </div>
+        <div class="card-body">
+          <img src="${recipe.image}" alt="${recipe.name}">
+        </div>
+      </section>`;
+    });
+},
+
   show(element) {
     element.classList.remove('hidden');
   },

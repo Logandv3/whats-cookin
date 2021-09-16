@@ -1,20 +1,19 @@
-import {ingredientsData} from '../scripts.js';
-
 class Recipe {
-  constructor(recipeData) {
+  constructor(recipeData, ingredientsData) {
     this.id = recipeData.id;
     this.image = recipeData.image;
     this.ingredients = recipeData.ingredients;
     this.instructions = recipeData.instructions;
     this.name = recipeData.name;
     this.tags = recipeData.tags;
+    this.ingredientsData = ingredientsData;
     this.ingredientInfo = [];
     this.moreIngredientInfo = this.getIngredientInfo();
   }
 
   getIngredientInfo() {
     this.ingredients.forEach(ingredient => {
-      ingredientsData.forEach(ingred => {
+      this.ingredientsData.forEach(ingred => {
         if (ingredient.id === ingred.id) {
           this.ingredientInfo.push({
             id: ingredient.id,
@@ -33,7 +32,7 @@ class Recipe {
     let ingredientsNamesForRecipe = [];
 
     this.ingredients.map((ingredient) => {
-      let ingrID = ingredientsData.find(ing => ing.id === ingredient.id);
+      let ingrID = this.ingredientsData.find(ing => ing.id === ingredient.id);
       ingredientsNamesForRecipe.push(ingrID.name);
     });
     return ingredientsNamesForRecipe;
