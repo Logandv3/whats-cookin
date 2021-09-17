@@ -56,6 +56,34 @@ class Recipe {
     });
     return instructionDetail.join(' ');
   };
+
+  checkPantryForIngredientAmounts(currentUser) {
+    let pantryDiff = [];
+
+    this.ingredientInfo.forEach(ingredient => {
+      currentUser.pantry.forEach(pantryItem => {
+        if (pantryItem.ingredient === ingredient.id) {
+          pantryDiff.push(
+            {
+              recipeAmount: ingredient.quantity,
+              pantryAmount: pantryItem.amount,
+              difference: parseFloat((pantryItem.amount - ingredient.quantity).toFixed(2))
+            });
+        };
+        if (!pantryItem.ingredient === ingredient.id) {
+          pantryDiff.push(
+            {
+              recipeAmount: ingredient.quantity,
+              pantryAmount: 0,
+              difference: parseFloat((0 - ingredient.quantity).toFixed(2))
+            });
+        };
+      });
+    });
+
+    return pantryDiff;
+  };
+
 };
 
 export default Recipe;

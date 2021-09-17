@@ -1,12 +1,18 @@
 import { expect } from 'chai';
 import Recipe from '../src/classes/Recipe';
 import Ingredient from '../src/classes/Ingredient';
+import User from '../src/classes/User';
+import Pantry from '../src/classes/Pantry';
 import {ingredientsData} from '../src/data/ingredients.js';
 import {usersData} from '../src/data/users.js';
 
 describe('Recipe', () => {
   let recipeData;
+  let ingredientsData;
   let recipe;
+  let user;
+  let newPantry;
+
   beforeEach(() => {
     recipeData = {
       "id": 595736,
@@ -131,7 +137,30 @@ describe('Recipe', () => {
         "hor d'oeuvre"
       ]
     };
+    ingredientsData = [{
+          "id": 20081,
+          "name": "wheat flour",
+          "estimatedCostInCents": 142}, {"id": 18372, "name": "bicarbonate of soda", "estimatedCostInCents": 582},{
+          "id": 1123,
+          "name": "eggs",
+          "estimatedCostInCents": 472
+        }];
     recipe = new Recipe(recipeData, ingredientsData);
+    user = new User("Ephraim Goyette", 2, [
+      { "ingredient": 20081, "amount": 3 },
+      { "ingredient": 18372, "amount": 0.4 },
+      { "ingredient": 1123, "amount": 8 },
+      { "ingredient": 19335, "amount": 6 },
+      { "ingredient": 19206, "amount": 10 }
+    ],
+    [{
+          "id": 20081,
+          "name": "wheat flour","estimatedCostInCents": 142}, {"id": 18372, "name": "bicarbonate of soda", "estimatedCostInCents": 582},{
+          "id": 1123,
+          "name": "eggs",
+          "estimatedCostInCents": 472
+        }]);
+      newPantry = new Pantry(user);
   });
 
   it('Should be a function', () => {
@@ -219,4 +248,12 @@ describe('Recipe', () => {
       ])
   });
 
+  it('Should be able to compare ingredients on hand in pantry to what\'s necessary for recipe', () => {
+    expect(recipe.checkPantryForIngredientAmounts(user)[0]).to.deep.equal({recipeAmount: 1.5, pantryAmount: 3, difference: 1.5});
+  });
+
+  it.only('Should be told how much of an ingredient is still needed for a recipe', () => {
+    expect(recipe.checkPantryForIngredientAmounts(user)[0].difference).to.equal(1.5);
+    expect(recipe.checkPantryForIngredientAmounts(user)[1].difference).to.equal(-0.1);
+  });
 });

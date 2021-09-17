@@ -268,15 +268,9 @@ describe('Pantry', () => {
     ]);
   });
 
-  it.only('Should be able to check pantry for ingredient amounts', () => {
+  it('Should be able to check pantry for ingredient amounts', () => {
     expect(pantry.pantry[0].amount).to.equal(3);
   });
-
-  it('Should be able to compare ingredients on hand to what\'s necessary for recipe', () => {
-    
-  });
-
-  it('Should be told how much of an ingredient is still needed', () => {});
 
   it('Should not allow the user to cook a recipe unless they have enough ingredients', () => {});
 
