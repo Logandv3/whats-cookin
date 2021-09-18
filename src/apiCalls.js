@@ -13,12 +13,24 @@ export const userPromise = () => {
     .then(response => response.json())
 };
 
-// const userPantry = () => {
-//   fetch('http://localhost:3001/api/v1/users')
-//     method: 'POST',
-//     body: JSON.stringify()
+export const userPantry = (pantryUpdate) => {
+  fetch('http://localhost:3001/api/v1/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(pantryUpdate)
+  })
+    .then(response => response.json())
+    .then(ingred => console.log(`success: ${ingred}`))
+    .catch(err => console.log(`We got a POST error ${err}`))
+}
 
-// }
+
+// { 
+//   userID: <number>, 
+//   ingredientID: <number>, 
+//   ingredientModification: <number> 
+//  }
+
 
 // fetch(url, {
 //   method: 'POST',
