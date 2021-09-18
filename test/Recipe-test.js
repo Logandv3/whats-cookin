@@ -252,7 +252,7 @@ describe('Recipe', () => {
     expect(recipe.checkPantryForIngredientAmounts(user)[0]).to.deep.equal({recipeAmount: 1.5, pantryAmount: 3, difference: 1.5});
   });
 
-  it.only('Should be told how much of an ingredient is still needed for a recipe', () => {
+  it('Should be told how much of an ingredient is still needed for a recipe', () => {
     expect(recipe.checkPantryForIngredientAmounts(user)[0].difference).to.equal(1.5);
     expect(recipe.checkPantryForIngredientAmounts(user)[1].difference).to.equal(-0.1);
   });

@@ -80,7 +80,7 @@ class Recipe {
         };
       });
     });
-
+    
     return pantryDiff;
   };
 
