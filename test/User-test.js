@@ -237,19 +237,24 @@ describe('User', () => {
         ]
       }
     );
-  })
+  });
+
   it('Should be a function', () => {
     expect(User).to.be.a('function');
   });
+
   it('Should be an instance of User', () => {
     expect(user).to.be.an.instanceof(User);
   });
+
   it('Should store the name of the user', () => {
     expect(user.name).to.equal("Ephraim Goyette");
   });
+
   it('Should store the ID of the user', () => {
     expect(user.id).to.equal(2);
   });
+
   it('Should be able to store pantry items', () => {
     expect(user.pantry).to.deep.equal([
       { "ingredient": 6150, "amount": 3 },
@@ -259,23 +264,27 @@ describe('User', () => {
       { "ingredient": 2050, "amount": 10 }
     ])
   });
+
   it('Should be able to add favorite recipes', () => {
     user.addToFavoriteRecipes(recipeA);
     expect(user.favoriteRecipes).to.deep.equal([recipeA]);
     user.addToFavoriteRecipes(recipeB);
     expect(user.favoriteRecipes).to.deep.equal([recipeA, recipeB]);
   });
+
   it('Should be able to remove favorite recipes', () => {
     user.addToFavoriteRecipes(recipeA);
     user.addToFavoriteRecipes(recipeB);
     user.removeFromFavoriteRecipes(recipeA);
     expect(user.favoriteRecipes).to.deep.equal([recipeB]);
   });
+
   it('Should be able to add recipe to weekly list', () => {
     expect(user.recipesToCook).to.deep.equal([]);
     user.addToRecipesToCook(recipeB);
     expect(user.recipesToCook).to.deep.equal([recipeB]);
   });
+
   it('Should be able to remove recipes from weekly list', () => {
     user.addToRecipesToCook(recipeB);
     expect(user.recipesToCook).to.deep.equal([recipeB]);
@@ -309,5 +318,4 @@ describe('User', () => {
     expect(user.filterFavoriteRecipeByIngred(["shrimp"])).
       to.equal('No recipes match criteria.');
   });
-
-})
+});

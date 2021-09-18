@@ -1,10 +1,18 @@
 import { expect } from 'chai';
 import Recipe from '../src/classes/Recipe';
 import Ingredient from '../src/classes/Ingredient';
+import User from '../src/classes/User';
+import Pantry from '../src/classes/Pantry';
+import {ingredientsData} from '../src/data/ingredients.js';
+import {usersData} from '../src/data/users.js';
 
 describe('Recipe', () => {
   let recipeData;
+  let ingredientsData;
   let recipe;
+  let user;
+  let newPantry;
+
   beforeEach(() => {
     recipeData = {
       "id": 595736,
@@ -15,7 +23,7 @@ describe('Recipe', () => {
           "quantity": {
             "amount": 1.5,
             "unit": "c"
-          } 
+          }
         },
         {
           "id": 18372,
@@ -129,32 +137,64 @@ describe('Recipe', () => {
         "hor d'oeuvre"
       ]
     };
-    recipe = new Recipe(recipeData);
+    ingredientsData = [{
+          "id": 20081,
+          "name": "wheat flour",
+          "estimatedCostInCents": 142}, {"id": 18372, "name": "bicarbonate of soda", "estimatedCostInCents": 582},{
+          "id": 1123,
+          "name": "eggs",
+          "estimatedCostInCents": 472
+        }];
+    recipe = new Recipe(recipeData, ingredientsData);
+    user = new User("Ephraim Goyette", 2, [
+      { "ingredient": 20081, "amount": 3 },
+      { "ingredient": 18372, "amount": 0.4 },
+      { "ingredient": 1123, "amount": 8 },
+      { "ingredient": 19335, "amount": 6 },
+      { "ingredient": 19206, "amount": 10 }
+    ],
+    [{
+          "id": 20081,
+          "name": "wheat flour","estimatedCostInCents": 142}, {"id": 18372, "name": "bicarbonate of soda", "estimatedCostInCents": 582},{
+          "id": 1123,
+          "name": "eggs",
+          "estimatedCostInCents": 472
+        }]);
+      newPantry = new Pantry(user);
   });
+
   it('Should be a function', () => {
     expect(Recipe).to.be.a('function');
   });
+
   it('Should be an instance of Recipe', () => {
     expect(recipe).to.be.an.instanceof(Recipe);
   });
+
   it('Should have an id', () => {
     expect(recipe.id).to.equal(recipeData.id);
   });
+
   it('Should have an image', () => {
     expect(recipe.image).to.equal(recipeData.image);
   });
+
   it('Should have an array of ingredients', () => {
     expect(recipe.ingredients).to.deep.equal(recipeData.ingredients);
   });
+
   it('Should have an array of instructions', () => {
     expect(recipe.instructions).to.deep.equal(recipeData.instructions);
   });
+
   it('Should have a name', () => {
     expect(recipe.name).to.equal(recipeData.name);
   });
+
   it('Should have an array of tags', () => {
     expect(recipe.tags).to.deep.equal(recipeData.tags);
   });
+
   it('Should return an array of ingredient names', () => {
     expect(recipe.getIngredientNames()).to.deep.equal([
       'wheat flour',
@@ -174,6 +214,7 @@ describe('Recipe', () => {
   it('Should be able to calculate ingredient cost', () => {
     expect(recipe.getIngredientCosts()).to.equal(177.77)
   });
+
   it('Should be able to construct ingredient info', () => {
     recipe.getIngredientInfo();
     expect(recipe.ingredientInfo[1]).to.deep.equal({
@@ -183,6 +224,7 @@ describe('Recipe', () => {
       estimatedCostInCents: 582
     })
   });
+
   it('Should be able to return instructions', () => {
     expect(recipe.getRecipeInstructions()).to.deep.equal(
       [
@@ -206,4 +248,12 @@ describe('Recipe', () => {
       ])
   });
 
+  it('Should be able to compare ingredients on hand in pantry to what\'s necessary for recipe', () => {
+    expect(recipe.checkPantryForIngredientAmounts(user)[0]).to.deep.equal({recipeAmount: 1.5, pantryAmount: 3, difference: 1.5});
+  });
+
+  it('Should be told how much of an ingredient is still needed for a recipe', () => {
+    expect(recipe.checkPantryForIngredientAmounts(user)[0].difference).to.equal(1.5);
+    expect(recipe.checkPantryForIngredientAmounts(user)[1].difference).to.equal(-0.1);
+  });
 });

@@ -87,7 +87,7 @@ function initData(data) {
 function instantiateRandomUser() {
   let randomUser = usersData[Math.round(Math.random() * usersData.length)];
   currentUser = new User(randomUser.name, randomUser.id, randomUser.pantry, ingredientsData);
-
+//instantiate pantry?
   domUpdates.displayUserName(currentUser);
 };
 
