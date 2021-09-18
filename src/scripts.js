@@ -3,7 +3,7 @@ import RecipeRepository from './classes/RecipeRepository';
 import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
 import User from './classes/User';
-import {ingredientPromise, recipePromise, userPromise} from './apiCalls';
+import { ingredientPromise, recipePromise, userPromise } from './apiCalls';
 import domUpdates from './domUpdates';
 
 let allRecipes = [];
@@ -40,11 +40,14 @@ const recipeCost = document.getElementById('recipeCost');
 
 window.addEventListener('load', getData);
 allRecipesBtn.addEventListener('click', function () {
-  domUpdates.populateAllRecipes(allRecipes)});
+  domUpdates.populateAllRecipes(allRecipes)
+});
 favoriteRecipes.addEventListener('click', function () {
-  domUpdates.filterByFavorites(currentUser)});
-whatToCook.addEventListener('click', function() {
-  domUpdates.filterByCookingList(currentUser)});
+  domUpdates.filterByFavorites(currentUser)
+});
+whatToCook.addEventListener('click', function () {
+  domUpdates.filterByCookingList(currentUser)
+});
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
 submitFavoriteBtn.addEventListener('click', checkFavSearchCondtitions);
@@ -74,9 +77,9 @@ function gatherData() {
 };
 
 function initData(data) {
-  recipeData = data[1].recipeData;
-  ingredientsData = data[0].ingredientsData;
-  usersData = data[2].usersData;
+  ingredientsData = data[0];
+  recipeData = data[1];
+  usersData = data[2];
   const recipeInstances = instantiateRecipe();
   const ingredientInstances = instantiateIngredient();
 
@@ -87,7 +90,7 @@ function initData(data) {
 function instantiateRandomUser() {
   let randomUser = usersData[Math.round(Math.random() * usersData.length)];
   currentUser = new User(randomUser.name, randomUser.id, randomUser.pantry, ingredientsData);
-//instantiate pantry?
+  //instantiate pantry?
   domUpdates.displayUserName(currentUser);
 };
 
