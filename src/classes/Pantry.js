@@ -1,3 +1,5 @@
+import { userPantry } from '../apiCalls'
+
 class Pantry {
   constructor(currentUser) {
     this.pantry = currentUser.pantry;
@@ -19,7 +21,13 @@ class Pantry {
     let thisPantry = recipe.ingredientInfo.filter(ingred => {
       this.pantry.forEach(ingredient => {
         if (ingredient.ingredient === ingred.id) {
-          ingredient.amount -= ingred.quantity;
+          // ingredient.amount -= ingred.quantity;
+          let pantryUpdate = {
+            userID: currentUser.id,
+            ingredientID: ingred.id,
+            ingredientModification: -Math.abs(ingred.quantity)
+          }
+          userPantry(pantryUpdate)
         };
       });
       return this.pantry;
@@ -40,11 +48,10 @@ class Pantry {
     }, []);
 
     if (!pantryIngredientIds.includes(ingredientId)) {
-      this.pantry.push({ingredient: ingredientId, amount: inputValue});
+      this.pantry.push({ ingredient: ingredientId, amount: inputValue });
     }
     return this.pantry;
   };
-
 };
 
 export default Pantry;

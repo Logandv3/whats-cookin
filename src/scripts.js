@@ -3,6 +3,7 @@ import RecipeRepository from './classes/RecipeRepository';
 import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
 import User from './classes/User';
+import Pantry from './classes/Pantry'
 import { ingredientPromise, recipePromise, userPromise, userPantry } from './apiCalls';
 import domUpdates from './domUpdates';
 
@@ -11,7 +12,7 @@ let allRecipes = [];
 let selectedTags = [];
 let currentUser, ingredientsData, recipeData, usersData;
 
-let pantryUpdate = { userID: 1, ingredientID: 20081, ingredientModification: 90 }
+// let pantryUpdate = { userID: 1, ingredientID: 20081, ingredientModification: 90 }
 
 const userName = document.getElementById('userName');
 const allRecipesBtn = document.getElementById('allRecipesBtn');
@@ -88,15 +89,23 @@ function initData(data) {
 
   instantiateRandomUser();
   populateRepository(recipeInstances, ingredientInstances);
-  userPantry(pantryUpdate);
+  instantiatePantry();
+  // userPantry(pantryUpdate);
 };
 
 function instantiateRandomUser() {
   let randomUser = usersData[Math.round(Math.random() * usersData.length)];
-  currentUser = new User(randomUser.name, randomUser.id, randomUser.pantry, ingredientsData);
+  currentUser = new User(randomUser.name,
+    randomUser.id,
+    randomUser.pantry,
+    ingredientsData);
   //instantiate pantry?
   domUpdates.displayUserName(currentUser);
 };
+
+function instantiatePantry() {
+  let pantry = new Pantry(currentUser);
+}
 
 function instantiateRecipe() {
   let recipes = [];
