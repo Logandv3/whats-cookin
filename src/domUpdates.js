@@ -50,6 +50,7 @@ let domUpdates = {
     domUpdates.hide(onCookingList);
     domUpdates.show(addToCookingList);
     domUpdates.hide(individualRecipe);
+    domUpdates.hide(pantryView);
     domUpdates.show(recipeBox);
 },
 
@@ -104,6 +105,22 @@ let domUpdates = {
       </section>`;
     });
 },
+
+  showPantry() {
+    domUpdates.hide(onFavoriteList);
+    domUpdates.show(addToFavoriteList);
+    domUpdates.hide(onCookingList);
+    domUpdates.show(addToCookingList);
+    domUpdates.hide(individualRecipe);
+    domUpdates.hide(recipeBox);
+    domUpdates.show(pantryView);
+  },
+
+  populatePantryItems(user) {
+    domUpdates.showPantry()
+  },
+
+  populateDropdownMenu() {  },
 
   show(element) {
     element.classList.remove('hidden');

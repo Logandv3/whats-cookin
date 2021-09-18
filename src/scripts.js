@@ -30,9 +30,11 @@ const errorMessage2 = document.getElementById('errorMessage2');
 const errorMessage3 = document.getElementById('errorMessage3');
 const recipeBox = document.getElementById('recipeBox');
 const gridContainer = document.getElementById('gridContainer');
+const pantryView = document.getElementById('pantryView');
 
 const individualRecipe = document.getElementById('individualRecipe');
 const backToMainBtn = document.getElementById('backToMainBtn');
+const backToMainBtnPantry = document.getElementById('backToMainBtnPantry');
 const addToFavoriteList = document.getElementById('addToFavoriteList');
 const onFavoriteList = document.getElementById('onFavoriteList');
 const addToCookingList = document.getElementById('addToCookingList');
@@ -42,6 +44,7 @@ const indRecipeImage = document.getElementById('indRecipeImage');
 const ingredientListItems = document.getElementById('ingredientListItems');
 const instructionListItems = document.getElementById('instructionListItems');
 const recipeCost = document.getElementById('recipeCost');
+
 
 window.addEventListener('load', getData);
 allRecipesBtn.addEventListener('click', function () {
@@ -60,6 +63,7 @@ tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
 submitFavoriteBtn.addEventListener('click', checkFavSearchCondtitions);
 backToMainBtn.addEventListener('click', domUpdates.hideIndividualRecipe);
+backToMainBtnPantry.addEventListener('click', domUpdates.hideIndividualRecipe);
 addToFavoriteList.addEventListener('click', addRecipeToFavorite);
 onFavoriteList.addEventListener('click', removeRecipeFromFavorite);
 addToCookingList.addEventListener('click', addRecipeToCookingList);
@@ -289,3 +293,9 @@ function removeRecipeFromCookingList() {
     };
   });
 };
+
+function hideView(event) {
+  if (event.target.parentNode.id === "pantryView") {
+    domUpdates.hidePantryView();
+  }
+}

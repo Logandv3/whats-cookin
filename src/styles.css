@@ -1,125 +1,130 @@
 * {
-  color: white;
+	color: white;
 }
 
-button, img, .grid-container, h3, input {
-  cursor: pointer;
+button,
+img,
+.grid-container,
+h3,
+input {
+	cursor: pointer;
 }
 
 body {
-  background: rgb(0,0,0);
-  background: radial-gradient(circle, rgba(0,0,0,1) 37%, rgba(0,0,0,0.7763480392156863) 100%);
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+	background: rgb(0, 0, 0);
+	background: radial-gradient(circle, rgba(0, 0, 0, 1) 37%, rgba(0, 0, 0, 0.7763480392156863) 100%);
+	display: flex;
+	flex-direction: column;
+	align-content: center;
 }
 
 header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 header > h1 {
-  font-size: 8em;
-  margin: 0px;
+	font-size: 8em;
+	margin: 0px;
 }
 
 nav {
-  width: 80%;
-  display: flex;
-  justify-content: space-evenly;
-  align-self: center;
+	width: 80%;
+	display: flex;
+	justify-content: space-evenly;
+	align-self: center;
 }
 
 button {
-  background: none;
-  height: auto;
-  width: 10%;
-  font-size: 1.2em;
+	background: none;
+	height: auto;
+	width: 10%;
+	font-size: 1.2em;
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .search-box {
-  width: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	width: 75%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .search-options {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
 .search-options > * {
-  padding: 2% 2% 2% 2%;
+	padding: 2% 2% 2% 2%;
 }
 
 .text-input-box {
-  width: 13%;
-  height: 1%;
-  background: none;
-  border: none;
+	width: 13%;
+	height: 1%;
+	background: none;
+	border: none;
 }
 
 .input-label {
-  width: 10%;
-  font-size: 1.3em;
+	width: 10%;
+	font-size: 1.3em;
 }
 
 .checkbox {
-  width: 90%;
-  display: grid;
-  grid-template-columns: repeat(5,1fr);
-  place-self: center;
+	width: 90%;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	place-self: center;
 }
 
 .tag-checkbox {
-  border: 2px solid black;
-  width: 10%;
+	border: 2px solid black;
+	width: 10%;
 }
 
 .submit-button {
-  width: 13%;
+	width: 13%;
 }
 
 .recipe-box {
-  display: flex;
-  justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  grid-gap: 1em;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 1em;
 }
 
 .card-head {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
-.individual-recipe {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+.individual-recipe,
+.pantry-item {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
 .individual-recipe > img {
-  height: 50%;
-  width: 50%;
+	height: 50%;
+	width: 50%;
 }
 
 .hidden {
-  display: none;
+	display: none;
 }
