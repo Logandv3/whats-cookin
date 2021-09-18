@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import Recipe from '../src/classes/Recipe';
 import User from '../src/classes/User';
 import Pantry from '../src/classes/Pantry';
-import {ingredientsData} from '../src/data/ingredients.js';
-import {usersData} from '../src/data/users.js';
+import { ingredientsData } from '../src/data/ingredients.js';
+import { usersData } from '../src/data/users.js';
 
-describe('Pantry', () => {
+describe.only('Pantry', () => {
   let recipeData, ingredientsData, user, recipe, pantry;
   beforeEach(() => {
     recipeData = {
@@ -148,30 +148,30 @@ describe('Pantry', () => {
     }];
     recipe = new Recipe(recipeData, ingredientsData);
     user = new User("Ephraim Goyette", 2,
-    [
-      { "ingredient": 20081, "amount": 5 },
-      { "ingredient": 18372, "amount": 0.4 },
-      { "ingredient": 1123, "amount": 8 },
-      { "ingredient": 19335, "amount": 6 },
-      { "ingredient": 19206, "amount": 10 }
-    ],
-    [
-      {
-        "id": 20081,
-        "name": "wheat flour",
-        "estimatedCostInCents": 142
-      },
-      {
-        "id": 18372,
-        "name": "bicarbonate of soda",
-        "estimatedCostInCents": 582
-      },
-      {
-        "id": 1123,
-        "name": "eggs",
-        "estimatedCostInCents": 472
-      }
-    ]);
+      [
+        { "ingredient": 20081, "amount": 5 },
+        { "ingredient": 18372, "amount": 0.4 },
+        { "ingredient": 1123, "amount": 8 },
+        { "ingredient": 19335, "amount": 6 },
+        { "ingredient": 19206, "amount": 10 }
+      ],
+      [
+        {
+          "id": 20081,
+          "name": "wheat flour",
+          "estimatedCostInCents": 142
+        },
+        {
+          "id": 18372,
+          "name": "bicarbonate of soda",
+          "estimatedCostInCents": 582
+        },
+        {
+          "id": 1123,
+          "name": "eggs",
+          "estimatedCostInCents": 472
+        }
+      ]);
     pantry = new Pantry(user);
   });
 
@@ -181,23 +181,23 @@ describe('Pantry', () => {
 
   it('Should be able to view ingredients inside pantry', () => {
     expect(pantry.pantry).to.deep.equal([
-      { "ingredient": 6150, "amount": 3 },
-      { "ingredient": 1032009, "amount": 7 },
-      { "ingredient": 1082047, "amount": 8 },
-      { "ingredient": 1034053, "amount": 6 },
-      { "ingredient": 2050, "amount": 10 }
+      { "ingredient": 20081, "amount": 5 },
+      { "ingredient": 18372, "amount": 0.4 },
+      { "ingredient": 1123, "amount": 8 },
+      { "ingredient": 19335, "amount": 6 },
+      { "ingredient": 19206, "amount": 10 }
     ]);
   });
 
   it('Should be able to check pantry for ingredient amounts', () => {
-    expect(pantry.pantry[0].amount).to.equal(3);
+    expect(pantry.pantry[0].amount).to.equal(5);
   });
 
   it('Should not allow the user to cook a recipe unless they have enough ingredients', () => {
     expect(pantry.checkCookability(recipe, user)).to.equal(false);
   });
 
-  it('Should remove ingredients from pantry', () => {
+  it.skip('Should remove ingredients from pantry', () => {
     pantry.removeFromPantry(recipe, user);
     expect(pantry.pantry).to.deep.equal([
       { ingredient: 20081, amount: 3.5 },
@@ -213,7 +213,7 @@ describe('Pantry', () => {
     expect(pantry.pantry[0].amount).to.equal(15);
   });
 
-  it.only('Should add an ingredient to the pantry', () => {
+  it('Should add an ingredient to the pantry', () => {
     pantry.addToPantry(3, 11215, user);
     expect(pantry.pantry[5].amount).to.equal(3);
   });

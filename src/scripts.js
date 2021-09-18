@@ -3,12 +3,16 @@ import RecipeRepository from './classes/RecipeRepository';
 import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
 import User from './classes/User';
-import {ingredientPromise, recipePromise, userPromise} from './apiCalls';
+import Pantry from './classes/Pantry'
+import { ingredientPromise, recipePromise, userPromise, userPantry } from './apiCalls';
 import domUpdates from './domUpdates';
+
 
 let allRecipes = [];
 let selectedTags = [];
 let currentUser, ingredientsData, recipeData, usersData;
+
+// let pantryUpdate = { userID: 1, ingredientID: 20081, ingredientModification: 90 }
 
 const userName = document.getElementById('userName');
 const allRecipesBtn = document.getElementById('allRecipesBtn');
@@ -40,11 +44,14 @@ const recipeCost = document.getElementById('recipeCost');
 
 window.addEventListener('load', getData);
 allRecipesBtn.addEventListener('click', function () {
-  domUpdates.populateAllRecipes(allRecipes)});
+  domUpdates.populateAllRecipes(allRecipes)
+});
 favoriteRecipes.addEventListener('click', function () {
-  domUpdates.filterByFavorites(currentUser)});
-whatToCook.addEventListener('click', function() {
-  domUpdates.filterByCookingList(currentUser)});
+  domUpdates.filterByFavorites(currentUser)
+});
+whatToCook.addEventListener('click', function () {
+  domUpdates.filterByCookingList(currentUser)
+});
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
 submitFavoriteBtn.addEventListener('click', checkFavSearchCondtitions);
@@ -74,22 +81,31 @@ function gatherData() {
 };
 
 function initData(data) {
-  recipeData = data[1].recipeData;
-  ingredientsData = data[0].ingredientsData;
-  usersData = data[2].usersData;
+  ingredientsData = data[0];
+  recipeData = data[1];
+  usersData = data[2];
   const recipeInstances = instantiateRecipe();
   const ingredientInstances = instantiateIngredient();
 
   instantiateRandomUser();
   populateRepository(recipeInstances, ingredientInstances);
+  instantiatePantry();
+  // userPantry(pantryUpdate);
 };
 
 function instantiateRandomUser() {
   let randomUser = usersData[Math.round(Math.random() * usersData.length)];
-  currentUser = new User(randomUser.name, randomUser.id, randomUser.pantry, ingredientsData);
-//instantiate pantry?
+  currentUser = new User(randomUser.name,
+    randomUser.id,
+    randomUser.pantry,
+    ingredientsData);
+  //instantiate pantry?
   domUpdates.displayUserName(currentUser);
 };
+
+function instantiatePantry() {
+  let pantry = new Pantry(currentUser);
+}
 
 function instantiateRecipe() {
   let recipes = [];
