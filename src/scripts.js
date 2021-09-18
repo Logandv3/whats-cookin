@@ -18,6 +18,7 @@ const userName = document.getElementById('userName');
 const allRecipesBtn = document.getElementById('allRecipesBtn');
 const favoriteRecipes = document.getElementById('favoriteRecipes');
 const whatToCook = document.getElementById('whatToCook');
+const pantryBtn = document.getElementById('pantry');
 
 const form = document.getElementById('form');
 const searchBar = document.getElementById('searchBar');
@@ -52,6 +53,9 @@ favoriteRecipes.addEventListener('click', function () {
 whatToCook.addEventListener('click', function () {
   domUpdates.filterByCookingList(currentUser)
 });
+pantryBtn.addEventListener('click', function() {
+  domUpdates.populatePantryItems(currentUser)
+});
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
 submitFavoriteBtn.addEventListener('click', checkFavSearchCondtitions);
@@ -61,6 +65,8 @@ onFavoriteList.addEventListener('click', removeRecipeFromFavorite);
 addToCookingList.addEventListener('click', addRecipeToCookingList);
 onCookingList.addEventListener('click', removeRecipeFromCookingList);
 recipeBox.addEventListener('click', showIndividualRecipe);
+
+
 
 function getData() {
   gatherData();
@@ -86,6 +92,7 @@ function initData(data) {
   usersData = data[2];
   const recipeInstances = instantiateRecipe();
   const ingredientInstances = instantiateIngredient();
+  console.log(ingredientsData);
 
   instantiateRandomUser();
   populateRepository(recipeInstances, ingredientInstances);
