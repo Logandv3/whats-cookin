@@ -1,3 +1,5 @@
+import {getUpdatedPantry} from './scripts.js';
+
 export const ingredientPromise = () => {
   return fetch('http://localhost:3001/api/v1/ingredients')
     .then(response => response.json())
@@ -17,18 +19,18 @@ export const userPantry = (pantryUpdate) => {
   fetch('http://localhost:3001/api/v1/users', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(pantryUpdate)
+    body: JSON.stringify(pantryUpdate),
   })
     .then(response => response.json())
-    .then(ingred => console.log(`success: ${ingred}`))
+    .then(ingred => getUpdatedPantry())
     .catch(err => console.log(`We got a POST error ${err}`))
 }
 
 
-// { 
-//   userID: <number>, 
-//   ingredientID: <number>, 
-//   ingredientModification: <number> 
+// {
+//   userID: <number>,
+//   ingredientID: <number>,
+//   ingredientModification: <number>
 //  }
 
 

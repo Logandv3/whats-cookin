@@ -117,13 +117,11 @@ let domUpdates = {
   },
 
   populatePantryItems(pantry, ingredientsData) {
-    domUpdates.showPantry()
+    domUpdates.showPantry();
 
     pantry.pantryItemInfo.sort((a, b) => {
       return a.name.localeCompare(b.name);
     });
-
-
 
     pantryBox.innerHTML = '';
 

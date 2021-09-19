@@ -67,7 +67,7 @@ pantryBtn.addEventListener('click', function () {
 //   domUpdates.populateDropdownMenu()
 // });
 addToPantryBtn.addEventListener('click', function () {
-  pantry.addToPantry(pantryInputNumber.value, pantryInputNumber, currentUser)
+  pantry.addToPantry(parseInt(pantryInputNumber.value), parseInt(addToPantry.value), currentUser)
 });
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
@@ -151,6 +151,10 @@ function populateRepository(recipeInstances, ingredientInstances) {
 
   domUpdates.populateTags(allRecipes);
   domUpdates.populateAllRecipes(allRecipes);
+};
+
+export const getUpdatedPantry = () => {
+  domUpdates.populatePantryItems(pantry, ingredientsData);
 };
 
 function showIndividualRecipe(event) {

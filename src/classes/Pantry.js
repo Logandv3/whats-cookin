@@ -9,6 +9,8 @@ class Pantry {
   };
 
   getPantryItemInfo () {
+    this.pantryItemInfo = [];
+
     this.pantry.forEach((item) => {
       this.ingredientsData.forEach((ingredient) => {
         if (item.ingredient === ingredient.id) {
@@ -44,7 +46,7 @@ class Pantry {
             ingredientID: ingred.id,
             ingredientModification: -Math.abs(ingred.quantity)
           }
-          userPantry(pantryUpdate)
+          userPantry(pantryUpdate);
         };
       });
       return this.pantry;
@@ -53,20 +55,35 @@ class Pantry {
   };
 
   addToPantry(inputValue, ingredientId, currentUser) {
-    this.pantry.forEach(ingredient => {
-      if (ingredient.ingredient === ingredientId) {
-        ingredient.amount += inputValue;
-      }
-    });
+    let pantryUpdate;
 
     let pantryIngredientIds = this.pantry.reduce((acc, ingredient) => {
       acc.push(ingredient.ingredient);
       return acc;
     }, []);
 
+    this.pantry.forEach(ingredient => {
+      if (ingredient.ingredient === ingredientId) {
+        pantryUpdate = {
+          userID: currentUser.id,
+          ingredientID: ingredientId,
+          ingredientModification: Math.abs(inputValue)
+        }
+        ingredient.amount += inputValue;
+      }
+    });
+
     if (!pantryIngredientIds.includes(ingredientId)) {
       this.pantry.push({ ingredient: ingredientId, amount: inputValue });
+      pantryUpdate = {
+        userID: currentUser.id,
+        ingredientID: ingredientId,
+        ingredientModification: Math.abs(inputValue)
+      }
     }
+    
+    this.getPantryItemInfo();
+    userPantry(pantryUpdate);
     return this.pantry;
   };
 };
