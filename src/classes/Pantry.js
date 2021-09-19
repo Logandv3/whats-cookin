@@ -55,6 +55,7 @@ class Pantry {
   };
 
   addToPantry(inputValue, ingredientId, currentUser) {
+    event.preventDefault();
     let pantryUpdate;
 
     let pantryIngredientIds = this.pantry.reduce((acc, ingredient) => {
@@ -74,14 +75,14 @@ class Pantry {
     });
 
     if (!pantryIngredientIds.includes(ingredientId)) {
-      this.pantry.push({ ingredient: ingredientId, amount: inputValue });
-      pantryUpdate = {
-        userID: currentUser.id,
-        ingredientID: ingredientId,
-        ingredientModification: Math.abs(inputValue)
-      }
+        this.pantry.push({ ingredient: ingredientId, amount: inputValue });
+        pantryUpdate = {
+          userID: currentUser.id,
+          ingredientID: ingredientId,
+          ingredientModification: Math.abs(inputValue)
+        }
     }
-    
+
     this.getPantryItemInfo();
     userPantry(pantryUpdate);
     return this.pantry;

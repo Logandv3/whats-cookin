@@ -10,7 +10,7 @@ import domUpdates from './domUpdates';
 
 let allRecipes = [];
 let selectedTags = [];
-let currentUser, ingredientsData, recipeData, usersData, pantry;
+let currentUser, ingredientsData, recipeData, usersData, pantry, currentRecipe;
 
 // let pantryUpdate = { userID: 1, ingredientID: 20081, ingredientModification: 90 }
 
@@ -35,6 +35,7 @@ const pantryView = document.getElementById('pantryView');
 const pantryBox = document.getElementById('pantryBox');
 
 const individualRecipe = document.getElementById('individualRecipe');
+const cookThisNowBtn = document.getElementById('cookThisNowBtn');
 const backToMainBtn = document.getElementById('backToMainBtn');
 const backToMainBtnPantry = document.getElementById('backToMainBtnPantry');
 const pantryInputNumber = document.getElementById('pantryInputNumber');
@@ -63,11 +64,11 @@ whatToCook.addEventListener('click', function () {
 pantryBtn.addEventListener('click', function () {
   domUpdates.populatePantryItems(pantry, ingredientsData)
 });
-// addToPantry.addEventListener('click', function () {
-//   domUpdates.populateDropdownMenu()
-// });
 addToPantryBtn.addEventListener('click', function () {
   pantry.addToPantry(parseInt(pantryInputNumber.value), parseInt(addToPantry.value), currentUser)
+});
+cookThisNowBtn.addEventListener('click', function () {
+  pantry.removeFromPantry(currentRecipe, currentUser)
 });
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
@@ -157,9 +158,17 @@ export const getUpdatedPantry = () => {
   domUpdates.populatePantryItems(pantry, ingredientsData);
 };
 
+function findRecipeById(indRecipeId) {
+  return allRecipes.recipes.find(recipe => parseInt(indRecipeId) === recipe.id);
+};
+
 function showIndividualRecipe(event) {
   event.preventDefault();
+
   let indRecipeId = event.target.closest('section').id;
+  currentRecipe = findRecipeById(indRecipeId);
+
+  pantry.checkCookability(currentRecipe, currentUser) ? cookThisNowBtn.removeAttribute('disabled') : cookThisNowBtn.setAttribute('disabled', true);
 
   domUpdates.show(individualRecipe);
   domUpdates.hide(recipeBox);

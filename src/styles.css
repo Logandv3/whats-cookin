@@ -10,6 +10,10 @@ input {
 	cursor: pointer;
 }
 
+button:disabled {
+	cursor: not-allowed;
+}
+
 body {
 	background: rgb(0, 0, 0);
 	background: radial-gradient(circle, rgba(0, 0, 0, 1) 37%, rgba(0, 0, 0, 0.7763480392156863) 100%);

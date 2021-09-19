@@ -36,6 +36,7 @@
       </article>
       <article class="individual-recipe hidden" id="individualRecipe">
         <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtn">Back to Main</button>
+        <button type="button" name="cook-this-now" class="cook-this-now-btn" id="cookThisNowBtn">Cook This Now</button>
         <p id="recipeTitle"></p>
         <img id="indRecipeImage" src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
         <h3 class="list-btns" id="addToFavoriteList">☆ Add to Favorite List</h3>
@@ -52,14 +53,14 @@
       </article>
       <article class="pantry-item hidden" id="pantryView">
         <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtnPantry">Back to Main</button>
-        <div class="add-to-pantry">
+        <form class="add-to-pantry">
           <label for="add-to-pantry">Find Pantry Items</label>
-          <input type="number" name="pantry-input" placeholder="0" min="0" id="pantryInputNumber">
+          <input type="number" oninput="validity.valid||(value='');" name="pantry-input" value="0" min="0" id="pantryInputNumber">
           <select name="add-to-pantry" class="add-to-pantry" id="addToPantry">
 
           </select>
           <button type="submit" name="submit-pantry" id="addToPantryBtn">Add to Pantry</button>
-        </div>
+        </form>
         <table id="pantryBox">
         <!-- <div class="updatePantrySection" id="pantryBox">
         </div> -->

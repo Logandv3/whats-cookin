@@ -24,7 +24,7 @@ export const userPantry = (pantryUpdate) => {
     .then(response => response.json())
     .then(ingred => getUpdatedPantry())
     .catch(err => console.log(`We got a POST error ${err}`))
-}
+};
 
 
 // {
