@@ -10,7 +10,7 @@ import domUpdates from './domUpdates';
 
 let allRecipes = [];
 let selectedTags = [];
-let currentUser, ingredientsData, recipeData, usersData;
+let currentUser, ingredientsData, recipeData, usersData, pantry;
 
 // let pantryUpdate = { userID: 1, ingredientID: 20081, ingredientModification: 90 }
 
@@ -31,6 +31,7 @@ const errorMessage3 = document.getElementById('errorMessage3');
 const recipeBox = document.getElementById('recipeBox');
 const gridContainer = document.getElementById('gridContainer');
 const pantryView = document.getElementById('pantryView');
+const pantryBox = document.getElementById('pantryBox');
 
 const individualRecipe = document.getElementById('individualRecipe');
 const backToMainBtn = document.getElementById('backToMainBtn');
@@ -57,7 +58,7 @@ whatToCook.addEventListener('click', function () {
   domUpdates.filterByCookingList(currentUser)
 });
 pantryBtn.addEventListener('click', function() {
-  domUpdates.populatePantryItems(currentUser)
+  domUpdates.populatePantryItems(pantry)
 });
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
@@ -96,7 +97,6 @@ function initData(data) {
   usersData = data[2];
   const recipeInstances = instantiateRecipe();
   const ingredientInstances = instantiateIngredient();
-  console.log(ingredientsData);
 
   instantiateRandomUser();
   populateRepository(recipeInstances, ingredientInstances);
@@ -115,7 +115,7 @@ function instantiateRandomUser() {
 };
 
 function instantiatePantry() {
-  let pantry = new Pantry(currentUser);
+  pantry = new Pantry(currentUser, ingredientsData);
 }
 
 function instantiateRecipe() {

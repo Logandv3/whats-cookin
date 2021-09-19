@@ -116,8 +116,18 @@ let domUpdates = {
     domUpdates.show(pantryView);
   },
 
-  populatePantryItems(user) {
+  populatePantryItems(pantry) {
     domUpdates.showPantry()
+    pantryBox.innerHTML = '';
+
+    pantry.pantryItemInfo.forEach((item) => {
+      pantryBox.innerHTML += `
+    <tr>
+      <td>${item.name}</td>
+      <td>${item.amount}</td>
+    </tr>
+      `;
+    });
   },
 
   populateDropdownMenu() {  },

@@ -1,8 +1,25 @@
 import { userPantry } from '../apiCalls'
 
 class Pantry {
-  constructor(currentUser) {
+  constructor(currentUser, ingredientsData) {
     this.pantry = currentUser.pantry;
+    this.ingredientsData = ingredientsData;
+    this.pantryItemInfo = [];
+    this.createItemInfo = this.getPantryItemInfo();
+  };
+
+  getPantryItemInfo () {
+    this.pantry.forEach((item) => {
+      this.ingredientsData.forEach((ingredient) => {
+        if (item.ingredient === ingredient.id) {
+          this.pantryItemInfo.push({
+            name: ingredient.name,
+            amount: item.amount
+          });
+        };
+      });
+    });
+    return this.pantryItemInfo;
   };
 
   checkCookability(recipe, currentUser) {
