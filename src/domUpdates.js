@@ -116,7 +116,7 @@ let domUpdates = {
     domUpdates.show(pantryView);
   },
 
-  populatePantryItems(pantry) {
+  populatePantryItems(pantry, ingredientsData) {
     domUpdates.showPantry()
 
     pantry.pantryItemInfo.sort((a, b) => {
@@ -135,9 +135,35 @@ let domUpdates = {
     </tr>
       `;
     });
+    domUpdates.populateDropdownMenu(ingredientsData);
   },
 
-  populateDropdownMenu() {  },
+  populateDropdownMenu(ingredientsData) {
+    ingredientsData.sort((a, b) => {
+      if (!a.name) {
+        a.name = 'undefined';
+      }
+      if (!b.name) {
+        b.name = 'undefined';
+      }
+      return a.name.localeCompare(b.name);
+    });
+
+    let undefinedIngredients = ingredientsData.reduce((acc, ingredient) => {
+      if (ingredient.name === 'undefined') {
+        acc.push(ingredientsData.indexOf(ingredient));
+      }
+      return acc;
+    }, []);
+
+    undefinedIngredients.forEach(index => ingredientsData.splice(index, 1));
+
+    ingredientsData.forEach((ingredient) => {
+      addToPantry.innerHTML += `
+        <option value="${ingredient.id}">${ingredient.name}</option>
+      `;
+    });
+  },
 
   show(element) {
     element.classList.remove('hidden');

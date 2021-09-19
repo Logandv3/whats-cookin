@@ -19,6 +19,7 @@ const allRecipesBtn = document.getElementById('allRecipesBtn');
 const favoriteRecipes = document.getElementById('favoriteRecipes');
 const whatToCook = document.getElementById('whatToCook');
 const pantryBtn = document.getElementById('pantry');
+const addToPantryBtn = document.getElementById('addToPantryBtn');
 
 const form = document.getElementById('form');
 const searchBar = document.getElementById('searchBar');
@@ -36,6 +37,8 @@ const pantryBox = document.getElementById('pantryBox');
 const individualRecipe = document.getElementById('individualRecipe');
 const backToMainBtn = document.getElementById('backToMainBtn');
 const backToMainBtnPantry = document.getElementById('backToMainBtnPantry');
+const pantryInputNumber = document.getElementById('pantryInputNumber');
+const addToPantry = document.getElementById('addToPantry');
 const addToFavoriteList = document.getElementById('addToFavoriteList');
 const onFavoriteList = document.getElementById('onFavoriteList');
 const addToCookingList = document.getElementById('addToCookingList');
@@ -57,8 +60,14 @@ favoriteRecipes.addEventListener('click', function () {
 whatToCook.addEventListener('click', function () {
   domUpdates.filterByCookingList(currentUser)
 });
-pantryBtn.addEventListener('click', function() {
-  domUpdates.populatePantryItems(pantry)
+pantryBtn.addEventListener('click', function () {
+  domUpdates.populatePantryItems(pantry, ingredientsData)
+});
+// addToPantry.addEventListener('click', function () {
+//   domUpdates.populateDropdownMenu()
+// });
+addToPantryBtn.addEventListener('click', function () {
+  pantry.addToPantry(pantryInputNumber.value, pantryInputNumber, currentUser)
 });
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
