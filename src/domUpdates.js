@@ -118,6 +118,13 @@ let domUpdates = {
 
   populatePantryItems(pantry) {
     domUpdates.showPantry()
+
+    pantry.pantryItemInfo.sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    });
+
+
+
     pantryBox.innerHTML = '';
 
     pantry.pantryItemInfo.forEach((item) => {
