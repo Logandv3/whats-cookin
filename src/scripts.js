@@ -10,7 +10,7 @@ import domUpdates from './domUpdates';
 
 let allRecipes = [];
 let selectedTags = [];
-let currentUser, ingredientsData, recipeData, usersData;
+let currentUser, ingredientsData, recipeData, usersData, pantry, currentRecipe;
 
 // let pantryUpdate = { userID: 1, ingredientID: 20081, ingredientModification: 90 }
 
@@ -18,6 +18,8 @@ const userName = document.getElementById('userName');
 const allRecipesBtn = document.getElementById('allRecipesBtn');
 const favoriteRecipes = document.getElementById('favoriteRecipes');
 const whatToCook = document.getElementById('whatToCook');
+const pantryBtn = document.getElementById('pantry');
+const addToPantryBtn = document.getElementById('addToPantryBtn');
 
 const form = document.getElementById('form');
 const searchBar = document.getElementById('searchBar');
@@ -29,9 +31,15 @@ const errorMessage2 = document.getElementById('errorMessage2');
 const errorMessage3 = document.getElementById('errorMessage3');
 const recipeBox = document.getElementById('recipeBox');
 const gridContainer = document.getElementById('gridContainer');
+const pantryView = document.getElementById('pantryView');
+const pantryBox = document.getElementById('pantryBox');
 
 const individualRecipe = document.getElementById('individualRecipe');
+const cookThisNowBtn = document.getElementById('cookThisNowBtn');
 const backToMainBtn = document.getElementById('backToMainBtn');
+const backToMainBtnPantry = document.getElementById('backToMainBtnPantry');
+const pantryInputNumber = document.getElementById('pantryInputNumber');
+const addToPantry = document.getElementById('addToPantry');
 const addToFavoriteList = document.getElementById('addToFavoriteList');
 const onFavoriteList = document.getElementById('onFavoriteList');
 const addToCookingList = document.getElementById('addToCookingList');
@@ -41,6 +49,7 @@ const indRecipeImage = document.getElementById('indRecipeImage');
 const ingredientListItems = document.getElementById('ingredientListItems');
 const instructionListItems = document.getElementById('instructionListItems');
 const recipeCost = document.getElementById('recipeCost');
+
 
 window.addEventListener('load', getData);
 allRecipesBtn.addEventListener('click', function () {
@@ -52,15 +61,27 @@ favoriteRecipes.addEventListener('click', function () {
 whatToCook.addEventListener('click', function () {
   domUpdates.filterByCookingList(currentUser)
 });
+pantryBtn.addEventListener('click', function () {
+  domUpdates.populatePantryItems(pantry, ingredientsData)
+});
+addToPantryBtn.addEventListener('click', function () {
+  pantry.addToPantry(parseInt(pantryInputNumber.value), parseInt(addToPantry.value), currentUser)
+});
+cookThisNowBtn.addEventListener('click', function () {
+  pantry.removeFromPantry(currentRecipe, currentUser)
+});
 tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
 submitFavoriteBtn.addEventListener('click', checkFavSearchCondtitions);
 backToMainBtn.addEventListener('click', domUpdates.hideIndividualRecipe);
+backToMainBtnPantry.addEventListener('click', domUpdates.hideIndividualRecipe);
 addToFavoriteList.addEventListener('click', addRecipeToFavorite);
 onFavoriteList.addEventListener('click', removeRecipeFromFavorite);
 addToCookingList.addEventListener('click', addRecipeToCookingList);
 onCookingList.addEventListener('click', removeRecipeFromCookingList);
 recipeBox.addEventListener('click', showIndividualRecipe);
+
+
 
 function getData() {
   gatherData();
@@ -104,7 +125,7 @@ function instantiateRandomUser() {
 };
 
 function instantiatePantry() {
-  let pantry = new Pantry(currentUser);
+  pantry = new Pantry(currentUser, ingredientsData);
 }
 
 function instantiateRecipe() {
@@ -133,9 +154,21 @@ function populateRepository(recipeInstances, ingredientInstances) {
   domUpdates.populateAllRecipes(allRecipes);
 };
 
+export const getUpdatedPantry = () => {
+  domUpdates.populatePantryItems(pantry, ingredientsData);
+};
+
+function findRecipeById(indRecipeId) {
+  return allRecipes.recipes.find(recipe => parseInt(indRecipeId) === recipe.id);
+};
+
 function showIndividualRecipe(event) {
   event.preventDefault();
+
   let indRecipeId = event.target.closest('section').id;
+  currentRecipe = findRecipeById(indRecipeId);
+
+  pantry.checkCookability(currentRecipe, currentUser) ? cookThisNowBtn.removeAttribute('disabled') : cookThisNowBtn.setAttribute('disabled', true);
 
   domUpdates.show(individualRecipe);
   domUpdates.hide(recipeBox);
@@ -282,3 +315,9 @@ function removeRecipeFromCookingList() {
     };
   });
 };
+
+function hideView(event) {
+  if (event.target.parentNode.id === "pantryView") {
+    domUpdates.hidePantryView();
+  }
+}

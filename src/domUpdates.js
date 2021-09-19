@@ -50,6 +50,7 @@ let domUpdates = {
     domUpdates.hide(onCookingList);
     domUpdates.show(addToCookingList);
     domUpdates.hide(individualRecipe);
+    domUpdates.hide(pantryView);
     domUpdates.show(recipeBox);
 },
 
@@ -104,6 +105,63 @@ let domUpdates = {
       </section>`;
     });
 },
+
+  showPantry() {
+    domUpdates.hide(onFavoriteList);
+    domUpdates.show(addToFavoriteList);
+    domUpdates.hide(onCookingList);
+    domUpdates.show(addToCookingList);
+    domUpdates.hide(individualRecipe);
+    domUpdates.hide(recipeBox);
+    domUpdates.show(pantryView);
+  },
+
+  populatePantryItems(pantry, ingredientsData) {
+    domUpdates.showPantry();
+
+    pantry.pantryItemInfo.sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    });
+
+    pantryBox.innerHTML = '';
+
+    pantry.pantryItemInfo.forEach((item) => {
+      pantryBox.innerHTML += `
+    <tr>
+      <td>${item.name}</td>
+      <td>${item.amount}</td>
+    </tr>
+      `;
+    });
+    domUpdates.populateDropdownMenu(ingredientsData);
+  },
+
+  populateDropdownMenu(ingredientsData) {
+    ingredientsData.sort((a, b) => {
+      if (!a.name) {
+        a.name = 'undefined';
+      }
+      if (!b.name) {
+        b.name = 'undefined';
+      }
+      return a.name.localeCompare(b.name);
+    });
+
+    let undefinedIngredients = ingredientsData.reduce((acc, ingredient) => {
+      if (ingredient.name === 'undefined') {
+        acc.push(ingredientsData.indexOf(ingredient));
+      }
+      return acc;
+    }, []);
+
+    undefinedIngredients.forEach(index => ingredientsData.splice(index, 1));
+
+    ingredientsData.forEach((ingredient) => {
+      addToPantry.innerHTML += `
+        <option value="${ingredient.id}">${ingredient.name}</option>
+      `;
+    });
+  },
 
   show(element) {
     element.classList.remove('hidden');

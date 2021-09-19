@@ -1,8 +1,27 @@
 import { userPantry } from '../apiCalls'
 
 class Pantry {
-  constructor(currentUser) {
+  constructor(currentUser, ingredientsData) {
     this.pantry = currentUser.pantry;
+    this.ingredientsData = ingredientsData;
+    this.pantryItemInfo = [];
+    this.createItemInfo = this.getPantryItemInfo();
+  };
+
+  getPantryItemInfo () {
+    this.pantryItemInfo = [];
+
+    this.pantry.forEach((item) => {
+      this.ingredientsData.forEach((ingredient) => {
+        if (item.ingredient === ingredient.id) {
+          this.pantryItemInfo.push({
+            name: ingredient.name,
+            amount: item.amount
+          });
+        };
+      });
+    });
+    return this.pantryItemInfo;
   };
 
   checkCookability(recipe, currentUser) {
@@ -27,7 +46,7 @@ class Pantry {
             ingredientID: ingred.id,
             ingredientModification: -Math.abs(ingred.quantity)
           }
-          userPantry(pantryUpdate)
+          userPantry(pantryUpdate);
         };
       });
       return this.pantry;
@@ -36,20 +55,36 @@ class Pantry {
   };
 
   addToPantry(inputValue, ingredientId, currentUser) {
-    this.pantry.forEach(ingredient => {
-      if (ingredient.ingredient === ingredientId) {
-        ingredient.amount += inputValue;
-      }
-    });
+    event.preventDefault();
+    let pantryUpdate;
 
     let pantryIngredientIds = this.pantry.reduce((acc, ingredient) => {
       acc.push(ingredient.ingredient);
       return acc;
     }, []);
 
+    this.pantry.forEach(ingredient => {
+      if (ingredient.ingredient === ingredientId) {
+        pantryUpdate = {
+          userID: currentUser.id,
+          ingredientID: ingredientId,
+          ingredientModification: Math.abs(inputValue)
+        }
+        ingredient.amount += inputValue;
+      }
+    });
+
     if (!pantryIngredientIds.includes(ingredientId)) {
-      this.pantry.push({ ingredient: ingredientId, amount: inputValue });
+        this.pantry.push({ ingredient: ingredientId, amount: inputValue });
+        pantryUpdate = {
+          userID: currentUser.id,
+          ingredientID: ingredientId,
+          ingredientModification: Math.abs(inputValue)
+        }
     }
+
+    this.getPantryItemInfo();
+    userPantry(pantryUpdate);
     return this.pantry;
   };
 };
