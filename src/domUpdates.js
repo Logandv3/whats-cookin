@@ -19,7 +19,7 @@ let domUpdates = {
     gridContainer.innerHTML = '';
 
     allRecipes.recipes.forEach(recipe => {
-      gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
+      gridContainer.innerHTML += `<section class="grid-item" role="region" id="${recipe.id}">
         <div class="card-head">
           <p>${recipe.name}</p>
         </div>
@@ -30,7 +30,7 @@ let domUpdates = {
     });
   },
 
-  addRecipeInfo (indRecipe) {
+  addRecipeInfo(indRecipe) {
     individualRecipe.setAttribute('title', `${indRecipe.name}`);
     recipeTitle.innerText = indRecipe.name;
     indRecipeImage.src = indRecipe.image;
@@ -42,7 +42,7 @@ let domUpdates = {
     instructionListItems.innerText = '';
     instructionListItems.innerHTML += `${indRecipe.getRecipeInstructions()}`;
     recipeCost.innerText = `Cost:  $${indRecipe.getIngredientCosts()}`;
-},
+  },
 
   hideIndividualRecipe() {
     domUpdates.hide(onFavoriteList);
@@ -52,7 +52,7 @@ let domUpdates = {
     domUpdates.hide(individualRecipe);
     domUpdates.hide(pantryView);
     domUpdates.show(recipeBox);
-},
+  },
 
   populateRecipes(recipes) {
     gridContainer.innerHTML = '';
@@ -66,7 +66,7 @@ let domUpdates = {
         </div>
       </section>`;
     });
-},
+  },
 
   filterByFavorites(currentUser) {
     domUpdates.hide(submitBtn);
@@ -85,7 +85,7 @@ let domUpdates = {
         </div>
       </section>`;
     });
-},
+  },
 
   filterByCookingList(currentUser) {
     domUpdates.hide(submitFavoriteBtn);
@@ -104,7 +104,7 @@ let domUpdates = {
         </div>
       </section>`;
     });
-},
+  },
 
   showPantry() {
     domUpdates.hide(onFavoriteList);
