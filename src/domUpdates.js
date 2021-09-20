@@ -7,7 +7,7 @@ let domUpdates = {
   populateTags(allRecipes) {
     tagCheckbox.innerHTML = ``;
     allRecipes.tags.forEach(tag => {
-      tagCheckbox.innerHTML += `<div><input type="checkbox" class="tag-checkbox" name="checkbox" value="${tag}"> <label for="checkbox">${tag.toUpperCase()}</label></div>`;
+      tagCheckbox.innerHTML += `<div><input type="checkbox" id="checkbox-${tag}" class="tag-checkbox" name="checkbox" value="${tag}"> <label for="checkbox-${tag}">${tag.toUpperCase()}</label></div>`;
     });
   },
 
@@ -19,7 +19,7 @@ let domUpdates = {
     gridContainer.innerHTML = '';
 
     allRecipes.recipes.forEach(recipe => {
-      gridContainer.innerHTML += `<section class="grid-item" role="region" id="${recipe.id}">
+      gridContainer.innerHTML += `<section tabindex="0" class="grid-item" role="region" id="${recipe.id}">
         <div class="card-head">
           <p>${recipe.name}</p>
         </div>

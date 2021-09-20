@@ -19,7 +19,8 @@
     <main>
       <section class="search-box">
         <form class="search-options" id="form">
-          <input class="text-input-box" type="text" size="50" name="search" placeholder="Enter Name or Indgredient" id="searchBar">
+          <input class="text-input-box" type="text" size="50" name="search" placeholder="Enter Name or Indgredient" id="searchBar" aria-label="search bar">
+          <!-- <label class="input-text" for="searchBar" aria-label="search bar"></label> -->
           <label class="input-label" for="checkbox">or Select Tag(s) </label>
           <section class="checkbox" id="tagCheckbox" overflow="auto">
           </section>
@@ -54,9 +55,9 @@
       <article class="pantry-item hidden" id="pantryView">
         <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtnPantry">Back to Main</button>
         <form class="add-to-pantry">
-          <label for="add-to-pantry">Find Pantry Items</label>
-          <input type="number" oninput="validity.valid||(value='');" name="pantry-input" value="0" min="0" id="pantryInputNumber">
-          <select name="add-to-pantry" class="add-to-pantry" id="addToPantry">
+          <!-- <label for="add-to-pantry" aria-label="find pantry item">Find Pantry Items</label> -->
+          <input aria-label="enter amount" type="number" oninput="validity.valid||(value='');" name="pantry-input" value="0" min="0" id="pantryInputNumber">
+          <select aria-label="ingredient drop-down" name="add-to-pantry" class="add-to-pantry" id="addToPantry">
 
           </select>
           <button type="submit" name="submit-pantry" id="addToPantryBtn">Add to Pantry</button>
