@@ -24,7 +24,7 @@ Javascript, HTML, CSS, API Fetch, Mocha, Chai, eslint, Webpack, Chrome Dev Tools
 
 
 ## Project Overview
-In this project, we create a recipe tracking / meal planning application that allows users to view their favorite recipes and plan shopping trips around them.  Users should view a list of recipes, favorite their own recipes, and choose recipes to cook.
+In this project, we create a recipe tracking / meal planning application that allows users to view their favorite recipes and plan shopping trips around them.  Users should view a list of recipes, favorite their own recipes, and choose recipes to cook.  Users also have a Pantry tab where they can manage, view and add ingredients that they have on hand.
 
 
 ## Learning Goals
@@ -39,28 +39,61 @@ In this project, we create a recipe tracking / meal planning application that al
 
 ## How to Use
 
-- A user will be displayed on page load.  All recipes will be displayed.  The user can search through the recipes in the search bar by name/ ingredient or select a tag, then submit.
+- A user will be displayed on page load. 
+- All recipes will be displayed.  The user can search through the recipes in the search bar by name/ ingredient or select a tag, then submit.
  
 ![Main Page](https://user-images.githubusercontent.com/81990507/132528850-a6c8e73d-b719-4137-9db7-cf36d1ad28fc.png)
 
-- When a recipe is selected on the main page that same recipe will become larger and reveal information about the recipe including instructions.  On each individual recipe card the user will see options to add/ remove recipes from their favorites(star) list or list of recipes they want to cook(checkbox).
+- When a recipe is selected on the main page that same recipe will become larger and reveal information about the recipe including instructions.  
+- On each individual recipe card the user will see options to add/ remove recipes from their favorites(star) list or list of recipes they want to cook(checkbox).
  
 ![Individual Recipe](https://user-images.githubusercontent.com/81990507/132529026-59340c5f-d479-4724-81ab-89014bfc9a86.png)
 
-- The user can see the recipes they have added to their favorites or cooking list by clicking the `Favorite Recipes` and `What to Cook` buttons.  To return to the main page where all recipes are displayed they can click the `All Recipes` button.  The user can filter their favorite recipes by name/ ingredient or tags when looking at their favorite recipe list.
+- The user can see the recipes they have added to their Favorites or Cooking list by clicking the `Favorite Recipes` and `What to Cook` buttons.  
+- To return to the main page where all recipes are displayed they can click the `All Recipes` button.  
+- The user can filter their favorite recipes by name/ ingredient or tags when looking at their favorite recipe list.
+
+![Pantry](https://user-images.githubusercontent.com/82873669/134089889-d762246c-bc56-465f-a26d-f8d0279d7525.png)
+- The user can see the ingredients they have added to their Pantry.  
+- Users can add additional ingredients or add to the amount of an ingredient that already exists in the pantry by using the form.
 
 ![GIF of 'What's Cookin' app showing searching by keywords or tags, as well as favoriting functionality](https://user-images.githubusercontent.com/724355/132463113-1fa1002d-67a2-43c7-8805-8d4865e0bb7f.gif)
 
+
+## Wins
+We managed to attack most of the project requirements.
+
+Succesfully using the Fetch API (GET & POST)
+
+Figuring out the logic to add and remove ingredients from the pantry.
+
+Debugging the dropdown menu functionality
+
+
 ## Challenges
-This project introduced us to Fetch API and webpack which took a bit to get used to and figure out.  We tested our classes and set up our code by working with data files, then hooked them up to the API at the end.  We also found that the data we needed to access for one task was often spread out across multiple files so we had to figure out how to either search both or pull it into one place to access later.  We favored pulling it to one place to reference.  Some of the data was also broken and caused some errors we had to get around.
+This project introduced us to Fetch API and webpack which took a bit to get used to and figure out.  
+
+We tested our classes and set up our code by working with data files, then hooked them up to the API at the end.  
+
+We also found that the data we needed to access for one task was often spread out across multiple files so we had to figure out how to either search both or pull it into one place to access later.  We favored pulling it to one place to reference.  Some of the data was also broken and caused some errors we had to get around.
+
+We didn't get to refactor our CSS to SCSS.
+
+Organization was a challenge.
 
 
 ## Reflections
-We learned a lot about data structures and accessing them.  We found unique ways to pull data from one place and insert it another even when it wasn't set up in an ideal way.  We learned about getting data from the API and how it might be structured and how we needed to access it.
+We learned a lot about data structures and accessing them.  We found unique ways to pull data from one place and insert it another even when it wasn't set up in an ideal way.  
+
+We learned about getting data from the API and how it might be structured and how we needed to access it.
 
 
 ## Future Plans
-We plan to have persisting data that allows multiple users(possibly a login) to be able to store their favorites and what they have planned to cook.  We would also like to take into account what ingredients the user has and evaluate which recipes they may be able to cook and how much it would cost.
+We plan to have persisting data that allows multiple users(possibly a login) to be able to store their favorites and what they have planned to cook.  
+
+We would also like to take into account what ingredients the user has and evaluate which recipes they may be able to cook and how much it would cost.
+
+When users click "Cook This Now", pantry ingredients should be used and their amounts should be decreased according to what was needed to make the recipe.
 
 
 
