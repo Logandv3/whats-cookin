@@ -59,7 +59,8 @@ In this project, we create a recipe tracking / meal planning application that al
 - To return to the main page where all recipes are displayed they can click the `All Recipes` button.  
 - The user can filter their favorite recipes by name/ ingredient or tags when looking at their favorite recipe list.
 
-![Pantry](https://user-images.githubusercontent.com/82873669/134089889-d762246c-bc56-465f-a26d-f8d0279d7525.png)
+
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/81990507/134220737-115ac3ce-1b23-4819-8071-95035d893fb2.gif)
 - The user can see the ingredients they have added to their Pantry.  
 - Users can add additional ingredients or add to the amount of an ingredient that already exists in the pantry by using the form.
 
