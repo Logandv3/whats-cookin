@@ -3,17 +3,15 @@ import RecipeRepository from './classes/RecipeRepository';
 import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
 import User from './classes/User';
-import Pantry from './classes/Pantry'
+import Pantry from './classes/Pantry';
 import { ingredientPromise, recipePromise, userPromise, userPantry } from './apiCalls';
 import domUpdates from './domUpdates';
-
 
 let allRecipes = [];
 let selectedTags = [];
 let currentUser, ingredientsData, recipeData, usersData, pantry, currentRecipe;
 
-// let pantryUpdate = { userID: 1, ingredientID: 20081, ingredientModification: 90 }
-
+const pageTitle = document.getElementById('pageTitle');
 const userName = document.getElementById('userName');
 const allRecipesBtn = document.getElementById('allRecipesBtn');
 const favoriteRecipes = document.getElementById('favoriteRecipes');
@@ -26,9 +24,11 @@ const searchBar = document.getElementById('searchBar');
 const tagCheckbox = document.getElementById('tagCheckbox');
 const submitBtn = document.getElementById('submitBtn');
 const submitFavoriteBtn = document.getElementById('submitFavoriteBtn');
+const errorMessages = document.getElementById('errorMessages');
 const errorMessage = document.getElementById('errorMessage');
 const errorMessage2 = document.getElementById('errorMessage2');
 const errorMessage3 = document.getElementById('errorMessage3');
+const errorMessage4 = document.getElementById('errorMessage4');
 const recipeBox = document.getElementById('recipeBox');
 const gridContainer = document.getElementById('gridContainer');
 const pantryView = document.getElementById('pantryView');
@@ -37,7 +37,6 @@ const pantryBox = document.getElementById('pantryBox');
 const individualRecipe = document.getElementById('individualRecipe');
 const cookThisNowBtn = document.getElementById('cookThisNowBtn');
 const backToMainBtn = document.getElementById('backToMainBtn');
-const backToMainBtnPantry = document.getElementById('backToMainBtnPantry');
 const pantryInputNumber = document.getElementById('pantryInputNumber');
 const addToPantry = document.getElementById('addToPantry');
 const addToFavoriteList = document.getElementById('addToFavoriteList');
@@ -50,19 +49,22 @@ const ingredientListItems = document.getElementById('ingredientListItems');
 const instructionListItems = document.getElementById('instructionListItems');
 const recipeCost = document.getElementById('recipeCost');
 
-
 window.addEventListener('load', getData);
 allRecipesBtn.addEventListener('click', function () {
-  domUpdates.populateAllRecipes(allRecipes)
+  domUpdates.displayMessages(5);
+  domUpdates.populateAllRecipes(allRecipes);
 });
 favoriteRecipes.addEventListener('click', function () {
-  domUpdates.filterByFavorites(currentUser)
+  domUpdates.displayMessages(5);
+  domUpdates.filterByFavorites(currentUser);
 });
 whatToCook.addEventListener('click', function () {
-  domUpdates.filterByCookingList(currentUser)
+  domUpdates.displayMessages(5);
+  domUpdates.filterByCookingList(currentUser);
 });
 pantryBtn.addEventListener('click', function () {
-  domUpdates.populatePantryItems(pantry, ingredientsData)
+  domUpdates.displayMessages(5);
+  domUpdates.populatePantryItems(pantry, ingredientsData);
 });
 addToPantryBtn.addEventListener('click', function () {
   pantry.addToPantry(parseInt(pantryInputNumber.value), parseInt(addToPantry.value), currentUser)
@@ -74,14 +76,11 @@ tagCheckbox.addEventListener('click', checkCheckboxes);
 submitBtn.addEventListener('click', checkSearchConditions);
 submitFavoriteBtn.addEventListener('click', checkFavSearchCondtitions);
 backToMainBtn.addEventListener('click', domUpdates.hideIndividualRecipe);
-backToMainBtnPantry.addEventListener('click', domUpdates.hideIndividualRecipe);
 addToFavoriteList.addEventListener('click', addRecipeToFavorite);
 onFavoriteList.addEventListener('click', removeRecipeFromFavorite);
 addToCookingList.addEventListener('click', addRecipeToCookingList);
 onCookingList.addEventListener('click', removeRecipeFromCookingList);
 recipeBox.addEventListener('click', showIndividualRecipe);
-
-
 
 function getData() {
   gatherData();
@@ -111,7 +110,6 @@ function initData(data) {
   instantiateRandomUser();
   populateRepository(recipeInstances, ingredientInstances);
   instantiatePantry();
-  // userPantry(pantryUpdate);
 };
 
 function instantiateRandomUser() {
@@ -120,7 +118,6 @@ function instantiateRandomUser() {
     randomUser.id,
     randomUser.pantry,
     ingredientsData);
-  //instantiate pantry?
   domUpdates.displayUserName(currentUser);
 };
 
@@ -174,24 +171,20 @@ function showIndividualRecipe(event) {
   domUpdates.hide(recipeBox);
 
   currentUser.favoriteRecipes.forEach(recipe => {
-    if (recipe.id === parseInt(indRecipeId)) {
+    if (recipe.id === currentRecipe.id) {
       domUpdates.show(onFavoriteList);
       domUpdates.hide(addToFavoriteList);
     };
   });
 
   currentUser.recipesToCook.forEach(recipe => {
-    if (recipe.id === parseInt(indRecipeId)) {
+    if (recipe.id === currentRecipe.id) {
       domUpdates.show(onCookingList);
       domUpdates.hide(addToCookingList);
     };
   });
 
-  let indRecipe = allRecipes.recipes.find(recipe => {
-    return recipe.id === parseInt(indRecipeId);
-  });
-
-  domUpdates.addRecipeInfo(indRecipe);
+  domUpdates.addRecipeInfo(currentUser, currentRecipe);
 };
 
 function checkCheckboxes(event) {
@@ -211,20 +204,19 @@ function checkCheckboxes(event) {
 function checkSearchConditions(event) {
   event.preventDefault();
 
-  if (searchBar.value && selectedTags.length) {
-    domUpdates.populateAllRecipes(allRecipes);
-    domUpdates.show(errorMessage2);
-    domUpdates.hide(errorMessage);
-  }
   if (!searchBar.value && !selectedTags.length) {
+    domUpdates.displayMessages(1);
     domUpdates.populateAllRecipes(allRecipes);
-    domUpdates.show(errorMessage);
-    domUpdates.hide(errorMessage2);
-  }
+  };
   if (searchBar.value) {
+    domUpdates.displayMessages(4);
     domUpdates.populateRecipes(allRecipes.searchRecipes(searchBar.value));
-  }
+    domUpdates.showSearchTerms(searchBar.value, 0, errorMessage4);
+  };
   if (selectedTags.length) {
+    domUpdates.displayMessages(4);
+    domUpdates.showSearchTerms(0, selectedTags, errorMessage4);
+
     let taggedRecipes = [];
     selectedTags.forEach(tag => {
       taggedRecipes.push(allRecipes.filterByTag(tag));
@@ -233,6 +225,11 @@ function checkSearchConditions(event) {
     let withoutDuplicates = [...new Set(flattened)];
     selectedTags.length ? domUpdates.populateRecipes(withoutDuplicates) : domUpdates.populateAllRecipes();
   };
+  if (searchBar.value && selectedTags.length) {
+    domUpdates.displayMessages(2);
+    domUpdates.populateAllRecipes(allRecipes);
+  };
+
   form.reset();
   selectedTags = [];
 };
@@ -270,10 +267,8 @@ function addRecipeToFavorite(event) {
   domUpdates.hide(addToFavoriteList);
   domUpdates.show(onFavoriteList);
 
-  let titleOfRecipe = event.target.closest('article').title;
-
   allRecipes.recipes.forEach(recipe => {
-    if (recipe.name === titleOfRecipe) {
+    if (recipe.name === currentRecipe.name) {
       currentUser.addToFavoriteRecipes(recipe);
     };
   });

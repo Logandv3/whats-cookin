@@ -1,7 +1,7 @@
 let domUpdates = {
 
   displayUserName(currentUser) {
-    userName.innerText = `Welcome ${currentUser.name}, What's Cookin!?`
+    pageTitle.innerText = `What's Cookin' ${currentUser.name}!?`
   },
 
   populateTags(allRecipes) {
@@ -11,10 +11,49 @@ let domUpdates = {
     });
   },
 
+  displayMessages(error) {
+    switch (error) {
+      case 1:
+        domUpdates.show(errorMessages);
+        domUpdates.show(errorMessage);
+        domUpdates.hide(errorMessage2);
+        domUpdates.hide(errorMessage3);
+        domUpdates.hide(errorMessage4);
+        break;
+      case 2:
+        domUpdates.show(errorMessages);
+        domUpdates.show(errorMessage2);
+        domUpdates.hide(errorMessage);
+        domUpdates.hide(errorMessage3);
+        domUpdates.hide(errorMessage4);
+        break;
+      case 3:
+        domUpdates.show(errorMessages);
+        domUpdates.show(errorMessage3);
+        domUpdates.hide(errorMessage);
+        domUpdates.hide(errorMessage2);
+        domUpdates.hide(errorMessage4);
+        break;
+      case 4:
+        domUpdates.show(errorMessages);
+        domUpdates.show(errorMessage4);
+        domUpdates.hide(errorMessage);
+        domUpdates.hide(errorMessage2);
+        domUpdates.hide(errorMessage3);
+        break;
+      case 5:
+        domUpdates.hide(errorMessages);
+        break;
+      default:
+        domUpdates.hide(errorMessages);
+    };
+  },
+
   populateAllRecipes(allRecipes) {
     domUpdates.show(submitBtn);
     domUpdates.hide(submitFavoriteBtn);
     domUpdates.hideIndividualRecipe();
+    domUpdates.hidePantry();
 
     gridContainer.innerHTML = '';
 
@@ -30,15 +69,27 @@ let domUpdates = {
     });
   },
 
-  addRecipeInfo(indRecipe) {
-    individualRecipe.setAttribute('title', `${indRecipe.name}`);
+  addRecipeInfo(currentUser, indRecipe) {
     recipeTitle.innerText = indRecipe.name;
     indRecipeImage.src = indRecipe.image;
 
-    ingredientListItems.innerHTML = '';
-    indRecipe.ingredientInfo.forEach(ingredient => {
-      ingredientListItems.innerHTML += `<li>${ingredient.name}: ${ingredient.quantity} ${ingredient.unit}`;
+    ingredientListItems.innerHTML = '<tr class="table-titles"><td>Needed for Recipe</td><td>Amount In Pantry</td></tr>';
+
+    let inPantry = [];
+
+    let pantryMatches = indRecipe.ingredientInfo.map(ingredient => {
+      inPantry = currentUser.pantry.find(item => ingredient.id === item.ingredient);
+      if (inPantry) {
+        return {id: ingredient.id, name: ingredient.name, quantity: ingredient.quantity, unit: ingredient.unit, pantryAmount: inPantry.amount};
+      } else {
+        return {id: ingredient.id, name: ingredient.name, quantity: ingredient.quantity, unit: ingredient.unit, pantryAmount: 0};
+      }
     });
+
+    pantryMatches.forEach(item => {
+      ingredientListItems.innerHTML += `<tr><td>${item.name}: ${item.quantity} ${item.unit}</td><td>${item.pantryAmount}</td></tr>`;
+    });
+
     instructionListItems.innerText = '';
     instructionListItems.innerHTML += `${indRecipe.getRecipeInstructions()}`;
     recipeCost.innerText = `Cost:  $${indRecipe.getIngredientCosts()}`;
@@ -55,6 +106,9 @@ let domUpdates = {
   },
 
   populateRecipes(recipes) {
+    domUpdates.hideIndividualRecipe();
+    domUpdates.hidePantry();
+
     gridContainer.innerHTML = '';
     recipes.forEach(recipe => {
       gridContainer.innerHTML += `<section class="grid-item" id="${recipe.id}">
@@ -116,6 +170,16 @@ let domUpdates = {
     domUpdates.show(pantryView);
   },
 
+  hidePantry() {
+    domUpdates.show(onFavoriteList);
+    domUpdates.hide(addToFavoriteList);
+    domUpdates.show(onCookingList);
+    domUpdates.hide(addToCookingList);
+    domUpdates.hide(individualRecipe);
+    domUpdates.show(recipeBox);
+    domUpdates.hide(pantryView);
+  },
+
   populatePantryItems(pantry, ingredientsData) {
     domUpdates.showPantry();
 
@@ -127,12 +191,12 @@ let domUpdates = {
 
     pantry.pantryItemInfo.forEach((item) => {
       pantryBox.innerHTML += `
-    <tr>
-      <td>${item.name}</td>
-      <td>${item.amount}</td>
-    </tr>
-      `;
+      <tr>
+        <td class="text-transform">${item.name}</td>
+        <td class="text-transform">${item.amount}</td>
+      </tr>`;
     });
+
     domUpdates.populateDropdownMenu(ingredientsData);
   },
 
@@ -157,10 +221,21 @@ let domUpdates = {
     undefinedIngredients.forEach(index => ingredientsData.splice(index, 1));
 
     ingredientsData.forEach((ingredient) => {
-      addToPantry.innerHTML += `
-        <option value="${ingredient.id}">${ingredient.name}</option>
-      `;
+      addToPantry.innerHTML += `<option value="${ingredient.id}">${ingredient.name}</option>`;
     });
+  },
+
+  showSearchTerms(search, tags, errorMessage) {
+    errorMessage.innerHTML = 'Search results for: ';
+
+    if (tags.length) {
+      let joined = tags.join(', ');
+      errorMessage.innerHTML += `${joined}`;
+    };
+
+    if (search) {
+      errorMessage.innerHTML += `${search}`;
+    };
   },
 
   show(element) {

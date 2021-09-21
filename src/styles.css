@@ -15,8 +15,9 @@ button:disabled {
 }
 
 body {
-	background: rgb(0, 0, 0);
-	background: radial-gradient(circle, rgba(0, 0, 0, 1) 37%, rgba(0, 0, 0, 0.7763480392156863) 100%);
+	background: rgb(130,46,46);
+	background: linear-gradient(0deg, rgba(130,46,46,1) 0%, rgba(0,0,0,1) 75%);
+	height: auto;
 	display: flex;
 	flex-direction: column;
 	align-content: center;
@@ -29,8 +30,10 @@ header {
 }
 
 header > h1 {
-	font-size: 8em;
-	margin: 0px;
+	color: red;
+	font-size: 4em;
+	margin: 0px 0px 15px 0px;
+	text-shadow: 2px 2px grey;
 }
 
 nav {
@@ -42,9 +45,11 @@ nav {
 
 button {
 	background: none;
-	height: auto;
-	width: 10%;
+	width: 20%;
 	font-size: 1.2em;
+	margin: 3px;
+	padding: 5px 0px 5px 0px;
+	border-radius: 5px;
 }
 
 main {
@@ -54,54 +59,76 @@ main {
 }
 
 .search-box {
-	width: 75%;
+	width: 70%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
 .search-options {
+	padding: 25px 0px 25px 0px;
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
 }
 
-.search-options > * {
-	padding: 2% 2% 2% 2%;
-}
-
-.text-input-box {
-	width: 13%;
-	height: 1%;
-	background: none;
-	border: none;
-}
-
-.input-label {
-	width: 10%;
-	font-size: 1.3em;
-}
-
 .checkbox {
-	width: 90%;
+	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(6, 1fr);
 	place-self: center;
 }
 
 .tag-checkbox {
-	border: 2px solid black;
 	width: 10%;
 }
 
+.text-input {
+	width: 55%;
+	display: flex;
+	flex-direction: column;
+}
+
+.text-input-align {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.input-text {
+	align-self: baseline;
+	padding: 10px 10px 5px 0px;
+	color: red;
+	font-size: 1.2em;
+	font-weight: 800;
+}
+
+.text-input-box {
+	align-self: flex-end;
+	padding: 10px 0px 10px 10px;
+	width: 40%;
+	background: none;
+	border: none;
+}
+
 .submit-button {
-	width: 13%;
+	width: 100%;
 }
 
 .recipe-box {
 	display: flex;
-	justify-content: space-around;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.error-messages {
+	font-size: 1.5em;
+	font-weight: 900;
+	color: red;
+	text-shadow: 0.5px 0.5px grey;
 }
 
 .grid-container {
@@ -115,18 +142,118 @@ main {
 	justify-content: center;
 }
 
-.individual-recipe,
+.card-body img {
+	height: 100%;
+	width: 100%;
+}
+
+.individual-recipe {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.left-recipe, .right-recipe {
+	width: 50%;
+	margin: 0px 20px 0px 20px;
+}
+
+.left-recipe {
+	align-self: flex-start;
+	width: 30%;
+	display: grid;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 15% 10% 60% 15%;
+}
+
+.left-recipe > h2 {
+	grid-column: span 2;
+	grid-row: 2;
+}
+
+.left-recipe > img {
+	grid-column: span 2;
+	grid-row: 3;
+	height: 100%;
+	width: 100%;
+}
+
+.back-to-main-btn {
+	grid-column: 1;
+	width: 100%;
+}
+
+.cook-this-now-btn {
+	grid-column: 2;
+	width: 100%;
+}
+
+.list-btns {
+	width: 100%;
+}
+
+.favs {
+	grid-column: 1;
+}
+
+.to-cook {
+	grid-column: 2;
+}
+
 .pantry-item {
 	width: 50%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 	justify-content: space-evenly;
 }
 
-.individual-recipe > img {
-	height: 50%;
-	width: 50%;
+.left-pantry {
+	align-self: flex-start;
+	display: grid;
+	grid-gap: 1em;
+	grid-column-templates: 50% 50%;
+	grid-row-templates: minmax(50%, auto);
+}
+
+.add-to-pantry-input {
+	background: none;
+	font-size: 1.1em;
+	grid-column: 1;
+}
+
+.add-to-pantry {
+	background: none;
+	font-size: 1.1em;
+	grid-column: 2;
+}
+
+.submit-to-pantry {
+	align-self: center;
+	width: 100%;
+	grid-column: span 2;
+	grid-row: 2;
+}
+
+.table-titles {
+	font-size: 1.1em;
+}
+
+table {
+	width: 800px;
+}
+
+tr {
+	padding: 5px 20px 5px 20px;
+}
+
+td {
+	padding: 5px 20px 5px 20px;
+}
+
+.text-transform {
+	text-transform: capitalize;
 }
 
 .hidden {
