@@ -11,7 +11,13 @@ https://logandv3.github.io/whats-cookin/
 
 
 ## Technologies Used
-Javascript, HTML, CSS, API Fetch, Mocha, Chai, eslint, Webpack, Chrome Dev Tools, Github
+* Code: HTML, CSS (SCSS), JavaScript,
+* TDD: Mocha, Chai
+* Compiler: Webpack
+* Accessibility: Lighthouse & Wave
+* Linter: aslant
+* Debugging: Chrome Dev Tools
+* Version Control/Management: Git/Github
 
 
 ## Setup
@@ -20,7 +26,6 @@ Javascript, HTML, CSS, API Fetch, Mocha, Chai, eslint, Webpack, Chrome Dev Tools
 - `cd` into the file
 - run `npm install`.
 - Run `npm start` and visit `localhost:8080`
-
 
 
 ## Project Overview
@@ -34,7 +39,6 @@ In this project, we create a recipe tracking / meal planning application that al
 * Write modular, reusable code that follows SRP (Single Responsibility Principle)
 * Implement a robust testing suite using TDD
 * Make network requests to retrieve data
-
 
 
 ## How to Use
