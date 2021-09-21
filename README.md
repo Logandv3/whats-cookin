@@ -11,13 +11,13 @@ https://logandv3.github.io/whats-cookin/
 
 
 ## Technologies Used
-* Code: HTML, CSS (SCSS), JavaScript,
+* Code: HTML, CSS, JavaScript
 * TDD: Mocha, Chai
 * Compiler: Webpack
 * Accessibility: Lighthouse & Wave
 * Linter: aslant
 * Debugging: Chrome Dev Tools
-* Version Control/Management: Git/Github
+* Version Control/Management: Git/Github/Github Projects
 
 
 ## Setup
