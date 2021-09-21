@@ -171,14 +171,14 @@ function showIndividualRecipe(event) {
   domUpdates.hide(recipeBox);
 
   currentUser.favoriteRecipes.forEach(recipe => {
-    if (recipe.id === parseInt(indRecipeId.id)) {
+    if (recipe.id === currentRecipe.id) {
       domUpdates.show(onFavoriteList);
       domUpdates.hide(addToFavoriteList);
     };
   });
 
   currentUser.recipesToCook.forEach(recipe => {
-    if (recipe.id === parseInt(indRecipeId.id)) {
+    if (recipe.id === currentRecipe.id) {
       domUpdates.show(onCookingList);
       domUpdates.hide(addToCookingList);
     };
@@ -237,28 +237,32 @@ function checkSearchConditions(event) {
 function checkFavSearchCondtitions(event) {
   event.preventDefault();
 
-  if (searchBar.value && selectedTags.length) {
-    domUpdates.populateRecipes(currentUser.favoriteRecipes);
-    domUpdates.show(errorMessage2);
-    domUpdates.hide(errorMessage);
-  }
   if (!searchBar.value && !selectedTags.length) {
-    domUpdates.populateRecipes(currentUser.favoriteRecipes);
-    domUpdates.show(errorMessage);
-    domUpdates.hide(errorMessage2);
-  }
+    domUpdates.displayMessages(1);
+    domUpdates.populateAllRecipes(currentUser.favoriteRecipes);
+  };
   if (searchBar.value) {
-    domUpdates.populateRecipes(currentUser.searchFavorites(searchBar.value));
-  }
+    domUpdates.displayMessages(4);
+    domUpdates.populateRecipes(allRecipes.searchFavorites(searchBar.value));
+    domUpdates.showSearchTerms(searchBar.value, 0, errorMessage4);
+  };
   if (selectedTags.length) {
+    domUpdates.displayMessages(4);
+    domUpdates.showSearchTerms(0, selectedTags, errorMessage4);
+
     let taggedRecipes = [];
     selectedTags.forEach(tag => {
-      taggedRecipes.push(currentUser.filterFavoriteRecipeTags(tag));
+      taggedRecipes.push(allRecipes.filterFavoriteRecipeTags(tag));
     });
     let flattened = taggedRecipes.flat();
     let withoutDuplicates = [...new Set(flattened)];
     selectedTags.length ? domUpdates.populateRecipes(withoutDuplicates) : domUpdates.populateRecipes(currentUser.favoriteRecipes);
   };
+  if (searchBar.value && selectedTags.length) {
+    domUpdates.displayMessages(2);
+    domUpdates.populateAllRecipes(currentUser.favoriteRecipes);
+  };
+
   form.reset();
   selectedTags = [];
 };
