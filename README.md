@@ -64,9 +64,9 @@ In this project, we create a recipe tracking / meal planning application that al
 - The user can see the ingredients they have added to their Pantry.  
 - Users can add additional ingredients or add to the amount of an ingredient that already exists in the pantry by using the form.
 
-![GIF of 'What's Cookin' app showing searching by keywords or tags, as well as favoriting functionality](https://user-images.githubusercontent.com/724355/132463113-1fa1002d-67a2-43c7-8805-8d4865e0bb7f.gif)
+![Link to our YouTube video walking through the project](https://user-images.githubusercontent.com/724355/132463113-1fa1002d-67a2-43c7-8805-8d4865e0bb7f.gif)(https://www.youtube.com/watch?v=x6l8HccEVyo)
 
-https://www.youtube.com/watch?v=x6l8HccEVyo
+
 
 
 ## Wins
