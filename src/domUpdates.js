@@ -1,7 +1,8 @@
 let domUpdates = {
 
   displayUserName(currentUser) {
-    userName.innerText = `Welcome ${currentUser.name}, What's Cookin!?`
+    // pageTitle.innerText = '';
+    pageTitle.innerText = `What's Cookin' ${currentUser.name}!?`
   },
 
   populateTags(allRecipes) {
@@ -30,15 +31,28 @@ let domUpdates = {
     });
   },
 
-  addRecipeInfo(indRecipe) {
-    individualRecipe.setAttribute('title', `${indRecipe.name}`);
+  addRecipeInfo(currentUser, indRecipe) {
     recipeTitle.innerText = indRecipe.name;
     indRecipeImage.src = indRecipe.image;
 
-    ingredientListItems.innerHTML = '';
-    indRecipe.ingredientInfo.forEach(ingredient => {
-      ingredientListItems.innerHTML += `<li>${ingredient.name}: ${ingredient.quantity} ${ingredient.unit}`;
+    ingredientListItems.innerHTML = '<tr class="table-titles"><td>Needed for Recipe</td><td>Amount In Pantry</td></tr>';
+
+    let pantryMatches = indRecipe.ingredientInfo.reduce((acc, ingredient) => {
+      currentUser.pantry.forEach(item => {
+        if (ingredient.id === item.ingredient) {
+          acc.push({name: ingredient.name, quantity: ingredient.quantity, unit: ingredient.unit, pantryAmount: item.amount});
+        }
+        if (!ingredient.id === item.ingedient) {
+          acc.push({name: ingredient.name, quantity: ingredient.quantity, unit: ingredient.unit, pantryAmount: 0});
+        }
+      });
+      return acc;
+    }, []);
+
+    pantryMatches.forEach(item => {
+      ingredientListItems.innerHTML += `<tr><td>${item.name}: ${item.quantity} ${item.unit}</td><td>${item.pantryAmount}</td></tr>`;
     });
+
     instructionListItems.innerText = '';
     instructionListItems.innerHTML += `${indRecipe.getRecipeInstructions()}`;
     recipeCost.innerText = `Cost:  $${indRecipe.getIngredientCosts()}`;
@@ -128,8 +142,8 @@ let domUpdates = {
     pantry.pantryItemInfo.forEach((item) => {
       pantryBox.innerHTML += `
     <tr>
-      <td>${item.name}</td>
-      <td>${item.amount}</td>
+      <td class="text-transform">${item.name}</td>
+      <td class="text-transform">${item.amount}</td>
     </tr>
       `;
     });
@@ -157,10 +171,21 @@ let domUpdates = {
     undefinedIngredients.forEach(index => ingredientsData.splice(index, 1));
 
     ingredientsData.forEach((ingredient) => {
-      addToPantry.innerHTML += `
-        <option value="${ingredient.id}">${ingredient.name}</option>
-      `;
+      addToPantry.innerHTML += `<option value="${ingredient.id}">${ingredient.name}</option>`;
     });
+  },
+
+  showSearchTerms(search, tags, errorMessage) {
+    errorMessage.innerHTML = 'Here are the results for: ';
+
+    if (tags.length) {
+      let joined = tags.join(', ');
+      errorMessage.innerHTML += `${joined}`;
+    };
+
+    if (search) {
+      errorMessage.innerHTML += `${search}.`;
+    };
   },
 
   show(element) {

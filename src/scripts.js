@@ -3,7 +3,7 @@ import RecipeRepository from './classes/RecipeRepository';
 import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
 import User from './classes/User';
-import Pantry from './classes/Pantry'
+import Pantry from './classes/Pantry';
 import { ingredientPromise, recipePromise, userPromise, userPantry } from './apiCalls';
 import domUpdates from './domUpdates';
 
@@ -12,8 +12,7 @@ let allRecipes = [];
 let selectedTags = [];
 let currentUser, ingredientsData, recipeData, usersData, pantry, currentRecipe;
 
-// let pantryUpdate = { userID: 1, ingredientID: 20081, ingredientModification: 90 }
-
+const pageTitle = document.getElementById('pageTitle');
 const userName = document.getElementById('userName');
 const allRecipesBtn = document.getElementById('allRecipesBtn');
 const favoriteRecipes = document.getElementById('favoriteRecipes');
@@ -29,6 +28,7 @@ const submitFavoriteBtn = document.getElementById('submitFavoriteBtn');
 const errorMessage = document.getElementById('errorMessage');
 const errorMessage2 = document.getElementById('errorMessage2');
 const errorMessage3 = document.getElementById('errorMessage3');
+const errorMessage4 = document.getElementById('errorMessage4');
 const recipeBox = document.getElementById('recipeBox');
 const gridContainer = document.getElementById('gridContainer');
 const pantryView = document.getElementById('pantryView');
@@ -120,7 +120,6 @@ function instantiateRandomUser() {
     randomUser.id,
     randomUser.pantry,
     ingredientsData);
-  //instantiate pantry?
   domUpdates.displayUserName(currentUser);
 };
 
@@ -174,24 +173,24 @@ function showIndividualRecipe(event) {
   domUpdates.hide(recipeBox);
 
   currentUser.favoriteRecipes.forEach(recipe => {
-    if (recipe.id === parseInt(indRecipeId)) {
+    if (recipe.id === currentRecipe.id) {
       domUpdates.show(onFavoriteList);
       domUpdates.hide(addToFavoriteList);
     };
   });
 
   currentUser.recipesToCook.forEach(recipe => {
-    if (recipe.id === parseInt(indRecipeId)) {
+    if (recipe.id === currentRecipe.id) {
       domUpdates.show(onCookingList);
       domUpdates.hide(addToCookingList);
     };
   });
 
-  let indRecipe = allRecipes.recipes.find(recipe => {
-    return recipe.id === parseInt(indRecipeId);
-  });
+  // let indRecipe = allRecipes.recipes.find(recipe => {
+  //   return recipe.id === parseInt(indRecipeId);
+  // });
 
-  domUpdates.addRecipeInfo(indRecipe);
+  domUpdates.addRecipeInfo(currentUser, currentRecipe);
 };
 
 function checkCheckboxes(event) {
@@ -211,20 +210,28 @@ function checkCheckboxes(event) {
 function checkSearchConditions(event) {
   event.preventDefault();
 
-  if (searchBar.value && selectedTags.length) {
-    domUpdates.populateAllRecipes(allRecipes);
-    domUpdates.show(errorMessage2);
-    domUpdates.hide(errorMessage);
-  }
   if (!searchBar.value && !selectedTags.length) {
-    domUpdates.populateAllRecipes(allRecipes);
     domUpdates.show(errorMessage);
     domUpdates.hide(errorMessage2);
-  }
+    domUpdates.hide(errorMessage3);
+    domUpdates.hide(errorMessage4);
+    domUpdates.populateAllRecipes(allRecipes);
+  };
   if (searchBar.value) {
+    domUpdates.show(errorMessage4);
+    domUpdates.hide(errorMessage2);
+    domUpdates.hide(errorMessage3);
+    domUpdates.hide(errorMessage);
     domUpdates.populateRecipes(allRecipes.searchRecipes(searchBar.value));
-  }
+    domUpdates.showSearchTerms(searchBar.value, 0, errorMessage4);
+  };
   if (selectedTags.length) {
+    domUpdates.show(errorMessage4);
+    domUpdates.hide(errorMessage2);
+    domUpdates.hide(errorMessage3);
+    domUpdates.hide(errorMessage);
+    domUpdates.showSearchTerms(0, selectedTags, errorMessage4);
+
     let taggedRecipes = [];
     selectedTags.forEach(tag => {
       taggedRecipes.push(allRecipes.filterByTag(tag));
@@ -233,6 +240,14 @@ function checkSearchConditions(event) {
     let withoutDuplicates = [...new Set(flattened)];
     selectedTags.length ? domUpdates.populateRecipes(withoutDuplicates) : domUpdates.populateAllRecipes();
   };
+  if (searchBar.value && selectedTags.length) {
+    domUpdates.show(errorMessage2);
+    domUpdates.hide(errorMessage);
+    domUpdates.hide(errorMessage3);
+    domUpdates.hide(errorMessage4);
+    domUpdates.populateAllRecipes(allRecipes);
+  };
+
   form.reset();
   selectedTags = [];
 };
@@ -270,10 +285,8 @@ function addRecipeToFavorite(event) {
   domUpdates.hide(addToFavoriteList);
   domUpdates.show(onFavoriteList);
 
-  let titleOfRecipe = event.target.closest('article').title;
-
   allRecipes.recipes.forEach(recipe => {
-    if (recipe.name === titleOfRecipe) {
+    if (recipe.name === currentRecipe.name) {
       currentUser.addToFavoriteRecipes(recipe);
     };
   });

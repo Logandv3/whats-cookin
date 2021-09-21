@@ -7,10 +7,9 @@
   </head>
   <body>
     <header>
-      <h1>What's Cookin'</h1>
+      <h1 id="pageTitle">What's Cookin'!?</h1>
     </header>
     <nav>
-      <h2 id="userName"></h2>
       <button type="button" name="All Recipes" id="allRecipesBtn">All Recipes</button>
       <button type="button" name="Favorite Recipes" id="favoriteRecipes">Favorite Recipes</button>
       <button type="button" name="What to Cook" id="whatToCook">What to Cook</button>
@@ -19,38 +18,46 @@
     <main>
       <section class="search-box">
         <form class="search-options" id="form">
-          <input class="text-input-box" type="text" size="50" name="search" placeholder="Enter Name or Indgredient" id="searchBar" aria-label="search bar">
-          <!-- <label class="input-text" for="searchBar" aria-label="search bar"></label> -->
-          <label class="input-label" for="checkbox">or Select Tag(s) </label>
           <section class="checkbox" id="tagCheckbox" overflow="auto">
           </section>
-          <button class="submit-button" type="submit" name="submit" value="Search All Recipes" id="submitBtn">Search All Recipes</button>
-          <button class="submit-button hidden" type="submit" name="submit" value="Search Favorite Recipes" id="submitFavoriteBtn">Search Favorite Recipes</button>
-          <p class="error-messages hidden" id="errorMessage">Enter search criteria!</p>
-          <p class="error-messages hidden" id="errorMessage2">Enter text to search <em>OR</em> choose tags</p>
-          <p class="error-messages hidden" id="errorMessage3">No search results found</p>
+          <section class="text-input">
+            <label class="input-text" for="searchBar">Choose Tag(s) or Search by</label>
+            <input class="text-input-box" type="text" size="50" name="search" placeholder="Recipe Name or Indgredient" id="searchBar" aria-label="search bar">
+            <button class="submit-button" type="submit" name="submit" value="Search All Recipes" id="submitBtn">Search All Recipes</button>
+            <button class="submit-button hidden" type="submit" name="submit" value="Search Favorite Recipes" id="submitFavoriteBtn">Search Favorite Recipes</button>
+          </section>
         </form>
       </section>
       <article class="recipe-box" id="recipeBox">
+        <div class="error-messages">
+          <p class="error-messages hidden" id="errorMessage">Enter search criteria!</p>
+          <p class="error-messages hidden" id="errorMessage2">Enter text to search OR choose a tag(s)!</p>
+          <p class="error-messages hidden" id="errorMessage3">No search results found!</p>
+          <p class="error-messages" id="errorMessage4"></p>
+        </div>
         <div class="grid-container" id="gridContainer">
         </div>
       </article>
       <article class="individual-recipe hidden" id="individualRecipe">
-        <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtn">Back to Main</button>
-        <button type="button" name="cook-this-now" class="cook-this-now-btn" id="cookThisNowBtn">Cook This Now</button>
-        <p id="recipeTitle"></p>
-        <img id="indRecipeImage" src="https://spoonacular.com/recipeImages/741603-556x370.jpeg" alt="Elvis Pancakes">
-        <button class="list-btns" id="addToFavoriteList">☆ Add to Favorite List</button>
-        <button class="list-btns hidden" id="onFavoriteList">★ On Favorite List</button>
-        <button class="list-btns" id="addToCookingList">☐ Add to Cooking List</button>
-        <button class="list-btns hidden" id="onCookingList">☑︎ On Cooking List</button>
-        <p>Ingredients</p>
-        <ul class="ingredients-list" id="ingredientListItems">
-        </ul>
-        <p>Instructions</p>
-        <ol class="instructions-list" id="instructionListItems">
-        </ol>
-        <p id="recipeCost">COST: </p>
+        <div class="left-recipe">
+          <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtn">Back to Main</button>
+          <button type="button" name="cook-this-now" class="cook-this-now-btn" id="cookThisNowBtn">Cook This Now</button>
+          <h2 id="recipeTitle">Recipe</h2>
+          <img id="indRecipeImage" src="" alt="">
+          <button class="list-btns favs" id="addToFavoriteList">☆ Add to Favorite List</button>
+          <button class="list-btns favs hidden" id="onFavoriteList">★ On Favorite List</button>
+          <button class="list-btns to-cook" id="addToCookingList">☐ Add to Cooking List</button>
+          <button class="list-btns to-cook hidden" id="onCookingList">☑︎ On Cooking List</button>
+        </div>
+        <div class="right-recipe">
+          <h3>Ingredients</h3>
+          <table class="ingredients-list" id="ingredientListItems">
+          </table>
+          <h3>Instructions</h3>
+          <ol class="instructions-list" id="instructionListItems">
+          </ol>
+          <h3 id="recipeCost">COST: </h3>
+        </div>
       </article>
       <article class="pantry-item hidden" id="pantryView">
         <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtnPantry">Back to Main</button>
