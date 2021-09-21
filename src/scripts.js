@@ -237,33 +237,37 @@ function checkSearchConditions(event) {
 function checkFavSearchCondtitions(event) {
   event.preventDefault();
 
-  if (searchBar.value && selectedTags.length) {
-    domUpdates.populateRecipes(currentUser.favoriteRecipes);
-    domUpdates.show(errorMessage2);
-    domUpdates.hide(errorMessage);
-  }
   if (!searchBar.value && !selectedTags.length) {
-    domUpdates.populateRecipes(currentUser.favoriteRecipes);
-    domUpdates.show(errorMessage);
-    domUpdates.hide(errorMessage2);
-  }
+    domUpdates.displayMessages(1);
+    domUpdates.populateAllRecipes(currentUser.favoriteRecipes);
+  };
   if (searchBar.value) {
-    domUpdates.populateRecipes(currentUser.searchFavorites(searchBar.value));
-  }
+    domUpdates.displayMessages(4);
+    domUpdates.populateRecipes(allRecipes.searchFavorites(searchBar.value));
+    domUpdates.showSearchTerms(searchBar.value, 0, errorMessage4);
+  };
   if (selectedTags.length) {
+    domUpdates.displayMessages(4);
+    domUpdates.showSearchTerms(0, selectedTags, errorMessage4);
+
     let taggedRecipes = [];
     selectedTags.forEach(tag => {
-      taggedRecipes.push(currentUser.filterFavoriteRecipeTags(tag));
+      taggedRecipes.push(allRecipes.filterFavoriteRecipeTags(tag));
     });
     let flattened = taggedRecipes.flat();
     let withoutDuplicates = [...new Set(flattened)];
     selectedTags.length ? domUpdates.populateRecipes(withoutDuplicates) : domUpdates.populateRecipes(currentUser.favoriteRecipes);
   };
+  if (searchBar.value && selectedTags.length) {
+    domUpdates.displayMessages(2);
+    domUpdates.populateAllRecipes(currentUser.favoriteRecipes);
+  };
+
   form.reset();
   selectedTags = [];
 };
 
-function addRecipeToFavorite(event) {
+function addRecipeToFavorite() {
   domUpdates.hide(addToFavoriteList);
   domUpdates.show(onFavoriteList);
 
@@ -274,38 +278,34 @@ function addRecipeToFavorite(event) {
   });
 };
 
-function removeRecipeFromFavorite(event) {
+function removeRecipeFromFavorite() {
   domUpdates.hide(onFavoriteList);
   domUpdates.show(addToFavoriteList);
 
-  let titleOfRecipe = event.target.closest('article').title;
-
   allRecipes.recipes.forEach(recipe => {
-    if (recipe.name === titleOfRecipe) {
+    if (recipe.name === currentRecipe.name) {
       currentUser.removeFromFavoriteRecipes(recipe);
     };
   });
 };
 
 function addRecipeToCookingList() {
-  let titleOfRecipe = event.target.closest('article').title;
   domUpdates.hide(addToCookingList);
   domUpdates.show(onCookingList);
 
   allRecipes.recipes.forEach(recipe => {
-    if (recipe.name === titleOfRecipe) {
+    if (recipe.name === currentRecipe.name) {
       currentUser.addToRecipesToCook(recipe);
     };
   });
 };
 
 function removeRecipeFromCookingList() {
-  let titleOfRecipe = event.target.closest('article').title;
   domUpdates.hide(onCookingList);
   domUpdates.show(addToCookingList);
 
   allRecipes.recipes.forEach(recipe => {
-    if (recipe.name === titleOfRecipe) {
+    if (recipe.name === currentRecipe.name) {
       currentUser.removeFromRecipesToCook(recipe);
     };
   });
