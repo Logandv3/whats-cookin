@@ -45,13 +45,15 @@ In this project, we create a recipe tracking / meal planning application that al
 
 - A user will be displayed on page load. 
 - All recipes will be displayed.  The user can search through the recipes in the search bar by name/ ingredient or select a tag, then submit.
+
  
-![Main Page](https://user-images.githubusercontent.com/81990507/132528850-a6c8e73d-b719-4137-9db7-cf36d1ad28fc.png)
+![All Recipes View](https://user-images.githubusercontent.com/81990507/134216738-4b21280d-5410-4f74-b2e5-97aaa2843bba.png)
 
 - When a recipe is selected on the main page that same recipe will become larger and reveal information about the recipe including instructions.  
 - On each individual recipe card the user will see options to add/ remove recipes from their favorites(star) list or list of recipes they want to cook(checkbox).
+
  
-![Individual Recipe](https://user-images.githubusercontent.com/81990507/132529026-59340c5f-d479-4724-81ab-89014bfc9a86.png)
+![Individual Recipe View](https://user-images.githubusercontent.com/81990507/134216799-507ed57f-ef7d-4256-9f64-dd221ce3f829.png)
 
 - The user can see the recipes they have added to their Favorites or Cooking list by clicking the `Favorite Recipes` and `What to Cook` buttons.  
 - To return to the main page where all recipes are displayed they can click the `All Recipes` button.  
