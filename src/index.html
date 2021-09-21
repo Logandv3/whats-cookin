@@ -21,19 +21,21 @@
           <section class="checkbox" id="tagCheckbox" overflow="auto">
           </section>
           <section class="text-input">
-            <label class="input-text" for="searchBar">Choose Tag(s) or Search by</label>
-            <input class="text-input-box" type="text" size="50" name="search" placeholder="Recipe Name or Indgredient" id="searchBar" aria-label="search bar">
+            <div class="text-input-align">
+              <label class="input-text" for="searchBar">Choose Tag(s) or Search by</label>
+              <input class="text-input-box" type="text" size="50" name="search" placeholder="Recipe Name or Indgredient" id="searchBar" aria-label="search bar">
+            </div>
             <button class="submit-button" type="submit" name="submit" value="Search All Recipes" id="submitBtn">Search All Recipes</button>
             <button class="submit-button hidden" type="submit" name="submit" value="Search Favorite Recipes" id="submitFavoriteBtn">Search Favorite Recipes</button>
           </section>
         </form>
       </section>
       <article class="recipe-box" id="recipeBox">
-        <div class="error-messages">
+        <div class="error-messages hidden" id="errorMessages">
           <p class="error-messages hidden" id="errorMessage">Enter search criteria!</p>
           <p class="error-messages hidden" id="errorMessage2">Enter text to search OR choose a tag(s)!</p>
           <p class="error-messages hidden" id="errorMessage3">No search results found!</p>
-          <p class="error-messages" id="errorMessage4"></p>
+          <p class="error-messages hidden" id="errorMessage4"></p>
         </div>
         <div class="grid-container" id="gridContainer">
         </div>
@@ -60,21 +62,14 @@
         </div>
       </article>
       <article class="pantry-item hidden" id="pantryView">
-        <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtnPantry">Back to Main</button>
-        <form class="add-to-pantry">
-          <!-- <label for="add-to-pantry" aria-label="find pantry item">Find Pantry Items</label> -->
-          <input aria-label="enter amount" type="number" oninput="validity.valid||(value='');" name="pantry-input" value="0" min="0" id="pantryInputNumber">
+        <form class="left-pantry">
+          <input aria-label="enter amount" type="number" class="add-to-pantry-input" oninput="validity.valid||(value='');" name="pantry-input" value="0" min="0" max="10000" id="pantryInputNumber">
           <select aria-label="ingredient drop-down" name="add-to-pantry" class="add-to-pantry" id="addToPantry">
-
           </select>
-          <button type="submit" name="submit-pantry" id="addToPantryBtn">Add to Pantry</button>
+          <button type="submit" class="submit-to-pantry" name="submit-pantry" id="addToPantryBtn">Add to Pantry</button>
         </form>
-        <table id="pantryBox">
-        <!-- <div class="updatePantrySection" id="pantryBox">
-        </div> -->
+        <table class="right-pantry" id="pantryBox">
         </table>
-        <div class="pantryList"></div>
-      </article>
       </article>
     </main>
   </body>

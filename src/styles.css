@@ -1,6 +1,5 @@
 * {
 	color: white;
-	/* border: 1px solid white; */
 }
 
 button,
@@ -16,11 +15,9 @@ button:disabled {
 }
 
 body {
-	/* background: radial-gradient(circle, rgba(0, 0, 0, 1) 37%, rgba(0, 0, 0, 0.7763480392156863) 100%); */
-	/* background: rgb(138,63,63);
-	background: linear-gradient(0deg, rgba(138,63,63,1) 0%, rgba(0,0,0,1) 38%); */
 	background: rgb(130,46,46);
 	background: linear-gradient(0deg, rgba(130,46,46,1) 0%, rgba(0,0,0,1) 75%);
+	height: auto;
 	display: flex;
 	flex-direction: column;
 	align-content: center;
@@ -85,24 +82,33 @@ main {
 }
 
 .tag-checkbox {
-	/* border: 2px solid black; */
 	width: 10%;
 }
 
 .text-input {
-	width: 40%;
+	width: 55%;
+	display: flex;
+	flex-direction: column;
+}
+
+.text-input-align {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
 .input-text {
-	padding: 10px 10px 10px 0px;
+	align-self: baseline;
+	padding: 10px 10px 5px 0px;
 	color: red;
-	font-size: 1.1em;
-	font-weight: 900;
+	font-size: 1.2em;
+	font-weight: 800;
 }
 
 .text-input-box {
+	align-self: flex-end;
 	padding: 10px 0px 10px 10px;
-	width: 50%;
+	width: 40%;
 	background: none;
 	border: none;
 }
@@ -198,13 +204,44 @@ main {
 .pantry-item {
 	width: 50%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 	justify-content: space-evenly;
 }
 
+.left-pantry {
+	align-self: flex-start;
+	display: grid;
+	grid-gap: 1em;
+	grid-column-templates: 50% 50%;
+	grid-row-templates: minmax(50%, auto);
+}
+
+.add-to-pantry-input {
+	background: none;
+	font-size: 1.1em;
+	grid-column: 1;
+}
+
+.add-to-pantry {
+	background: none;
+	font-size: 1.1em;
+	grid-column: 2;
+}
+
+.submit-to-pantry {
+	align-self: center;
+	width: 100%;
+	grid-column: span 2;
+	grid-row: 2;
+}
+
 .table-titles {
 	font-size: 1.1em;
+}
+
+table {
+	width: 800px;
 }
 
 tr {
