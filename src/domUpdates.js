@@ -171,10 +171,10 @@ let domUpdates = {
   },
 
   hidePantry() {
-    domUpdates.show(onFavoriteList);
-    domUpdates.hide(addToFavoriteList);
-    domUpdates.show(onCookingList);
-    domUpdates.hide(addToCookingList);
+    domUpdates.hide(onFavoriteList);
+    domUpdates.show(addToFavoriteList);
+    domUpdates.hide(onCookingList);
+    domUpdates.show(addToCookingList);
     domUpdates.hide(individualRecipe);
     domUpdates.show(recipeBox);
     domUpdates.hide(pantryView);

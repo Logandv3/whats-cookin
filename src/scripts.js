@@ -171,14 +171,14 @@ function showIndividualRecipe(event) {
   domUpdates.hide(recipeBox);
 
   currentUser.favoriteRecipes.forEach(recipe => {
-    if (recipe.id === currentRecipe.id) {
+    if (recipe.id === parseInt(indRecipeId.id)) {
       domUpdates.show(onFavoriteList);
       domUpdates.hide(addToFavoriteList);
     };
   });
 
   currentUser.recipesToCook.forEach(recipe => {
-    if (recipe.id === currentRecipe.id) {
+    if (recipe.id === parseInt(indRecipeId.id)) {
       domUpdates.show(onCookingList);
       domUpdates.hide(addToCookingList);
     };
@@ -263,7 +263,7 @@ function checkFavSearchCondtitions(event) {
   selectedTags = [];
 };
 
-function addRecipeToFavorite(event) {
+function addRecipeToFavorite() {
   domUpdates.hide(addToFavoriteList);
   domUpdates.show(onFavoriteList);
 
@@ -274,38 +274,34 @@ function addRecipeToFavorite(event) {
   });
 };
 
-function removeRecipeFromFavorite(event) {
+function removeRecipeFromFavorite() {
   domUpdates.hide(onFavoriteList);
   domUpdates.show(addToFavoriteList);
 
-  let titleOfRecipe = event.target.closest('article').title;
-
   allRecipes.recipes.forEach(recipe => {
-    if (recipe.name === titleOfRecipe) {
+    if (recipe.name === currentRecipe.name) {
       currentUser.removeFromFavoriteRecipes(recipe);
     };
   });
 };
 
 function addRecipeToCookingList() {
-  let titleOfRecipe = event.target.closest('article').title;
   domUpdates.hide(addToCookingList);
   domUpdates.show(onCookingList);
 
   allRecipes.recipes.forEach(recipe => {
-    if (recipe.name === titleOfRecipe) {
+    if (recipe.name === currentRecipe.name) {
       currentUser.addToRecipesToCook(recipe);
     };
   });
 };
 
 function removeRecipeFromCookingList() {
-  let titleOfRecipe = event.target.closest('article').title;
   domUpdates.hide(onCookingList);
   domUpdates.show(addToCookingList);
 
   allRecipes.recipes.forEach(recipe => {
-    if (recipe.name === titleOfRecipe) {
+    if (recipe.name === currentRecipe.name) {
       currentUser.removeFromRecipesToCook(recipe);
     };
   });
