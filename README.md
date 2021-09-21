@@ -67,7 +67,7 @@ In this project, we create a recipe tracking / meal planning application that al
 ## Wins
 We managed to attack most of the project requirements.
 
-Succesfully using the Fetch API (GET & POST)
+Successfully using the Fetch API (GET & POST)
 
 Figuring out the logic to add and remove ingredients from the pantry.
 
