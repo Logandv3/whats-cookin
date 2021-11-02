@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/2ada03be6d.js" crossorigin="anonymous"></script>
+    <title>What's Cookin'</title>
+  </head>
+  <body>
+    <header>
+      <h1 id="pageTitle">What's Cookin'!?</h1>
+    </header>
+    <nav>
+      <button type="button" name="All Recipes" id="allRecipesBtn">All Recipes</button>
+      <button type="button" name="Favorite Recipes" id="favoriteRecipes">Favorite Recipes</button>
+      <button type="button" name="What to Cook" id="whatToCook">What to Cook</button>
+      <button type="button" name="Pantry" id="pantry">Pantry</button>
+    </nav>
+    <main>
+      <section class="search-box">
+        <form class="search-options" id="form">
+          <section class="checkbox" id="tagCheckbox" overflow="auto">
+          </section>
+          <section class="text-input">
+            <div class="text-input-align">
+              <label class="input-text" for="searchBar">Choose Tag(s) or Search by</label>
+              <input class="text-input-box" type="text" size="50" name="search" placeholder="Recipe Name or Indgredient" id="searchBar" aria-label="search bar">
+            </div>
+            <button class="submit-button" type="submit" name="submit" value="Search All Recipes" id="submitBtn">Search All Recipes</button>
+            <button class="submit-button hidden" type="submit" name="submit" value="Search Favorite Recipes" id="submitFavoriteBtn">Search Favorite Recipes</button>
+          </section>
+        </form>
+      </section>
+      <article class="recipe-box" id="recipeBox">
+        <div class="error-messages hidden" id="errorMessages">
+          <p class="error-messages hidden" id="errorMessage">Enter search criteria!</p>
+          <p class="error-messages hidden" id="errorMessage2">Enter text to search OR choose a tag(s)!</p>
+          <p class="error-messages hidden" id="errorMessage3">No search results found!</p>
+          <p class="error-messages hidden" id="errorMessage4"></p>
+        </div>
+        <div class="grid-container" id="gridContainer">
+        </div>
+      </article>
+      <article class="individual-recipe hidden" id="individualRecipe">
+        <div class="left-recipe">
+          <button type="button" name="back-to-main" class="back-to-main-btn" id="backToMainBtn">Back to Main</button>
+          <button type="button" name="cook-this-now" class="cook-this-now-btn" id="cookThisNowBtn">Cook This Now</button>
+          <h2 id="recipeTitle">Recipe</h2>
+          <img id="indRecipeImage" src="" alt="">
+          <button class="list-btns favs" id="addToFavoriteList">☆ Add to Favorite List</button>
+          <button class="list-btns favs hidden" id="onFavoriteList">★ On Favorite List</button>
+          <button class="list-btns to-cook" id="addToCookingList">☐ Add to Cooking List</button>
+          <button class="list-btns to-cook hidden" id="onCookingList">☑︎ On Cooking List</button>
+        </div>
+        <div class="right-recipe">
+          <h3>Ingredients</h3>
+          <table class="ingredients-list" id="ingredientListItems">
+          </table>
+          <h3>Instructions</h3>
+          <ol class="instructions-list" id="instructionListItems">
+          </ol>
+          <h3 id="recipeCost">COST: </h3>
+        </div>
+      </article>
+      <article class="pantry-item hidden" id="pantryView">
+        <form class="left-pantry">
+          <input aria-label="enter amount" type="number" class="add-to-pantry-input" oninput="validity.valid||(value='');" name="pantry-input" value="0" min="0" max="10000" id="pantryInputNumber">
+          <select aria-label="ingredient drop-down" name="add-to-pantry" class="add-to-pantry" id="addToPantry">
+          </select>
+          <button type="submit" class="submit-to-pantry" name="submit-pantry" id="addToPantryBtn">Add to Pantry</button>
+        </form>
+        <table class="right-pantry" id="pantryBox">
+        </table>
+      </article>
+    </main>
+  <script src="main.bundle.js"></script></body>
+</html>
