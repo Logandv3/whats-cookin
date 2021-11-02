@@ -7,7 +7,8 @@ https://github.com/Logandv3/whats-cookin
 
 
 ## Deployable link
-
+In progress while we ok permission to deploy api
+https://logandv3.github.io/whats-cookin/
 
 
 ## Technologies Used
