@@ -7,7 +7,7 @@ https://github.com/Logandv3/whats-cookin
 
 
 ## Deployable link
-https://logandv3.github.io/whats-cookin/
+material-trouble.surge.sh
 
 
 ## Technologies Used
